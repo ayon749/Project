@@ -8,7 +8,12 @@ namespace ReviewApplication.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-    }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        [Display(Name = "Gender")]
+        public int GenderId { get; set; }
+	}
 
     public class ExternalLoginListViewModel
     {
