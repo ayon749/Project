@@ -228,10 +228,20 @@
     <Compile Include="Migrations\202008261013494_IdentityUserV4.designer.cs">
       <DependentUpon>202008261013494_IdentityUserV4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008261813079_RestaurantOrPlaceV1.cs" />
+    <Compile Include="Migrations\202008261813079_RestaurantOrPlaceV1.designer.cs">
+      <DependentUpon>202008261813079_RestaurantOrPlaceV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008261828272_PostV1.cs" />
+    <Compile Include="Migrations\202008261828272_PostV1.designer.cs">
+      <DependentUpon>202008261828272_PostV1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\RestaurantOrPalce.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -337,6 +347,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008261013494_IdentityUserV4.resx">
       <DependentUpon>202008261013494_IdentityUserV4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008261813079_RestaurantOrPlaceV1.resx">
+      <DependentUpon>202008261813079_RestaurantOrPlaceV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008261828272_PostV1.resx">
+      <DependentUpon>202008261828272_PostV1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
