@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -327,8 +328,11 @@ namespace ReviewVaiApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email,Gender=model.Gender };
+			MailAddress addr = new MailAddress(model.Email);
+			string username = addr.User;
+			string domain = addr.Host;
+			 username = addr.User + domain[0];
+			var user = new ApplicationUser() { UserName = username,Name=model.Name, Email = model.Email,Gender=model.Gender };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
