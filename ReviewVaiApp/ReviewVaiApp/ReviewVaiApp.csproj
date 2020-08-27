@@ -240,12 +240,25 @@
     <Compile Include="Migrations\202008271909104_IdentityUserV5.designer.cs">
       <DependentUpon>202008271909104_IdentityUserV5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008271929038_PostV2.cs" />
+    <Compile Include="Migrations\202008271929038_PostV2.designer.cs">
+      <DependentUpon>202008271929038_PostV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008271933060_StarsV1.cs" />
+    <Compile Include="Migrations\202008271933060_StarsV1.designer.cs">
+      <DependentUpon>202008271933060_StarsV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008271934578_PostV3.cs" />
+    <Compile Include="Migrations\202008271934578_PostV3.designer.cs">
+      <DependentUpon>202008271934578_PostV3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\RestaurantOrPalce.cs" />
+    <Compile Include="Models\Stars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -360,6 +373,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008271909104_IdentityUserV5.resx">
       <DependentUpon>202008271909104_IdentityUserV5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008271929038_PostV2.resx">
+      <DependentUpon>202008271929038_PostV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008271933060_StarsV1.resx">
+      <DependentUpon>202008271933060_StarsV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008271934578_PostV3.resx">
+      <DependentUpon>202008271934578_PostV3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

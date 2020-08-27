@@ -11,7 +11,7 @@ namespace ReviewVaiApp.Models
 		public string PostTitle { get; set; }
 		public bool IsOfferOrPlanned { get; set; }
 		public bool IsRecommended { get; set; }
-		public int Item { get; set; }
+	
 		public RestaurantOrPalce RestaurantOrPalce { get; set; }
 		public int RestaurantOrPalceId { get; set; }
 		public ApplicationUser ApplicationUser { get; set; }
@@ -19,7 +19,8 @@ namespace ReviewVaiApp.Models
 		public string Tags { get; set; }
 		public DateTime? TimePosted { get; set; }
 		public string PostBody { get; set; }
-		public int Flag { get; set; }
+		
 		public int FoodOrTravel { get; set; }
+		public Stars Stars { get; set; }
 	}
 }
