@@ -37,6 +37,7 @@ namespace ReviewVaiApp.Models
     {
 		public DbSet<RestaurantOrPalce> RestaurantOrPalces { get; set; }
 		public DbSet<Post> Posts { get; set; }
+		public DbSet<Stars> Stars { get; set; }
 		public ApplicationDbContext()
             : base("ProjectDbContext", throwIfV1Schema: false)
         {
