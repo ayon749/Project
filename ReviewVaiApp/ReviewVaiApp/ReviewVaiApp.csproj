@@ -252,13 +252,52 @@
     <Compile Include="Migrations\202008271934578_PostV3.designer.cs">
       <DependentUpon>202008271934578_PostV3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008280539067_TagV1.cs" />
+    <Compile Include="Migrations\202008280539067_TagV1.designer.cs">
+      <DependentUpon>202008280539067_TagV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280540514_PostV4.cs" />
+    <Compile Include="Migrations\202008280540514_PostV4.designer.cs">
+      <DependentUpon>202008280540514_PostV4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280543148_TagV2.cs" />
+    <Compile Include="Migrations\202008280543148_TagV2.designer.cs">
+      <DependentUpon>202008280543148_TagV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280547598_ReactionV1.cs" />
+    <Compile Include="Migrations\202008280547598_ReactionV1.designer.cs">
+      <DependentUpon>202008280547598_ReactionV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280549350_PostV5.cs" />
+    <Compile Include="Migrations\202008280549350_PostV5.designer.cs">
+      <DependentUpon>202008280549350_PostV5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280604312_PhotosV1.cs" />
+    <Compile Include="Migrations\202008280604312_PhotosV1.designer.cs">
+      <DependentUpon>202008280604312_PhotosV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280606062_PostV6.cs" />
+    <Compile Include="Migrations\202008280606062_PostV6.designer.cs">
+      <DependentUpon>202008280606062_PostV6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280608290_RestaurantOrPlaceV2.cs" />
+    <Compile Include="Migrations\202008280608290_RestaurantOrPlaceV2.designer.cs">
+      <DependentUpon>202008280608290_RestaurantOrPlaceV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280612513_StarsV2.cs" />
+    <Compile Include="Migrations\202008280612513_StarsV2.designer.cs">
+      <DependentUpon>202008280612513_StarsV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\RestaurantOrPalce.cs" />
     <Compile Include="Models\Stars.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -382,6 +421,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008271934578_PostV3.resx">
       <DependentUpon>202008271934578_PostV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280539067_TagV1.resx">
+      <DependentUpon>202008280539067_TagV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280540514_PostV4.resx">
+      <DependentUpon>202008280540514_PostV4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280543148_TagV2.resx">
+      <DependentUpon>202008280543148_TagV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280547598_ReactionV1.resx">
+      <DependentUpon>202008280547598_ReactionV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280549350_PostV5.resx">
+      <DependentUpon>202008280549350_PostV5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280604312_PhotosV1.resx">
+      <DependentUpon>202008280604312_PhotosV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280606062_PostV6.resx">
+      <DependentUpon>202008280606062_PostV6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280608290_RestaurantOrPlaceV2.resx">
+      <DependentUpon>202008280608290_RestaurantOrPlaceV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280612513_StarsV2.resx">
+      <DependentUpon>202008280612513_StarsV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

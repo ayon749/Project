@@ -7,7 +7,7 @@ namespace ReviewVaiApp.Models
 {
 	public class Stars
 	{
-		public int Id { get; set; }
+		public long Id { get; set; }
 		public double Food { get; set; }
 		public double Environment { get; set; }
 		public double Service { get; set; }
