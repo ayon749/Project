@@ -288,12 +288,34 @@
     <Compile Include="Migrations\202008280612513_StarsV2.designer.cs">
       <DependentUpon>202008280612513_StarsV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008280627468_BadgeV1.cs" />
+    <Compile Include="Migrations\202008280627468_BadgeV1.designer.cs">
+      <DependentUpon>202008280627468_BadgeV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280801579_ProfiletitleV1.cs" />
+    <Compile Include="Migrations\202008280801579_ProfiletitleV1.designer.cs">
+      <DependentUpon>202008280801579_ProfiletitleV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280803111_BadgeV2.cs" />
+    <Compile Include="Migrations\202008280803111_BadgeV2.designer.cs">
+      <DependentUpon>202008280803111_BadgeV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280826060_IdentityUserV6.cs" />
+    <Compile Include="Migrations\202008280826060_IdentityUserV6.designer.cs">
+      <DependentUpon>202008280826060_IdentityUserV6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280827533_IdentityUserV7.cs" />
+    <Compile Include="Migrations\202008280827533_IdentityUserV7.designer.cs">
+      <DependentUpon>202008280827533_IdentityUserV7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Badge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\ProfileTitle.cs" />
     <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\RestaurantOrPalce.cs" />
     <Compile Include="Models\Stars.cs" />
@@ -448,6 +470,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008280612513_StarsV2.resx">
       <DependentUpon>202008280612513_StarsV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280627468_BadgeV1.resx">
+      <DependentUpon>202008280627468_BadgeV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280801579_ProfiletitleV1.resx">
+      <DependentUpon>202008280801579_ProfiletitleV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280803111_BadgeV2.resx">
+      <DependentUpon>202008280803111_BadgeV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280826060_IdentityUserV6.resx">
+      <DependentUpon>202008280826060_IdentityUserV6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280827533_IdentityUserV7.resx">
+      <DependentUpon>202008280827533_IdentityUserV7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

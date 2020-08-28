@@ -17,8 +17,12 @@ namespace ReviewVaiApp.Models
 		public DateTime? CreatedAt { get; set; }
 		[Required]
 		public int Gender { get; set; }
-		public int Badge { get; set; }
-		public string ProfileTitle { get; set; }
+
+		public ProfileTitle profileTitle { get; set; }
+		public long ProfileTitleId { get; set; }
+		public Badge Badge { get; set; }
+		public long BadgeId { get; set; }
+
 		public int Contact { get; set; }
 		public string ProfileType { get; set; }
 		
@@ -41,6 +45,8 @@ namespace ReviewVaiApp.Models
 		public DbSet<Tag> Tags { get; set; }
 		public DbSet<Reaction> Reactions { get; set; }
 		public DbSet<Photo> Photos { get; set; }
+		public DbSet<Badge> Badges { get; set; }
+		public DbSet<ProfileTitle> ProfileTitles { get; set; }
 		public ApplicationDbContext()
             : base("ProjectDbContext", throwIfV1Schema: false)
         {
