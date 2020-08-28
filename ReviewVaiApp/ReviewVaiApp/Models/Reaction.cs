@@ -5,14 +5,14 @@ using System.Web;
 
 namespace ReviewVaiApp.Models
 {
-	public class RestaurantOrPalce
+	public class Reaction
 	{
 		public long Id { get; set; }
-		public int TotalRecommendation { get; set; }
+		public Post Post { get; set; }
+		public long PostId { get; set; }
 		public ApplicationUser ApplicationUser { get; set; }
 		public int ApplicationUserId { get; set; }
-		public int TotalReviews { get; set; }
-		public Byte RestOrPlace { get; set; }
-
+		public int IsLiked { get; set; }
+		public int IsHelpfull { get; set; }
 	}
 }
