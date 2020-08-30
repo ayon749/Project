@@ -34,24 +34,22 @@ namespace ReviewVaiApp.Models
 
     public class RegisterBindingModel
     {
-		 
-		
-		[Display(Name = "Name")]
-		public string Name { get; set; }
 
-		[Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-		[Required]
-		[Display(Name = "Gender")]
-		public int Gender { get; set; }
-		[Required]
+        [Required]
+        [Display(Name = "Gender")]
+        public int Gender { get; set; }
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-       
     }
 
     public class RegisterExternalBindingModel

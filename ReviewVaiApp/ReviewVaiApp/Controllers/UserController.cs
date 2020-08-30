@@ -1,0 +1,61 @@
+﻿using ReviewVaiApp.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Web;
+using System.Web.Mvc;
+
+namespace ReviewVaiApp.Controllers
+{
+    
+
+    public class UserController : Controller
+    {
+        // GET: User
+        
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
+        public ActionResult signup()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult signup(RegisterBindingModel registerBinding)
+        {
+            if(ModelState.IsValid)
+            {
+                            
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
+                    //client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
+
+                    var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);
+                    //var postTask = client.PostAsXmlAsync<RegisterBindingModel>("registerBinding", registerBinding);
+                    postTask.Wait();
+                    var result = postTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        //return RedirectToAction("/home/index");
+                        return Redirect("~/");
+                    }
+                }
+
+                ModelState.AddModelError(string.Empty, "Server Error");
+                
+                //return View();
+            }
+            return View();
+
+        }
+
+
+    }
+}

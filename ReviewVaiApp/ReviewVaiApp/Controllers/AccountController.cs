@@ -328,11 +328,11 @@ namespace ReviewVaiApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-			MailAddress addr = new MailAddress(model.Email);
-			string username = addr.User;
-			string domain = addr.Host;
-			 username = addr.User + domain[0];
-			var user = new ApplicationUser() { UserName = username,Name=model.Name, Email = model.Email,Gender=model.Gender };
+            MailAddress addr = new MailAddress(model.Email);
+            string username = addr.User;
+            string domain = addr.Host;
+            username = addr.User + domain[0];
+            var user = new ApplicationUser() { UserName = username, Name = model.Name, Email = model.Email, Gender = model.Gender };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
