@@ -311,6 +311,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\css\util.css" />
     <Content Include="Content\fonts\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Content\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
@@ -438,6 +439,7 @@
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Content\css\style.css.map" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ReviewVaiApp.Controllers
 {
@@ -34,8 +35,8 @@ namespace ReviewVaiApp.Controllers
                             
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
-                    //client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
+                    //client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
+                    client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
 
                     var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);
                     //var postTask = client.PostAsXmlAsync<RegisterBindingModel>("registerBinding", registerBinding);
@@ -55,6 +56,21 @@ namespace ReviewVaiApp.Controllers
             return View();
 
         }
+
+
+        public ActionResult signin()
+        {
+            return View();
+        }
+
+
+        public ActionResult logout()
+        {
+ 
+            Request.GetOwinContext().Authentication.SignOut();
+            return RedirectToAction("signin", "User");
+        }
+
 
 
     }
