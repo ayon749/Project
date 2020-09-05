@@ -12,6 +12,6 @@ namespace ReviewVaiApp.Models
 		public long PostId { get; set; }
 		public string Caption { get; set; }
 		public string Url { get; set; }
-		public DateTime TimeStamp { get; set; }
+		public DateTime? TimeStamp { get; set; }
 	}
 }

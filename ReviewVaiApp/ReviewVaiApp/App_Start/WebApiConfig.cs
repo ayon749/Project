@@ -4,13 +4,16 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace ReviewVaiApp
 {
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
+		public static ReferenceLoopHandling ReferenceLoopHandling { get; private set; }
+
+		public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
@@ -19,15 +22,25 @@ namespace ReviewVaiApp
 
 			// Web API routes
 			var settings = config.Formatters.JsonFormatter.SerializerSettings;
-			settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+			//settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 			settings.Formatting = Newtonsoft.Json.Formatting.Indented;
 			config.MapHttpAttributeRoutes();
+			var json = config.Formatters.JsonFormatter;
 
-            config.Routes.MapHttpRoute(
+			//json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+			//ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+			config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+			config.Routes.MapHttpRoute(
+				  name: "ActionApi",
+				  routeTemplate: "api/{controller}/{action}/{id}",
+				  defaults: new { id = RouteParameter.Optional });
+			config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-        }
+		
+		}
     }
 }

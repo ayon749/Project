@@ -11,7 +11,7 @@ namespace ReviewVaiApp.Models
 		public Post Post { get; set; }
 		public long PostId { get; set; }
 		public ApplicationUser ApplicationUser { get; set; }
-		public int ApplicationUserId { get; set; }
+		public string ApplicationUserId { get; set; }
 		public int IsLiked { get; set; }
 		public int IsHelpfull { get; set; }
 	}

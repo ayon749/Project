@@ -10,8 +10,9 @@ namespace ReviewVaiApp.Models
 		public long Id { get; set; }
 		public string Name { get; set; }
 		public DateTime? TimeStamp { get; set; }
-		public Post Post { get; set; }
-		public long PostId { get; set; }
+		
 		public int FOodOrTravel { get; set; }
+
+		public virtual ICollection<Post> Posts { get; set; }
 	}
 }

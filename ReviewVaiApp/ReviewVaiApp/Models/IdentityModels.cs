@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -13,15 +14,15 @@ namespace ReviewVaiApp.Models
     public class ApplicationUser : IdentityUser
     {
 		public string Photo { get; set; }
-		public string location { get; set; }
+		public string Location { get; set; }
 		public DateTime? CreatedAt { get; set; }
 		[Required]
 		public int Gender { get; set; }
 
-		public ProfileTitle profileTitle { get; set; }
-		public long ProfileTitleId { get; set; }
+		public ProfileTitle ProfileTitle { get; set; }
+		public long? ProfileTitleId { get; set; }
 		public Badge Badge { get; set; }
-		public long BadgeId { get; set; }
+		public long? BadgeId { get; set; }
 
 		public int Contact { get; set; }
 		public string ProfileType { get; set; }
@@ -47,6 +48,37 @@ namespace ReviewVaiApp.Models
 		public DbSet<Photo> Photos { get; set; }
 		public DbSet<Badge> Badges { get; set; }
 		public DbSet<ProfileTitle> ProfileTitles { get; set; }
+		public DbSet<Item> Items { get; set; }
+		public DbSet<PostComment> PostComments { get; set; }
+		public DbSet<Discussion> Discussions { get; set; }
+		public DbSet<DiscussionComment> DiscussionComments { get; set; }
+		public DbSet<SubComment> SubComments { get; set; }
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+			modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+			modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+			modelBuilder.Entity<Post>()
+				.HasMany(t => t.Items)
+				.WithMany(t => t.Posts)
+				.Map(m =>
+				{
+					m.ToTable("PostItems");
+					m.MapLeftKey("PostId");
+					m.MapRightKey("ItemId");
+				});
+			modelBuilder.Entity<Post>()
+				.HasMany(t => t.Tags)
+				.WithMany(t => t.Posts)
+				.Map(m =>
+				{
+					m.ToTable("TagPosts");
+					m.MapLeftKey("PostId");
+					m.MapRightKey("TagId");
+				});
+			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+			base.OnModelCreating(modelBuilder);
+		}
 		public ApplicationDbContext()
             : base("ProjectDbContext", throwIfV1Schema: false)
         {
