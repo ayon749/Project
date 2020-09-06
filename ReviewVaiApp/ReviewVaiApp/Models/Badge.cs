@@ -5,14 +5,10 @@ using System.Web;
 
 namespace ReviewVaiApp.Models
 {
-	public class Tag
+	public class Badge
 	{
 		public long Id { get; set; }
 		public string Name { get; set; }
-		public DateTime? TimeStamp { get; set; }
-		
-		public int FOodOrTravel { get; set; }
-
-		public virtual ICollection<Post> Posts { get; set; }
+		public int Point { get; set; }
 	}
 }

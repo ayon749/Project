@@ -5,14 +5,13 @@ using System.Web;
 
 namespace ReviewVaiApp.Models
 {
-	public class Reaction
+	public class SubComment
 	{
 		public long Id { get; set; }
-		public Post Post { get; set; }
-		public long PostId { get; set; }
+		public PostComment PostComment { get; set; }
+		public long PostCommentId { get; set; }
+		public string Text { get; set; }
 		public ApplicationUser ApplicationUser { get; set; }
-		public string ApplicationUserId { get; set; }
-		public int IsLiked { get; set; }
-		public int IsHelpfull { get; set; }
+		public DateTime TimeStamp { get; set; }
 	}
 }
