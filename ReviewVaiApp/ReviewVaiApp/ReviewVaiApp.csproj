@@ -208,6 +208,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -289,16 +291,132 @@
     <Compile Include="Migrations\202008280612513_StarsV2.designer.cs">
       <DependentUpon>202008280612513_StarsV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008280627468_BadgeV1.cs" />
+    <Compile Include="Migrations\202008280627468_BadgeV1.designer.cs">
+      <DependentUpon>202008280627468_BadgeV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280801579_ProfiletitleV1.cs" />
+    <Compile Include="Migrations\202008280801579_ProfiletitleV1.designer.cs">
+      <DependentUpon>202008280801579_ProfiletitleV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280803111_BadgeV2.cs" />
+    <Compile Include="Migrations\202008280803111_BadgeV2.designer.cs">
+      <DependentUpon>202008280803111_BadgeV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280826060_IdentityUserV6.cs" />
+    <Compile Include="Migrations\202008280826060_IdentityUserV6.designer.cs">
+      <DependentUpon>202008280826060_IdentityUserV6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008280827533_IdentityUserV7.cs" />
+    <Compile Include="Migrations\202008280827533_IdentityUserV7.designer.cs">
+      <DependentUpon>202008280827533_IdentityUserV7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008281250503_IdentityUserV8.cs" />
+    <Compile Include="Migrations\202008281250503_IdentityUserV8.designer.cs">
+      <DependentUpon>202008281250503_IdentityUserV8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008281256041_PostV7.cs" />
+    <Compile Include="Migrations\202008281256041_PostV7.designer.cs">
+      <DependentUpon>202008281256041_PostV7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008281304589_RestaurantOrPlaceV3.cs" />
+    <Compile Include="Migrations\202008281304589_RestaurantOrPlaceV3.designer.cs">
+      <DependentUpon>202008281304589_RestaurantOrPlaceV3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008281306436_RestaurantOrPlaceV4.cs" />
+    <Compile Include="Migrations\202008281306436_RestaurantOrPlaceV4.designer.cs">
+      <DependentUpon>202008281306436_RestaurantOrPlaceV4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008281837399_ReactionV2.cs" />
+    <Compile Include="Migrations\202008281837399_ReactionV2.designer.cs">
+      <DependentUpon>202008281837399_ReactionV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008301738412_RestaurantOrPlaceV5.cs" />
+    <Compile Include="Migrations\202008301738412_RestaurantOrPlaceV5.designer.cs">
+      <DependentUpon>202008301738412_RestaurantOrPlaceV5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008301740414_Itemv1.cs" />
+    <Compile Include="Migrations\202008301740414_Itemv1.designer.cs">
+      <DependentUpon>202008301740414_Itemv1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008301747508_TagV3.cs" />
+    <Compile Include="Migrations\202008301747508_TagV3.designer.cs">
+      <DependentUpon>202008301747508_TagV3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008301833058_PostCommentV1.cs" />
+    <Compile Include="Migrations\202008301833058_PostCommentV1.designer.cs">
+      <DependentUpon>202008301833058_PostCommentV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008301834226_DiscussionV1.cs" />
+    <Compile Include="Migrations\202008301834226_DiscussionV1.designer.cs">
+      <DependentUpon>202008301834226_DiscussionV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008301835571_DiscussionCommnetV1.cs" />
+    <Compile Include="Migrations\202008301835571_DiscussionCommnetV1.designer.cs">
+      <DependentUpon>202008301835571_DiscussionCommnetV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008301836598_RestaurantOrPlaceV6.cs" />
+    <Compile Include="Migrations\202008301836598_RestaurantOrPlaceV6.designer.cs">
+      <DependentUpon>202008301836598_RestaurantOrPlaceV6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009011913353_PhotoV2.cs" />
+    <Compile Include="Migrations\202009011913353_PhotoV2.designer.cs">
+      <DependentUpon>202009011913353_PhotoV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009031604373_PostItemV1.cs" />
+    <Compile Include="Migrations\202009031604373_PostItemV1.designer.cs">
+      <DependentUpon>202009031604373_PostItemV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009031812571_PostItemV3.cs" />
+    <Compile Include="Migrations\202009031812571_PostItemV3.designer.cs">
+      <DependentUpon>202009031812571_PostItemV3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009031815489_PostItemV4.cs" />
+    <Compile Include="Migrations\202009031815489_PostItemV4.designer.cs">
+      <DependentUpon>202009031815489_PostItemV4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009031856353_PostItemV5.cs" />
+    <Compile Include="Migrations\202009031856353_PostItemV5.designer.cs">
+      <DependentUpon>202009031856353_PostItemV5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009040821410_SubCommentV1.cs" />
+    <Compile Include="Migrations\202009040821410_SubCommentV1.designer.cs">
+      <DependentUpon>202009040821410_SubCommentV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009040823174_PostCommentV2.cs" />
+    <Compile Include="Migrations\202009040823174_PostCommentV2.designer.cs">
+      <DependentUpon>202009040823174_PostCommentV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009040825148_PostTagsV1.cs" />
+    <Compile Include="Migrations\202009040825148_PostTagsV1.designer.cs">
+      <DependentUpon>202009040825148_PostTagsV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009040826543_PostTagsV2.cs" />
+    <Compile Include="Migrations\202009040826543_PostTagsV2.designer.cs">
+      <DependentUpon>202009040826543_PostTagsV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009051537376_PostV8.cs" />
+    <Compile Include="Migrations\202009051537376_PostV8.designer.cs">
+      <DependentUpon>202009051537376_PostV8.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Badge.cs" />
+    <Compile Include="Models\Discussion.cs" />
+    <Compile Include="Models\DiscussionComment.cs" />
+    <Compile Include="Models\PostComment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\ProfileTitle.cs" />
     <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\RestaurantOrPalce.cs" />
     <Compile Include="Models\Stars.cs" />
+    <Compile Include="Models\SubComment.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\ViewModels\PostItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -311,8 +429,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\main.css" />
-    <Content Include="Content\css\style.css" />
     <Content Include="Content\css\util.css" />
+    <Content Include="Content\favicon.ico" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Content\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
@@ -322,8 +443,12 @@
     <Content Include="Content\fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
     <Content Include="Content\images\bg-01.jpg" />
     <Content Include="Content\images\icons\favicon.ico" />
+    <Content Include="Content\index.html" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\material-design-iconic-font.css" />
+    <Content Include="Content\material-design-iconic-font.min.css" />
+    <Content Include="Content\util.css" />
     <Content Include="Content\vendor\animate\animate.css" />
     <Content Include="Content\vendor\animsition\css\animsition.css" />
     <Content Include="Content\vendor\animsition\css\animsition.min.css" />
@@ -378,6 +503,17 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Content\FontAwesome.otf" />
+    <Content Include="Content\fontawesome-webfont.eot" />
+    <Content Include="Content\fontawesome-webfont.ttf" />
+    <Content Include="Content\fontawesome-webfont.woff" />
+    <Content Include="Content\fontawesome-webfont.woff2" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
@@ -433,14 +569,6 @@
     <Content Include="Content\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
     <Content Include="Content\fonts\poppins\Poppins-Thin.ttf" />
     <Content Include="Content\fonts\poppins\Poppins-ThinItalic.ttf" />
-    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css.map" />
-    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
-    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css.map" />
-    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\vendor\bootstrap\css\bootstrap.css.map" />
-    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css.map" />
-    <Content Include="Content\css\style.css.map" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -452,9 +580,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -468,8 +594,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\User\signup.cshtml" />
     <Content Include="Views\User\signin.cshtml" />
+    <Content Include="Views\User\signup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -560,6 +686,87 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008280612513_StarsV2.resx">
       <DependentUpon>202008280612513_StarsV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280627468_BadgeV1.resx">
+      <DependentUpon>202008280627468_BadgeV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280801579_ProfiletitleV1.resx">
+      <DependentUpon>202008280801579_ProfiletitleV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280803111_BadgeV2.resx">
+      <DependentUpon>202008280803111_BadgeV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280826060_IdentityUserV6.resx">
+      <DependentUpon>202008280826060_IdentityUserV6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008280827533_IdentityUserV7.resx">
+      <DependentUpon>202008280827533_IdentityUserV7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008281250503_IdentityUserV8.resx">
+      <DependentUpon>202008281250503_IdentityUserV8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008281256041_PostV7.resx">
+      <DependentUpon>202008281256041_PostV7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008281304589_RestaurantOrPlaceV3.resx">
+      <DependentUpon>202008281304589_RestaurantOrPlaceV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008281306436_RestaurantOrPlaceV4.resx">
+      <DependentUpon>202008281306436_RestaurantOrPlaceV4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008281837399_ReactionV2.resx">
+      <DependentUpon>202008281837399_ReactionV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008301738412_RestaurantOrPlaceV5.resx">
+      <DependentUpon>202008301738412_RestaurantOrPlaceV5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008301740414_Itemv1.resx">
+      <DependentUpon>202008301740414_Itemv1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008301747508_TagV3.resx">
+      <DependentUpon>202008301747508_TagV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008301833058_PostCommentV1.resx">
+      <DependentUpon>202008301833058_PostCommentV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008301834226_DiscussionV1.resx">
+      <DependentUpon>202008301834226_DiscussionV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008301835571_DiscussionCommnetV1.resx">
+      <DependentUpon>202008301835571_DiscussionCommnetV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008301836598_RestaurantOrPlaceV6.resx">
+      <DependentUpon>202008301836598_RestaurantOrPlaceV6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009011913353_PhotoV2.resx">
+      <DependentUpon>202009011913353_PhotoV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009031604373_PostItemV1.resx">
+      <DependentUpon>202009031604373_PostItemV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009031812571_PostItemV3.resx">
+      <DependentUpon>202009031812571_PostItemV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009031815489_PostItemV4.resx">
+      <DependentUpon>202009031815489_PostItemV4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009031856353_PostItemV5.resx">
+      <DependentUpon>202009031856353_PostItemV5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009040821410_SubCommentV1.resx">
+      <DependentUpon>202009040821410_SubCommentV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009040823174_PostCommentV2.resx">
+      <DependentUpon>202009040823174_PostCommentV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009040825148_PostTagsV1.resx">
+      <DependentUpon>202009040825148_PostTagsV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009040826543_PostTagsV2.resx">
+      <DependentUpon>202009040826543_PostTagsV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009051537376_PostV8.resx">
+      <DependentUpon>202009051537376_PostV8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -9,12 +9,12 @@ using System.Web.Security;
 
 namespace ReviewVaiApp.Controllers
 {
-    
+
 
     public class UserController : Controller
     {
         // GET: User
-        
+
 
         public ActionResult Index()
         {
@@ -30,9 +30,9 @@ namespace ReviewVaiApp.Controllers
         [HttpPost]
         public ActionResult signup(RegisterBindingModel registerBinding)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                            
+
                 using (var client = new HttpClient())
                 {
                     //client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
@@ -50,7 +50,7 @@ namespace ReviewVaiApp.Controllers
                 }
 
                 ModelState.AddModelError(string.Empty, "Server Error");
-                
+
                 //return View();
             }
             return View();
@@ -66,7 +66,7 @@ namespace ReviewVaiApp.Controllers
 
         public ActionResult logout()
         {
- 
+
             Request.GetOwinContext().Authentication.SignOut();
             return RedirectToAction("signin", "User");
         }
