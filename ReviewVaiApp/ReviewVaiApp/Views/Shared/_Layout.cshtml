@@ -46,10 +46,20 @@
 				@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 			</div>
 			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-					<li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-				</ul>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a>Logged in as @User.Identity.Name</a></li>
+                        <li>@Html.ActionLink("logout", "logout", "User")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Register", "signup", "User", new { area = "" }, null)</li>
+                        <li> @Html.ActionLink("Login", "signin", "User") </li>
+                    }
+                </ul>
 			</div>
 		</div>
 	</div>
