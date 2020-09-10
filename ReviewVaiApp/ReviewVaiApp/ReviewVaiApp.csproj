@@ -208,9 +208,10 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RestaurantOrPlaceController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -399,10 +400,23 @@
     <Compile Include="Migrations\202009051537376_PostV8.designer.cs">
       <DependentUpon>202009051537376_PostV8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009091753117_CommentReactionv1.cs" />
+    <Compile Include="Migrations\202009091753117_CommentReactionv1.designer.cs">
+      <DependentUpon>202009091753117_CommentReactionv1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009091758371_PostCommentV3.cs" />
+    <Compile Include="Migrations\202009091758371_PostCommentV3.designer.cs">
+      <DependentUpon>202009091758371_PostCommentV3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009101554116_RestaurantOrPlacev7.cs" />
+    <Compile Include="Migrations\202009101554116_RestaurantOrPlacev7.designer.cs">
+      <DependentUpon>202009101554116_RestaurantOrPlacev7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Badge.cs" />
+    <Compile Include="Models\CommentReaction.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\DiscussionComment.cs" />
     <Compile Include="Models\PostComment.cs" />
@@ -412,7 +426,7 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\ProfileTitle.cs" />
     <Compile Include="Models\Reaction.cs" />
-    <Compile Include="Models\RestaurantOrPalce.cs" />
+    <Compile Include="Models\RestaurantOrPlace.cs" />
     <Compile Include="Models\Stars.cs" />
     <Compile Include="Models\SubComment.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -767,6 +781,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009051537376_PostV8.resx">
       <DependentUpon>202009051537376_PostV8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009091753117_CommentReactionv1.resx">
+      <DependentUpon>202009091753117_CommentReactionv1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009091758371_PostCommentV3.resx">
+      <DependentUpon>202009091758371_PostCommentV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009101554116_RestaurantOrPlacev7.resx">
+      <DependentUpon>202009101554116_RestaurantOrPlacev7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
