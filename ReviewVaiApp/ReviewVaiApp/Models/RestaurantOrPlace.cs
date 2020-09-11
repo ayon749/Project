@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ReviewVaiApp.Models
 {
-	public class RestaurantOrPalce
+	public class RestaurantOrPlace
 	{
 		public long Id { get; set; }
 		public int TotalRecommendation { get; set; }

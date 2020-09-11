@@ -16,7 +16,7 @@ namespace ReviewVaiApp.Models
 		public bool IsOfferOrPlanned { get; set; }
 		public bool IsRecommended { get; set; }
 	
-		public RestaurantOrPalce RestaurantOrPalce { get; set; }
+		public RestaurantOrPlace RestaurantOrPalce { get; set; }
 	
 		public ApplicationUser ApplicationUser { get; set; }
 		public string ApplicationUserId { get; set; }
