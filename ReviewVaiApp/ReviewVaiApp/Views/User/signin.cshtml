@@ -125,7 +125,8 @@
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     success: function (response) {
                         sessionStorage.setItem("accessToken", response.access_token);
-                        window.location.href = "http://localhost:55407";
+                        //window.location.href = "http://localhost:55407";
+                        window.location.href = "http://reviewbhai.somee.com/";
                     },
                     // Display errors if any in the Bootstrap alert <div>
                     error: function () {
