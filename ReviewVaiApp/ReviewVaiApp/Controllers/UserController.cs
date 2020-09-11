@@ -13,8 +13,6 @@ namespace ReviewVaiApp.Controllers
 
     public class UserController : Controller
     {
-        // GET: User
-
 
         public ActionResult Index()
         {
@@ -22,6 +20,7 @@ namespace ReviewVaiApp.Controllers
         }
 
 
+        // Sign up through api
         public ActionResult signup()
         {
             return View();
@@ -32,44 +31,40 @@ namespace ReviewVaiApp.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
-                    //client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
-
-                    var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);
-                    //var postTask = client.PostAsXmlAsync<RegisterBindingModel>("registerBinding", registerBinding);
+                    //client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
+                    client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
+                    var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);                   
                     postTask.Wait();
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)
-                    {
-                        //return RedirectToAction("/home/index");
+                    {                       
                         return Redirect("~/");
                     }
                 }
-
                 ModelState.AddModelError(string.Empty, "Server Error");
-
-                //return View();
             }
             return View();
-
         }
 
 
+        //Sign In view
         public ActionResult signin()
         {
             return View();
         }
 
 
+        //Signout view
         public ActionResult logout()
         {
-
             Request.GetOwinContext().Authentication.SignOut();
             return RedirectToAction("signin", "User");
         }
+
+        // Getting token
+
 
 
 
