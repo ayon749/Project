@@ -13,10 +13,8 @@ namespace ReviewVaiApp.Controllers
         {
             return View();
         }
-
-        public ActionResult GetReviews()
+        public ActionResult getreviews()
         {
-            //var token = sessionStorage.getItem('access_token');
             return View();
         }
     }
