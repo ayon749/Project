@@ -40,7 +40,7 @@ namespace ReviewVaiApp.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-		public DbSet<RestaurantOrPalce> RestaurantOrPalces { get; set; }
+		public DbSet<RestaurantOrPlace> RestaurantOrPlaces { get; set; }
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<Stars> Stars { get; set; }
 		public DbSet<Tag> Tags { get; set; }
@@ -53,6 +53,7 @@ namespace ReviewVaiApp.Models
 		public DbSet<Discussion> Discussions { get; set; }
 		public DbSet<DiscussionComment> DiscussionComments { get; set; }
 		public DbSet<SubComment> SubComments { get; set; }
+		public DbSet<CommentReaction> CommentReactions { get; set; }
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
