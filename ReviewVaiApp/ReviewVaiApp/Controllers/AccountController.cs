@@ -23,8 +23,9 @@ namespace ReviewVaiApp.Controllers
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
-    {
-        private const string LocalLoginProvider = "Local";
+	{
+		private ApplicationDbContext db = new ApplicationDbContext();
+		private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
         public AccountController()
@@ -51,6 +52,7 @@ namespace ReviewVaiApp.Controllers
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+		
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -66,9 +68,21 @@ namespace ReviewVaiApp.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }
-
-        // POST api/Account/Logout
-        [Route("Logout")]
+		[Authorize]
+		public IHttpActionResult GetLogIns()
+		{
+			
+			if (User.Identity.IsAuthenticated)
+			{
+				var name = User.Identity.GetUserName();
+			
+				
+				return Ok();
+			}
+			return Ok();
+		}
+		// POST api/Account/Logout
+		[Route("Logout")]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);

@@ -172,6 +172,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AuthFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RestaurantOrPlaceController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -411,6 +413,10 @@
     <Compile Include="Migrations\202009101554116_RestaurantOrPlacev7.cs" />
     <Compile Include="Migrations\202009101554116_RestaurantOrPlacev7.designer.cs">
       <DependentUpon>202009101554116_RestaurantOrPlacev7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009161630390_PostV9.cs" />
+    <Compile Include="Migrations\202009161630390_PostV9.designer.cs">
+      <DependentUpon>202009161630390_PostV9.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -791,6 +797,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009101554116_RestaurantOrPlacev7.resx">
       <DependentUpon>202009101554116_RestaurantOrPlacev7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009161630390_PostV9.resx">
+      <DependentUpon>202009161630390_PostV9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
