@@ -18,9 +18,10 @@ namespace ReviewVaiApp
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }
+		//public static object OAuthBearerOptions { get; internal set; }
 
-        // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
-        public void ConfigureAuth(IAppBuilder app)
+		// For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
+		public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
@@ -35,7 +36,8 @@ namespace ReviewVaiApp
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
-                TokenEndpointPath = new PathString("/Token"),
+				
+			TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
@@ -45,25 +47,26 @@ namespace ReviewVaiApp
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
+			
 
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+			// Uncomment the following lines to enable logging in with third party login providers
+			//app.UseMicrosoftAccountAuthentication(
+			//    clientId: "",
+			//    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+			//app.UseTwitterAuthentication(
+			//    consumerKey: "",
+			//    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+			//app.UseFacebookAuthentication(
+			//    appId: "",
+			//    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
-        }
+			//app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+			//{
+			//    ClientId = "",
+			//    ClientSecret = ""
+			//});
+		}
     }
 }

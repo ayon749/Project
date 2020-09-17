@@ -15,6 +15,7 @@ namespace ReviewVaiApp.Controllers
 		public IHttpActionResult GetItems()
 		{
 			var items = db.Items.ToList();
+			
 			if (items == null)
 			{
 				return BadRequest();
