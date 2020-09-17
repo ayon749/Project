@@ -105,21 +105,13 @@
 
 
                     console.log(data);
-                    
+
 
                     document.getElementById("listitems").innerHTML = `
 
                                 ${data.map(reviewTemplate).join('')}
 
                             `
-
-
-
-
-
-
-
-
 
                 },
                 error: function (jQXHR) {
