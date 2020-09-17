@@ -217,5 +217,23 @@ namespace ReviewVaiApp.Controllers
 			db.SaveChanges();
 			return Ok();
 		}
+		[HttpGet]
+		public IHttpActionResult GetRepliesInAComment(long id)
+		{
+			var replay = db.SubComments.Include(u=>u.ApplicationUser).Where(i => i.PostCommentId == id).ToList();
+			return Ok(replay);
+		}
+		[HttpPost]
+		public IHttpActionResult PostAReplayAComment(SubComment subComment)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			db.SubComments.Add(subComment);
+			db.SaveChanges();
+			return Created(new Uri(Request.RequestUri + "/" + subComment.Id), subComment);
+			
+		}
 	}
 }
