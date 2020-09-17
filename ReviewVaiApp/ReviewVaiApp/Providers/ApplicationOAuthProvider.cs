@@ -38,26 +38,31 @@ namespace ReviewVaiApp.Providers
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
             }
-
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
+			
+			ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
             AuthenticationProperties properties = CreateProperties(user.UserName);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-            context.Validated(ticket);
+			//ticket.Properties.Dictionary.Add(KeyValuePair<string, string>("UserID", user.Id.ToString()));
+			//identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+			//ticket.Properties.Dictionary.Add(KeyValuePair<string, string>("UserID", user.Id.ToString()));
+			context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
-        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+		
+
+		public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
             foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
-
-            return Task.FromResult<object>(null);
+			context.AdditionalResponseParameters.Add("ID", context.Identity.GetUserId<string>());
+			return Task.FromResult<object>(null);
         }
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -88,7 +93,8 @@ namespace ReviewVaiApp.Providers
 
         public static AuthenticationProperties CreateProperties(string userName)
         {
-            IDictionary<string, string> data = new Dictionary<string, string>
+			
+			IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName }
             };

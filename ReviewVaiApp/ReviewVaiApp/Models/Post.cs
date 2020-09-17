@@ -17,7 +17,9 @@ namespace ReviewVaiApp.Models
 		public bool IsRecommended { get; set; }
 	
 		public RestaurantOrPlace RestaurantOrPalce { get; set; }
-	
+		public long? RestaurantOrPalceId { get; set; }
+
+
 		public ApplicationUser ApplicationUser { get; set; }
 		public string ApplicationUserId { get; set; }
 		//public List<Tag> Tags { get; set; }
@@ -30,6 +32,7 @@ namespace ReviewVaiApp.Models
 		
 		public int FoodOrTravel { get; set; }
 		public Stars Stars { get; set; }
+		
 
 		public virtual ICollection<Item> Items { get; set; }
 		public virtual ICollection<Tag> Tags { get; set; }

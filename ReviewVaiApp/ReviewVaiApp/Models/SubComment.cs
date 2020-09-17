@@ -12,6 +12,7 @@ namespace ReviewVaiApp.Models
 		public long PostCommentId { get; set; }
 		public string Text { get; set; }
 		public ApplicationUser ApplicationUser { get; set; }
+		public string ApplicationUserId { get; set; }
 		public DateTime TimeStamp { get; set; }
 	}
 }
