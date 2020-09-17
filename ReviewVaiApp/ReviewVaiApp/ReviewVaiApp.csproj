@@ -418,6 +418,10 @@
     <Compile Include="Migrations\202009161630390_PostV9.designer.cs">
       <DependentUpon>202009161630390_PostV9.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009170918511_SubCommentv2.cs" />
+    <Compile Include="Migrations\202009170918511_SubCommentv2.designer.cs">
+      <DependentUpon>202009170918511_SubCommentv2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -800,6 +804,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009161630390_PostV9.resx">
       <DependentUpon>202009161630390_PostV9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009170918511_SubCommentv2.resx">
+      <DependentUpon>202009170918511_SubCommentv2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
