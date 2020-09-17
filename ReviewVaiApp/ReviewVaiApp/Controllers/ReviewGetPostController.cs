@@ -13,7 +13,12 @@ namespace ReviewVaiApp.Controllers
         {
             return View();
         }
-        public ActionResult getreviews()
+
+        public ActionResult GetReviews()
+        {
+            return View();
+        }
+        public ActionResult Reviews()
         {
             return View();
         }
