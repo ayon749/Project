@@ -82,11 +82,11 @@
     </div>
 </div>
 
-    <script src="Scripts/jquery-1.10.2.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/jquery-1.10.2.min.js"></script>
+<script src="Scripts/jquery-1.10.2.min.js"></script>
+<script src="Scripts/bootstrap.min.js"></script>
+<script src="Scripts/jquery-1.10.2.min.js"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
         $(document).ready(function () {
             if (sessionStorage.getItem('accessToken') == null) {
                 window.location.href = "http://localhost:55407/User/signin";
@@ -122,7 +122,7 @@
                                 + value.Items[0].Name + '</td></tr>');
                             $('#tblData').append(row);
                             //$('#author').text(value.ApplicationUser.Name);
-                            //$("#tag").append('<p id="author" class="mr-2">' + value.PostTitle +'</p>');                           
+                            //$("#tag").append('<p id="author" class="mr-2">' + value.PostTitle +'</p>');
                             //$('#restaurent').text(value.RestaurantOrPalce.Id);
                             //$('#reviewdate').text(value.TimePosted);
                             //$('#photo').text(value.Photos.Id);
@@ -141,13 +141,13 @@
                             $('.list-items').html(
                                 [
                                     //$.each(data, function (index, value) {
-                                    
+
                                     //{ profileImage: '/foo', author: value.ApplicationUser.Name, restaurent: value.RestaurantOrPalce.Id, reviewDate: value.TimePosted, reviewImage: '/foo', title: value.PostTitle, tags: value.Tags[0].Name, items: value.Items[0].Name },
                                     { profileImage: '/foo', author: 'Himu', restaurent: 'KFC', reviewDate: 'Oct 2nd', reviewImage: '/foo', title: 'XYZ XJHJK ', tags: 'bURGER', items: 'bURGER' },
                                     { profileImage: '/foo', author: 'Himu', restaurent: 'KFC', reviewDate: 'Oct 2nd', reviewImage: '/foo', title: 'XYZ XJHJK ', tags: 'bURGER', items: 'bURGER' },
                                     //}
                                 ].map(review).join(''));
-                            
+
                         });
 
 
@@ -176,5 +176,5 @@
         //        { profileImage: '/foo', author: 'Himu', restaurent: 'KFC', reviewDate: 'Oct 2nd', reviewImage: '/foo', title: 'XYZ XJHJK ', tags: 'bURGER', items: 'bURGER' },
         //        //}
         //    ].map(review).join(''));
-    </script>
+</script>
 
