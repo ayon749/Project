@@ -486,6 +486,7 @@
     <Content Include="Content\login_signup\vendor\select2\select2.js" />
     <Content Include="Content\login_signup\vendor\select2\select2.min.css" />
     <Content Include="Content\login_signup\vendor\select2\select2.min.js" />
+    <Content Include="Content\review\review.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -583,7 +584,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -598,7 +601,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\User\signin.cshtml" />
     <Content Include="Views\User\signup.cshtml" />
-    <Content Include="Views\ReviewGetPost\getreviews.cshtml" />
+    <Content Include="Views\ReviewGetPost\GetReviews.cshtml" />
+    <Content Include="Views\ReviewGetPost\Reviews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
