@@ -21,6 +21,18 @@
     </div>
 
     <script type="text/javascript">
+
+
+        function items(item) {
+           var item_names = []
+            for (var i = 0; i < item.length; i++) {
+                console.log(item[i].Name);             
+                item_names.push(item[i].Name);                           
+            }
+            return item_names;
+        }
+
+
         function reviewTemplate(review) {
             return `
 
@@ -28,8 +40,8 @@
                 <img class="rounded-circle article-img" src="">
                 <div class="media-body">
                     <div id="author&restaurent" class="article-metadata" style="border:none;">
-                        <a id="author" class="mr-2" href="#">${review.ApplicationUser}</a> reviewed
-                        <a id="restaurent" class="mr-2" href="#">${review.RestaurantOrPalce} </a>
+                        <a id="author" class="mr-2" href="#">${review.ApplicationUser.Name}</a> reviewed
+                        <a id="restaurent" class="mr-2" href="#">${review.RestaurantOrPalce.Id} </a>
                         <small id="reviewdate" class="text-muted">${review.TimePosted}</small>
                     </div>
                     <div class="card" style="border:none;">
@@ -37,7 +49,6 @@
                             <div id="photo" class="col-md-3">
 
                                 <img src="" class="w-100">
-
                             </div>
                             <div class="col-md-9 px-1">
                                 <div class="card-block px-1">
@@ -45,13 +56,16 @@
                                     <p id="body" class="article-content">${review.PostBody}</p>
                                     <div id="tag" class="row">
 
-                                        <p class="article-content">${review.Tags}</p>
+                                        <p class="article-content"></p>
 
                                     </div>
 
                                     <div class="'row">
 
-                                        <p id="item" class="article-content" ${review.Items}></p>
+                                        <p id="item" class="article-content"> ${items(review.Items)}</p>
+                                        <ul class="inline" id="itemlist">
+                                          
+                                        </ul>
 
                                     </div>
                                     <a href="#" class="btn btn-primary">Read More</a>
@@ -61,7 +75,6 @@
                     </div>
                 </div>
             </article>
-
                                     `
         }
     </script>
@@ -100,17 +113,11 @@
                 },
 
                 success: function (data) {
-                    $('#divData').removeClass('hidden');
-                    $('#tblBody').empty();
-
-
-                    console.log(data);
-
+                    console.log(data[0].ApplicationUser.Name);
 
                     document.getElementById("listitems").innerHTML = `
 
                                 ${data.map(reviewTemplate).join('')}
-
                             `
 
                 },
