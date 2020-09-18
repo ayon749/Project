@@ -34,7 +34,8 @@
             console.log(item[i].Name);
             item_names.push(item[i].Name);
         }
-        return item_names;
+        var names = item_names.slice(0, -1).join(',') + ' and ' + item_names.slice(-1);
+        return names;
     }
 
 
@@ -52,17 +53,15 @@
                     <div class="cardbox-heading">
                         <!-- START dropdown-->
                         <div class="dropdown float-right">
-                            <button class="btn btn-flat " type="button" data-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-primary " type="button" data-toggle="dropdown" aria-expanded="false">
                                 <em class="fa fa-ellipsis-h"></em>
                             </button>
                             <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                 <a class="dropdown-item" href="#">Hide post</a>
-
                                 <a class="dropdown-item" href="#">Edit</a>
                                 <a class="dropdown-item" href="#">Delete</a>
                                 <a class="dropdown-item" href="#">Save</a>
                                 <a class="dropdown-item" href="#">Report</a>
-
                             </div>
                         </div><!--/ dropdown -->
                         <div class="media m-0">
