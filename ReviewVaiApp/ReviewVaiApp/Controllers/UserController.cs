@@ -38,8 +38,8 @@ namespace ReviewVaiApp.Controllers
                     //client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
                     client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
 
-                    var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);
-                    //var postTask = client.PostAsXmlAsync<RegisterBindingModel>("registerBinding", registerBinding);
+                    //var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);
+                    var postTask = client.PostAsXmlAsync<RegisterBindingModel>("registerBinding", registerBinding);
                     postTask.Wait();
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)
