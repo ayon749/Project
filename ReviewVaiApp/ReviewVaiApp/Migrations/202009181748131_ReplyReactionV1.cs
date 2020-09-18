@@ -3,35 +3,35 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CommentReactionv1 : DbMigration
+    public partial class ReplyReactionV1 : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.CommentReaction",
+                "dbo.ReplyReaction",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        PostCommentId = c.Long(nullable: false),
+                        SubCommentId = c.Long(nullable: false),
                         ApplicationUserId = c.String(maxLength: 128),
                         IsLiked = c.Int(nullable: false),
                         IsHelpfull = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
-                .ForeignKey("dbo.PostComment", t => t.PostCommentId, cascadeDelete: true)
-                .Index(t => t.PostCommentId)
+                .ForeignKey("dbo.SubComment", t => t.SubCommentId, cascadeDelete: true)
+                .Index(t => t.SubCommentId)
                 .Index(t => t.ApplicationUserId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.CommentReaction", "PostCommentId", "dbo.PostComment");
-            DropForeignKey("dbo.CommentReaction", "ApplicationUserId", "dbo.AspNetUsers");
-            DropIndex("dbo.CommentReaction", new[] { "ApplicationUserId" });
-            DropIndex("dbo.CommentReaction", new[] { "PostCommentId" });
-            DropTable("dbo.CommentReaction");
+            DropForeignKey("dbo.ReplyReaction", "SubCommentId", "dbo.SubComment");
+            DropForeignKey("dbo.ReplyReaction", "ApplicationUserId", "dbo.AspNetUsers");
+            DropIndex("dbo.ReplyReaction", new[] { "ApplicationUserId" });
+            DropIndex("dbo.ReplyReaction", new[] { "SubCommentId" });
+            DropTable("dbo.ReplyReaction");
         }
     }
 }

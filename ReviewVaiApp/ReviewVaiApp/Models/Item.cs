@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace ReviewVaiApp.Models
 		public DateTime? Timestamp { get; set; }
 		public int FoodOrTravel { get; set; }
 
+		[JsonIgnore]
 		public virtual ICollection<Post> Posts { get; set; }
 
 
