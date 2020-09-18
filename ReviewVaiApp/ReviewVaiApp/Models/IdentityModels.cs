@@ -54,6 +54,8 @@ namespace ReviewVaiApp.Models
 		public DbSet<DiscussionComment> DiscussionComments { get; set; }
 		public DbSet<SubComment> SubComments { get; set; }
 		public DbSet<CommentReaction> CommentReactions { get; set; }
+		public DbSet<ReplyReaction> ReplyReactions { get; set; }
+		
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
