@@ -145,6 +145,41 @@ namespace ReviewVaiApp.Controllers
 			}
 			return Created(new Uri(Request.RequestUri + "/" + model.Id), model);
 		}
+		[HttpPut]
+		public IHttpActionResult UpdatePost(long id, Post post)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var postInDb = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPalce.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).Include(p=>p.Photos).First(p => p.Id == id);
+			if (postInDb == null)
+			{
+				return NotFound();
+			}
+			var reactions = db.Reactions.Where(p => p.PostId == id).ToList();
+			var photos = db.Photos.Where(p => p.PostId == id).ToList();
+			foreach (var item in photos)
+			{
+				db.Entry(item).State = EntityState.Deleted;
+			}
+			var comments = db.PostComments.Where(p => p.PostId == id).ToList();
+			postInDb.FoodOrTravel = post.FoodOrTravel;
+			postInDb.IsOfferOrPlanned = post.IsOfferOrPlanned;
+			postInDb.IsRecommended = post.IsRecommended;
+			postInDb.Items = post.Items;
+			postInDb.Photos = post.Photos;
+			postInDb.PostBody = post.PostBody;
+			postInDb.PostTitle = post.PostTitle;
+			postInDb.RestaurantOrPalceId = post.RestaurantOrPalceId;
+			postInDb.Stars = post.Stars;
+			postInDb.Tags = post.Tags;
+			
+			db.SaveChanges();
+
+
+			return Ok();
+		}
 		[HttpGet]
 		public IHttpActionResult GetComment(long id)
 		{
@@ -234,6 +269,70 @@ namespace ReviewVaiApp.Controllers
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + subComment.Id), subComment);
 			
+		}
+		[HttpGet]
+		public IHttpActionResult GetACommentReactions(long id)
+		{
+			var reaction = db.CommentReactions.Where(i => i.PostCommentId == id).ToList();
+			if (reaction == null)
+			{
+				return NotFound();
+			}
+			return Ok(reaction);
+		}
+		[HttpGet]
+		public IHttpActionResult GetACommentReaction(long id)
+		{
+			var reaction = db.CommentReactions.Where(i => i.Id == id).FirstOrDefault();
+			if(reaction==null)
+			{
+				return NotFound();
+			}
+			return Ok(reaction);
+		}
+		[HttpPost]
+		public IHttpActionResult PostACommentReaction(CommentReaction commentReaction)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			db.CommentReactions.Add(commentReaction);
+			db.SaveChanges();
+			return Created(new Uri(Request.RequestUri + "/" + commentReaction.Id), commentReaction);
+		}
+		[HttpGet]
+		public IHttpActionResult GetAReplyReactions(long id)
+		{
+			var reaction = db.ReplyReactions.Where(i => i.SubCommentId == id).ToList();
+			if (reaction == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(reaction);
+		}
+		[HttpGet]
+		public IHttpActionResult GetAReplyReaction(long id)
+		{
+			var reaction = db.ReplyReactions.Where(i => i.Id == id).FirstOrDefault();
+			if(reaction==null)
+			{
+				return NotFound();
+			}
+
+			return Ok(reaction);
+		}
+		[HttpPost]
+		public IHttpActionResult PostAReplyReaction(ReplyReaction replyReaction)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			db.ReplyReactions.Add(replyReaction);
+			db.SaveChanges();
+			return Created(new Uri(Request.RequestUri + "/" + replyReaction.Id), replyReaction);
 		}
 	}
 }

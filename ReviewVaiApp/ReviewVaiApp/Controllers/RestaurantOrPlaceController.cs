@@ -14,8 +14,15 @@ namespace ReviewVaiApp.Controllers
 
 		public IHttpActionResult GetRestaurantOrPlaces()
 		{
+
 			var restaurantOrPlaces = db.RestaurantOrPlaces.ToList();
-			if(restaurantOrPlaces==null)
+
+			//foreach(var restaurant in restaurantOrPlaces)
+			//{
+			//	var id=restaurant.ApplicationUser.Id
+			//}
+
+			if (restaurantOrPlaces==null)
 			{
 				return BadRequest();
 			}

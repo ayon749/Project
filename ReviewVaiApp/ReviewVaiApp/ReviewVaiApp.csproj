@@ -402,10 +402,6 @@
     <Compile Include="Migrations\202009051537376_PostV8.designer.cs">
       <DependentUpon>202009051537376_PostV8.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009091753117_CommentReactionv1.cs" />
-    <Compile Include="Migrations\202009091753117_CommentReactionv1.designer.cs">
-      <DependentUpon>202009091753117_CommentReactionv1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202009091758371_PostCommentV3.cs" />
     <Compile Include="Migrations\202009091758371_PostCommentV3.designer.cs">
       <DependentUpon>202009091758371_PostCommentV3.cs</DependentUpon>
@@ -422,6 +418,30 @@
     <Compile Include="Migrations\202009170918511_SubCommentv2.designer.cs">
       <DependentUpon>202009170918511_SubCommentv2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009171631038_RestaurantOrPlaceV8.cs" />
+    <Compile Include="Migrations\202009171631038_RestaurantOrPlaceV8.designer.cs">
+      <DependentUpon>202009171631038_RestaurantOrPlaceV8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009171637206_RestaurantOrPlaceV9.cs" />
+    <Compile Include="Migrations\202009171637206_RestaurantOrPlaceV9.designer.cs">
+      <DependentUpon>202009171637206_RestaurantOrPlaceV9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009181618082_RestaurantOrPlaceV10.cs" />
+    <Compile Include="Migrations\202009181618082_RestaurantOrPlaceV10.designer.cs">
+      <DependentUpon>202009181618082_RestaurantOrPlaceV10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009181625117_jsonignorev1.cs" />
+    <Compile Include="Migrations\202009181625117_jsonignorev1.designer.cs">
+      <DependentUpon>202009181625117_jsonignorev1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009181745328_CommentReactionV1.cs" />
+    <Compile Include="Migrations\202009181745328_CommentReactionV1.designer.cs">
+      <DependentUpon>202009181745328_CommentReactionV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009181748131_ReplyReactionV1.cs" />
+    <Compile Include="Migrations\202009181748131_ReplyReactionV1.designer.cs">
+      <DependentUpon>202009181748131_ReplyReactionV1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -436,6 +456,7 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\ProfileTitle.cs" />
     <Compile Include="Models\Reaction.cs" />
+    <Compile Include="Models\ReplyReaction.cs" />
     <Compile Include="Models\RestaurantOrPlace.cs" />
     <Compile Include="Models\Stars.cs" />
     <Compile Include="Models\SubComment.cs" />
@@ -793,9 +814,6 @@
     <EmbeddedResource Include="Migrations\202009051537376_PostV8.resx">
       <DependentUpon>202009051537376_PostV8.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009091753117_CommentReactionv1.resx">
-      <DependentUpon>202009091753117_CommentReactionv1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009091758371_PostCommentV3.resx">
       <DependentUpon>202009091758371_PostCommentV3.cs</DependentUpon>
     </EmbeddedResource>
@@ -807,6 +825,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009170918511_SubCommentv2.resx">
       <DependentUpon>202009170918511_SubCommentv2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009171631038_RestaurantOrPlaceV8.resx">
+      <DependentUpon>202009171631038_RestaurantOrPlaceV8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009171637206_RestaurantOrPlaceV9.resx">
+      <DependentUpon>202009171637206_RestaurantOrPlaceV9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009181618082_RestaurantOrPlaceV10.resx">
+      <DependentUpon>202009181618082_RestaurantOrPlaceV10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009181625117_jsonignorev1.resx">
+      <DependentUpon>202009181625117_jsonignorev1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009181745328_CommentReactionV1.resx">
+      <DependentUpon>202009181745328_CommentReactionV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009181748131_ReplyReactionV1.resx">
+      <DependentUpon>202009181748131_ReplyReactionV1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
