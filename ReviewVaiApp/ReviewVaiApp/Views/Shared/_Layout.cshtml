@@ -9,52 +9,82 @@
     <meta charset="UTF-8">
 </head>
 <body style="padding-top:20px">
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-			</div>
-			<div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("ReviewGetPost", "getreviews", "ReviewGetPost", new { area = "" }, null)</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a>Logged in as @User.Identity.Name</a></li>
-                        <li>@Html.ActionLink("logout", "logout", "User")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Register", "signup", "User", new { area = "" }, null)</li>
-                        <li> @Html.ActionLink("Login", "signin", "User") </li>
-                    }
-                </ul>
-			</div>
-		</div>
-	</div>
-    <div>
-        &nbsp;
-    </div>
-    <div>
-        &nbsp;
-    </div>
-	<div class="container body-content">
-		@RenderBody()
-		<hr />
-		<footer>
-			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-		</footer>
-	</div>
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
+
+
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/reviewgetpost/getreviews">ReviewGetPost</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/help/index">Api</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/reviewgetpost/reviews">Review Card</a>
+                </li>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Logged in as @User.Identity.Name</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/user/logout">Review Card</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/user/signin">Log In</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/user/signup">Register</a>
+                    </li>
+                }
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+
+
+
+
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>
