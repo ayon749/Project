@@ -35,11 +35,11 @@ namespace ReviewVaiApp.Controllers
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
-                   //client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
+                    //client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
+                    client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
 
-                    //var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);
-                    var postTask = client.PostAsXmlAsync<RegisterBindingModel>("registerBinding", registerBinding);
+                    var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);
+                   
                     postTask.Wait();
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)
@@ -70,7 +70,6 @@ namespace ReviewVaiApp.Controllers
             Request.GetOwinContext().Authentication.SignOut();
             return RedirectToAction("signin", "User");
         }
-
 
 
     }
