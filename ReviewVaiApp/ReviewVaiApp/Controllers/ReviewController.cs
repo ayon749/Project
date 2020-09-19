@@ -95,18 +95,23 @@ namespace ReviewVaiApp.Controllers
 			{
 				var items = model.Items;
 				List<Item> itemss = new List<Item>();
-				foreach (var item in items)
+				if (items != null)
 				{
-					var aItem = item;
-					var itemInDb = db.Items.Where(i => i.Id == item.Id).SingleOrDefault();
-					if (itemInDb == null)
+					foreach (var item in items)
 					{
-						db.Items.Add(item);
+						var aItem = item;
+						var itemInDb = db.Items.Where(i => i.Id == item.Id).SingleOrDefault();
+						if (itemInDb == null)
+						{
+							db.Items.Add(item);
+						}
+						itemss.Add(itemInDb);
 					}
-					itemss.Add(itemInDb);
 				}
 				var tags = model.Tags;
 				List<Tag> tagss = new List<Tag>();
+				if(tags!=null)
+				{
 				foreach(var tag in tags)
 				{
 					var tagInDb=db.Tags.Where(i => i.Id == tag.Id).SingleOrDefault();
@@ -115,6 +120,7 @@ namespace ReviewVaiApp.Controllers
 						db.Tags.Add(tag);
 					}
 					tagss.Add(tagInDb);
+				}
 				}
 				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPalceId).SingleOrDefault();
 				if (restaurantInDb == null)
