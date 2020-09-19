@@ -10,17 +10,18 @@ namespace ReviewVaiApp.Controllers
 {
     public class ReviewGetPostController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        
         // GET: ReviewGetPost
         public ActionResult Index()
         {
             return View();
         }
-
+        
         public ActionResult GetReviews()
         {
             return View();
         }
+        
         public ActionResult Reviews()
         {
             return View();

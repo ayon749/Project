@@ -7,13 +7,13 @@ namespace ReviewVaiApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class DiscussionV1 : IMigrationMetadata
+    public sealed partial class db_version_01 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DiscussionV1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(db_version_01));
         
         string IMigrationMetadata.Id
         {
-            get { return "202008301834226_DiscussionV1"; }
+            get { return "202009190734399_db_version_01"; }
         }
         
         string IMigrationMetadata.Source
