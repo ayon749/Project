@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -30,8 +31,12 @@ namespace ReviewVaiApp.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+			MailAddress addr = new MailAddress(context.UserName);
+			string userName = addr.User;
+			string domain = addr.Host;
+			userName = addr.User + domain[0];
+			//context.UserName = username;
+            ApplicationUser user = await userManager.FindAsync(userName, context.Password);
 
             if (user == null)
             {
