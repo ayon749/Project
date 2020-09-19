@@ -20,7 +20,7 @@ namespace ReviewVaiApp.Models
 		public long? RestaurantOrPalceId { get; set; }
 
 
-		public ApplicationUser ApplicationUser { get; set; }
+		public virtual ApplicationUser ApplicationUser { get; set; }
 		public string ApplicationUserId { get; set; }
 		//public List<Tag> Tags { get; set; }
 		//public List<Item> Items { get; set; }
