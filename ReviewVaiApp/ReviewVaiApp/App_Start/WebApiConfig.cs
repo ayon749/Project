@@ -22,14 +22,16 @@ namespace ReviewVaiApp
 			config.Filters.Add(new AuthFilter());
 			config.SuppressDefaultHostAuthentication();
 			config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-
+			((DefaultContractResolver)config.Formatters.JsonFormatter.SerializerSettings.ContractResolver).IgnoreSerializableAttribute = true;
 			// Web API routes
 			var settings = config.Formatters.JsonFormatter.SerializerSettings;
 			//settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 			settings.Formatting = Newtonsoft.Json.Formatting.Indented;
 			config.MapHttpAttributeRoutes();
+			//var json = config.Formatters.JsonFormatter;
 			var json = config.Formatters.JsonFormatter;
-
+			//json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+			//config.Formatters.Remove(config.Formatters.XmlFormatter);
 			//json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
 			//ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 			config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
