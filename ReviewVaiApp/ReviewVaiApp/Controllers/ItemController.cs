@@ -22,6 +22,17 @@ namespace ReviewVaiApp.Controllers
 			}
 			return Ok(items);
 		}
+		[HttpPost]
+		public IHttpActionResult PostItem(Item item)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			db.Items.Add(item);
+			db.SaveChanges();
+			return Created(new Uri(Request.RequestUri + "/" + item.Id), item);
+		}
 
 	}
 }
