@@ -187,6 +187,29 @@ namespace ReviewVaiApp.Controllers
 
 			return Ok();
 		}
+		[HttpDelete]
+		public IHttpActionResult DeletePost(long id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var postInDb = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPalce.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).Include(p => p.Photos).First(p => p.Id == id);
+			if (postInDb == null)
+			{
+				return NotFound();
+			}
+			var reactions = db.Reactions.Where(p => p.PostId == id).ToList();
+			var photos = db.Photos.Where(p => p.PostId == id).ToList();
+			foreach (var item in photos)
+			{
+				db.Entry(item).State = EntityState.Deleted;
+			}
+			db.Posts.Remove(postInDb);
+			db.SaveChanges();
+			return Ok();
+
+		}
 		[HttpGet]
 		public IHttpActionResult GetComment(long id)
 		{
