@@ -35,6 +35,7 @@ namespace ReviewVaiApp.Controllers
 			{
 				return BadRequest();
 			}
+	
 			db.RestaurantOrPlaces.Add(restaurantOrPlace);
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + restaurantOrPlace.Id), restaurantOrPlace);

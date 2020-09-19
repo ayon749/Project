@@ -62,6 +62,7 @@ namespace ReviewVaiApp.Controllers
 			{
 				return BadRequest();
 			}
+			tag.TimeStamp = DateTime.Now;
 			db.Tags.Add(tag);
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + tag.Id), tag);

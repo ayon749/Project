@@ -83,6 +83,7 @@ namespace ReviewVaiApp.Controllers
 			var userName = User.Identity.Name;
 			string json = JsonConvert.SerializeObject(post, Formatting.Indented);
 			var model = JsonConvert.DeserializeObject<Post>(json);
+			model.TimePosted = DateTime.Now;
 			
 			var errors = ModelState.Values.SelectMany(v => v.Errors);
 			
@@ -192,6 +193,7 @@ namespace ReviewVaiApp.Controllers
 			{
 				return BadRequest();
 			}
+			postComment.TimeStamp = DateTime.Now;
 			db.PostComments.Add(postComment);
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + postComment.Id), postComment);
@@ -265,6 +267,7 @@ namespace ReviewVaiApp.Controllers
 			{
 				return BadRequest();
 			}
+			subComment.TimeStamp = DateTime.Now;
 			db.SubComments.Add(subComment);
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + subComment.Id), subComment);
