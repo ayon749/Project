@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Security.Claims;
@@ -14,6 +15,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Serialization;
 using ReviewVaiApp.Models;
 using ReviewVaiApp.Providers;
 using ReviewVaiApp.Results;
@@ -27,8 +29,9 @@ namespace ReviewVaiApp.Controllers
 		private ApplicationDbContext db = new ApplicationDbContext();
 		private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+		private object config;
 
-        public AccountController()
+		public AccountController()
         {
         }
 
@@ -401,6 +404,40 @@ namespace ReviewVaiApp.Controllers
 
             base.Dispose(disposing);
         }
+		
+		[HttpGet]
+		public IHttpActionResult GetUsers()
+		{
+			//((DefaultContractResolver)config.Formatters.JsonFormatter.SerializerSettings.ContractResolver).IgnoreSerializableAttribute = true;
+			var users = UserManager.Users.ToList();
+			if(users==null)
+			{
+				return BadRequest();
+			}
+			return Ok(users);
+		}
+		[HttpGet]
+		public IHttpActionResult GetAUser(string id)
+		{
+			var user = UserManager.Users.Where(i => i.Id == id).FirstOrDefault();
+			if(user==null)
+			{
+				return NotFound();
+			}
+			return Ok(user);
+		}
+		[HttpDelete]
+		public IHttpActionResult DeleteAUser(string id)
+		{
+			var user = db.Users.Where(i => i.Id == id).FirstOrDefault();
+			if (user == null)
+			{
+				return NotFound();
+			}
+			db.Users.Remove(user);
+			db.SaveChanges();
+			return Ok();
+		}
 
         #region Helpers
 
