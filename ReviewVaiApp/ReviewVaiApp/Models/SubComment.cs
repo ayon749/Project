@@ -11,8 +11,10 @@ namespace ReviewVaiApp.Models
 		public PostComment PostComment { get; set; }
 		public long PostCommentId { get; set; }
 		public string Text { get; set; }
-		public ApplicationUser ApplicationUser { get; set; }
+		public virtual ApplicationUser ApplicationUser { get; set; }
 		public string ApplicationUserId { get; set; }
 		public DateTime TimeStamp { get; set; }
+
+		public virtual ICollection<ReplyReaction> ReplyReactions { get; set; }
 	}
 }
