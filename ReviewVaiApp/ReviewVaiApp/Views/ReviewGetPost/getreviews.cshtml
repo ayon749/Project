@@ -6,7 +6,7 @@
 
 <h2>GetReviews</h2>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <div class="col-md-10 col-md-offset-1">
     @*<div class="well">
             <input id="btnLoadEmployees" class="btn btn-success"
@@ -82,14 +82,14 @@
     </div>
 </div>
 
-<script src="Scripts/jquery-1.10.2.min.js"></script>
-<script src="Scripts/bootstrap.min.js"></script>
-<script src="Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
 <script type="text/javascript">
         $(document).ready(function () {
             if (sessionStorage.getItem('accessToken') == null) {
-                window.location.href = "http://localhost:55407/User/signin";
+                window.location.href = "http://reviewbhai.somee.com/User/signin";
             }
 
             $('#linkClose').click(function () {
@@ -102,7 +102,7 @@
 
             //$('#btnLoadEmployees').click(function () {
                 $.ajax({
-                    url: 'http://localhost:55407/api/Review/GetReviewPosts',
+                    url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
                     method: 'GET',
                     headers: {
                         'Authorization': 'Bearer '
