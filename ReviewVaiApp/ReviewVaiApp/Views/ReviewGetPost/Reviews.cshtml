@@ -6,7 +6,7 @@
 
 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 <style type="text/css">
@@ -184,7 +184,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             if (sessionStorage.getItem('accessToken') == null) {
-                window.location.href = "http://localhost:55407/User/signin";
+                window.location.href = "http://reviewbhai.somee.com/user/signin";
             }
 
             $('#linkClose').click(function () {
@@ -197,7 +197,7 @@
 
             //$('#btnLoadEmployees').click(function () {
             $.ajax({
-                url: 'http://localhost:55407/api/Review/GetReviewPosts',
+                url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer '
