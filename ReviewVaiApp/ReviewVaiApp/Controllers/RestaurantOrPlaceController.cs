@@ -28,5 +28,16 @@ namespace ReviewVaiApp.Controllers
 			}
 			return Ok(restaurantOrPlaces);
 		}
+
+		public IHttpActionResult PostRestaurantOrPlace(RestaurantOrPlace restaurantOrPlace)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			db.RestaurantOrPlaces.Add(restaurantOrPlace);
+			db.SaveChanges();
+			return Created(new Uri(Request.RequestUri + "/" + restaurantOrPlace.Id), restaurantOrPlace);
+		}
 	}
 }

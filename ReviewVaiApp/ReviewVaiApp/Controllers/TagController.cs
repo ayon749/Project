@@ -55,5 +55,16 @@ namespace ReviewVaiApp.Controllers
 			}
 			return Ok(tags);
 		}
+		[HttpPost]
+		public IHttpActionResult PostTag(Tag tag)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			db.Tags.Add(tag);
+			db.SaveChanges();
+			return Created(new Uri(Request.RequestUri + "/" + tag.Id), tag);
+		}
 	}
 }
