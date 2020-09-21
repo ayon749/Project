@@ -67,5 +67,21 @@ namespace ReviewVaiApp.Controllers
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + tag.Id), tag);
 		}
+		[HttpDelete]
+		public IHttpActionResult DeleteTag(long id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var tag = db.Tags.Where(i => i.Id == id).FirstOrDefault();
+			if(tag==null)
+			{
+				return NotFound();
+			}
+			db.Tags.Remove(tag);
+			db.SaveChanges();
+			return Ok();
+		}
 	}
 }

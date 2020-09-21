@@ -40,5 +40,23 @@ namespace ReviewVaiApp.Controllers
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + restaurantOrPlace.Id), restaurantOrPlace);
 		}
+		[HttpDelete]
+		public IHttpActionResult DeleteRestaurantOrPlace(long id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+
+			var restaurantOrPlace = db.RestaurantOrPlaces.Where(i => i.Id == id).FirstOrDefault();
+			if(restaurantOrPlace==null)
+			{
+				return NotFound();
+			}
+			db.RestaurantOrPlaces.Remove(restaurantOrPlace);
+			db.SaveChanges();
+			return Ok();
+
+		}
 	}
 }
