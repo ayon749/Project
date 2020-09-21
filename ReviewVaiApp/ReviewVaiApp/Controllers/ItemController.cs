@@ -34,6 +34,25 @@ namespace ReviewVaiApp.Controllers
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + item.Id), item);
 		}
+		[HttpDelete]
+		public IHttpActionResult DeleteItem(long id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var item = db.Items.Where(i => i.Id == id).FirstOrDefault();
+			if(item==null)
+			{
+				return NotFound();
+
+			}
+			db.Items.Remove(item);
+			db.SaveChanges();
+			return Ok();
+
+
+		}
 
 	}
 }
