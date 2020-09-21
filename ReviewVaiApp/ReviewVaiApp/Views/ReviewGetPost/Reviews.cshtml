@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -27,6 +27,19 @@
 </style>
 
 <link href="~/Content/review/review.css" rel="stylesheet" />
+<link href="~/Content/review/comments-and-reply.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script type="text/javascript">
@@ -104,18 +117,76 @@
     }
 
 
+    function postComments(postcomment) {
+        var subcomment = []
+        var comments = []
+        console.log(postcomment)
+        if (postcomment.length>0) {
+            for (var i = 0; i < postcomment.length; i++) {
+                if (postcomment[i].SubComments.length <= 0) {
+                    console.log(111111111111)
+                    comments.push( `              <div class="col-md-12">
+                        <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-12 d-flex">
+                                        <h5>${postcomment[i].ApplicationUser.Name}</h5> <span>- ${postcomment[i].TimeStamp} </span>
+                                    </div>
+
+                                </div> ${postcomment[i].Text} 
+                            </div>
+                        </div>
+                 </div>`)
+                }
+                else {
+                    console.log(22222222222222)
+                    for (var j = 0; j < postcomment[i].SubComments.length; j++) {
+                        subcomment.push(` <div class="media mt-4"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src="https://i.imgur.com/xELPaag.jpg" /></a>
+                                    <div class="media-body">
+                                        <div class="row">
+                                            <div class="col-12 d-flex">
+                                                <h5>${ postcomment[i].SubComments[j].ApplicationUser.Name}</h5> <span>- ${ postcomment[i].SubComments[j].TimeStamp}</span>
+                                            </div>
+                                        </div> ${ postcomment[i].SubComments[j].Text}
+                                    </div>
+                                </div>`);
+                    }
+                    var commentandsubcomment = subcomment.slice(0, -1).join(' &nbsp; ') + ' &nbsp; ' + subcomment.slice(-1);
+                    var subcomment = [];
+                    comments.push ( `<div class="col-md-12">
+                        <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-12 d-flex">
+                                        <h5>${postcomment[i].ApplicationUser.Name}</h5> <span>- ${postcomment[i].TimeStamp}</span>
+                                    </div>
+                                </div> ${postcomment[i].Text} ${commentandsubcomment}
+                            </div>
+                        </div>
+                 </div>`)
+                }
+                
+            }
+        }
+        var comment = comments.slice(0, -1).join(' &nbsp; ') + ' &nbsp; ' + comments.slice(-1);
+        console.log(comment);
+        return comment;
+
+
+    }
+
+
     function reviewTemplate(review) {
 
         return `
 
+
+
 <section class="hero">
     <div class="container">
         <div class="row">
-
             <div class="col-lg-8 offset-lg-3">
-
                 <div class="cardbox shadow-lg bg-white">
-
                     <div class="cardbox-heading">
                         <!-- START dropdown-->
                         <div class="dropdown float-right">
@@ -198,7 +269,7 @@
                             <li><a><span>${helpful(review.Reactions)}</span></a></li>
                         </ul>
                     </div><!--/ cardbox-base -->
-                    <div class="cardbox-comments" style="width:90%;">
+                    <div class="cardbox-comments " style="width:90%;">
                         <span class="comment-avatar float-left">
                             <a href=""><img class="rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
                         </span>
@@ -206,6 +277,14 @@
                             <input style="width:100%;" placeholder="Write a comment" type="text" >
                         </div><!--/. Search -->
                     </div><!--/ cardbox-like -->
+
+
+<!-----------------------------------------------/. comments and reply -->
+
+ ${postComments(review.PostComments, review.PostComments.SubComments)}
+
+<!-----------------------------------------------/. comments and reply -->
+
 
                 </div><!--/ cardbox -->
 
@@ -251,13 +330,13 @@
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+  
 
     <script type="text/javascript">
         $(document).ready(function () {
             if (sessionStorage.getItem('accessToken') == null) {
-                // window.location.href = "http://reviewbhai.somee.com/user/signin";
-                window.location.href = "http://localhost:55407/user/signin";
+                 //window.location.href = "http://reviewbhai.somee.com/user/signin";
+                 window.location.href = "http://localhost:55407/user/signin";
             }
 
             $('#linkClose').click(function () {
@@ -270,8 +349,8 @@
 
             //$('#btnLoadEmployees').click(function () {
             $.ajax({
-                // url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
-                url: 'http://localhost:55407/api/Review/GetReviewPosts',
+              //  url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
+               url: 'http://localhost:55407/api/Review/GetReviewPosts',
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer '
