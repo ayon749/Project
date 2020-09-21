@@ -17,10 +17,6 @@ namespace ReviewVaiApp.Controllers
             return View();
         }
         
-        public ActionResult GetReviews()
-        {
-            return View();
-        }
         
         public ActionResult Reviews()
         {
