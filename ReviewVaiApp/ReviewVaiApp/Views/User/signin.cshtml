@@ -32,7 +32,7 @@
 
 
     <div class="form-horizontal">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <div class="limiter">
             <!--<div class="container-login100" style="background-image: url('../../Content/images/bg-01.jpg');">-->
             <div class="container-login100" style="background-color: ffffff;">
@@ -106,7 +106,7 @@
             </div>
         </div>
 
-        <script src="Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
         <script type="text/javascript">
         $(document).ready(function () {
 
@@ -124,8 +124,8 @@
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     success: function (response) {
                         sessionStorage.setItem("accessToken", response.access_token);
-                        //window.location.href = "http://localhost:55407";
-                        window.location.href = "http://reviewbhai.somee.com/";
+                        window.location.href = "http://localhost:55407";
+                        //window.location.href = "http://reviewbhai.somee.com/";
                     },
                     // Display errors if any in the Bootstrap alert <div>
                     error: function () {
