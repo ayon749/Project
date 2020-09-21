@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace ReviewVaiApp.Models
 	public class CommentReaction
 	{
 		public long Id { get; set; }
+		[JsonIgnore]
 		public PostComment PostComment { get; set; }
 		public long PostCommentId { get; set; }
 		public ApplicationUser ApplicationUser { get; set; }
