@@ -116,24 +116,27 @@
         return total_help;
     }
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     function postComments(postcomment) {
         var subcomment = []
         var comments = []
         console.log(postcomment)
-        if (postcomment.length>0) {
+        if (postcomment.length > 0) {
             for (var i = 0; i < postcomment.length; i++) {
                 if (postcomment[i].SubComments.length <= 0) {
                     console.log(111111111111)
-                    comments.push( `              <div class="col-md-12">
+                    comments.push(`              <div class="col-md-12">
                         <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
                             <div class="media-body">
                                 <div class="row">
                                     <div class="col-12 d-flex">
-                                        <h5>${postcomment[i].ApplicationUser.Name}</h5> <span>- ${postcomment[i].TimeStamp} </span>
+                                        <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].Text}  </span></h6>
                                     </div>
 
-                                </div> ${postcomment[i].Text} 
+                                </div><span class=".text-muted" style="font-size:12px"> - ${postcomment[i].TimeStamp}</span>
                             </div>
                         </div>
                  </div>`)
@@ -141,34 +144,38 @@
                 else {
                     console.log(22222222222222)
                     for (var j = 0; j < postcomment[i].SubComments.length; j++) {
-                        subcomment.push(` <div class="media mt-4"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src="https://i.imgur.com/xELPaag.jpg" /></a>
+                        subcomment.push(` <div class="media mt-2"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src="https://i.imgur.com/xELPaag.jpg" /></a>
                                     <div class="media-body">
                                         <div class="row">
-                                            <div class="col-12 d-flex">
-                                                <h5>${ postcomment[i].SubComments[j].ApplicationUser.Name}</h5> <span>- ${ postcomment[i].SubComments[j].TimeStamp}</span>
+                                            <div class="col-12 d-flex" >
+                                                <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${ capitalizeFirstLetter(postcomment[i].SubComments[j].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].SubComments[j].Text}</span></h6>
                                             </div>
-                                        </div> ${ postcomment[i].SubComments[j].Text}
+                                        </div> <span class=".text-muted" style="font-size:12px"> - ${postcomment[i].SubComments[j].TimeStamp}</span>
                                     </div>
                                 </div>`);
                     }
-                    var commentandsubcomment = subcomment.slice(0, -1).join(' &nbsp; ') + ' &nbsp; ' + subcomment.slice(-1);
+                    var commentandsubcomment = subcomment.slice(0, -1).join(' &nbsp; ') + '  ' + subcomment.slice(-1);
                     var subcomment = [];
-                    comments.push ( `<div class="col-md-12">
+                    comments.push(`<div class="col-md-12">
                         <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
                             <div class="media-body">
                                 <div class="row">
                                     <div class="col-12 d-flex">
-                                        <h5>${postcomment[i].ApplicationUser.Name}</h5> <span>- ${postcomment[i].TimeStamp}</span>
+                                        <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a> &nbsp; <span>${postcomment[i].Text}</span></h6>
                                     </div>
-                                </div> ${postcomment[i].Text} ${commentandsubcomment}
+                                </div> <span class=".text-muted" style="font-size:12px">- ${postcomment[i].TimeStamp}</span>  ${commentandsubcomment}
                             </div>
                         </div>
                  </div>`)
                 }
-                
+
             }
+            var comment = comments.slice(0, -1).join(' &nbsp; ') + ' &nbsp; ' + comments.slice(-1);
         }
-        var comment = comments.slice(0, -1).join(' &nbsp; ') + ' &nbsp; ' + comments.slice(-1);
+        else {
+            var comment = "";
+        }
+        
         console.log(comment);
         return comment;
 
@@ -207,7 +214,7 @@
                             </div>
                             <div class="media-body">
                                 <p class="m-0">
-                                    <a class="mr-2" href="#">${review.ApplicationUser.Name}</a>reviewed
+                                    <a class="mr-2" href="#">${capitalizeFirstLetter(review.ApplicationUser.Name)}</a>reviewed
                                     <a href="#">${items(review.Items)}</a>
                                     at <a class="mr-2" href="#">   <strong>${review.RestaurantOrPalce.ApplicationUser.Name}</strong> </a>
                                 </p>
