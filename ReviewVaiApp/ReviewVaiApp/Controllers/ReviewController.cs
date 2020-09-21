@@ -227,6 +227,35 @@ namespace ReviewVaiApp.Controllers
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + postComment.Id), postComment);
 		}
+		public IHttpActionResult DeleteAComment(long id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var commentInDb = db.PostComments.Where(i => i.Id == id).FirstOrDefault();
+			if(commentInDb==null)
+			{
+				return NotFound();
+
+			}
+			db.PostComments.Remove(commentInDb);
+			db.SaveChanges();
+			return Ok();
+		}
+		[HttpGet]
+		public IHttpActionResult GetReactions()
+		{
+			var posts = db.Posts.ToList();
+			List<Reaction> reactions = new List<Reaction>();
+			foreach(var post in posts )
+			{
+				var reaction = db.Reactions.Where(p => p.PostId == post.Id).FirstOrDefault();
+				reactions.Add(reaction);
+			}
+			//var reactions = db.Reactions.Where(p => p.PostId == post.Id).ToList();
+			return Ok(reactions);
+		}
 		[HttpGet]
 		public IHttpActionResult GetReaction(long id)
 		{
@@ -302,6 +331,22 @@ namespace ReviewVaiApp.Controllers
 			return Created(new Uri(Request.RequestUri + "/" + subComment.Id), subComment);
 			
 		}
+		public IHttpActionResult DeleteAReplyInAComment(long id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var replyInDb = db.SubComments.Where(i => i.Id == id).FirstOrDefault();
+			if(replyInDb==null)
+			{
+				return NotFound();
+			}
+			db.SubComments.Remove(replyInDb);
+			db.SaveChanges();
+			return Ok();
+
+		}
 		[HttpGet]
 		public IHttpActionResult GetACommentReactions(long id)
 		{
@@ -332,6 +377,37 @@ namespace ReviewVaiApp.Controllers
 			db.CommentReactions.Add(commentReaction);
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + commentReaction.Id), commentReaction);
+		}
+		[HttpPut]
+		public IHttpActionResult UpdateACommentReaction(long id, CommentReaction commentReaction)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var reactionInDb = db.CommentReactions.Where(i => i.Id == id).FirstOrDefault();
+			if (reactionInDb == null)
+			{
+				return NotFound();
+			}
+			reactionInDb.IsHelpfull = commentReaction.IsHelpfull;
+			reactionInDb.IsLiked = commentReaction.IsLiked;
+			db.SaveChanges();
+			return Ok();
+
+		}
+		[HttpDelete]
+		public IHttpActionResult DeleteACommentReaction(long id)
+		{
+
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var reactionInDb = db.CommentReactions.Where(i => i.Id == id).FirstOrDefault();
+			db.CommentReactions.Remove(reactionInDb);
+			db.SaveChanges();
+			return Ok();
 		}
 		[HttpGet]
 		public IHttpActionResult GetAReplyReactions(long id)
