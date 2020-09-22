@@ -9,6 +9,7 @@ namespace ReviewVaiApp.Models
 	{
 		public long Id { get; set; }
 		public virtual ApplicationUser ApplicationUser { get; set; }
+		public string ApplicationUserId { get; set; }
 		public virtual List<CommentReaction> CommentReactions { get; set; }
 		public Post Post { get; set; }
 		public long PostId { get; set; }
