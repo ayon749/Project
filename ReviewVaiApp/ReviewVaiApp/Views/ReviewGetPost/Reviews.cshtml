@@ -84,9 +84,14 @@
 
     function totalLikes(likes) {
         var total_likes = 0;
-        for (var i = 0; i < likes.length; i++) {
-            if (likes[i].IsLiked == 1) {
-                total_likes = total_likes + 1;
+        if (likes == null) {
+            return total_likes;
+        }
+        if (likes.length > 0) {
+            for (var i = 0; i < likes.length; i++) {
+                if (likes[i].IsLiked == 1) {
+                    total_likes = total_likes + 1;
+                }
             }
         }
         console.log(total_likes);
@@ -95,11 +100,17 @@
 
     function totalDisLikes(likes) {
         var total_dislikes = 0;
-        for (var i = 0; i < likes.length; i++) {
-            if (likes[i].IsLiked == 2) {
-                total_dislikes = total_dislikes + 1;
+        if (likes == null) {
+            return total_dislikes;
+        }
+        if (likes.length > 0) {
+            for (var i = 0; i < likes.length; i++) {
+                if (likes[i].IsLiked == 2) {
+                    total_dislikes = total_dislikes + 1;
+                }
             }
         }
+
         console.log(total_dislikes);
         return total_dislikes;
     }
@@ -107,9 +118,14 @@
 
     function helpful(likes) {
         var total_help = 0;
-        for (var i = 0; i < likes.length; i++) {
-            if (likes[i].IsHelpfull == 1) {
-                total_help = total_help + 1;
+        if (likes == null) {
+            return total_help;
+        }
+        if (likes.length > 0) {
+            for (var i = 0; i < likes.length; i++) {
+                if (likes[i].IsHelpfull == 1) {
+                    total_help = total_help + 1;
+                }
             }
         }
         console.log(total_help);
@@ -124,6 +140,10 @@
         var subcomment = []
         var comments = []
         console.log(postcomment)
+        if (postcomment == null) {
+            var comment = "";
+            return comment;
+        }
         if (postcomment.length > 0) {
             for (var i = 0; i < postcomment.length; i++) {
                 if (postcomment[i].SubComments.length <= 0) {
@@ -136,7 +156,7 @@
                                         <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].Text}  </span></h6>
                                     </div>
 
-                                </div><span class=".text-muted" style="font-size:12px"> - ${postcomment[i].TimeStamp}</span>
+                                </div><span class="text-muted" style="font-size:12px"> - ${postcomment[i].TimeStamp}</span>
                             </div>
                         </div>
                  </div>`)
@@ -150,7 +170,7 @@
                                             <div class="col-12 d-flex" >
                                                 <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${ capitalizeFirstLetter(postcomment[i].SubComments[j].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].SubComments[j].Text}</span></h6>
                                             </div>
-                                        </div> <span class=".text-muted" style="font-size:12px"> - ${postcomment[i].SubComments[j].TimeStamp}</span>
+                                        </div> <span class="text-muted" style="font-size:12px"> - ${postcomment[i].SubComments[j].TimeStamp}</span>
                                     </div>
                                 </div>`);
                     }
@@ -163,7 +183,7 @@
                                     <div class="col-12 d-flex">
                                         <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a> &nbsp; <span>${postcomment[i].Text}</span></h6>
                                     </div>
-                                </div> <span class=".text-muted" style="font-size:12px">- ${postcomment[i].TimeStamp}</span>  ${commentandsubcomment}
+                                </div> <span class="text-muted" style="font-size:12px">- ${postcomment[i].TimeStamp}</span>  ${commentandsubcomment}
                             </div>
                         </div>
                  </div>`)
@@ -288,7 +308,7 @@
 
 <!-----------------------------------------------/. comments and reply -->
 
- ${postComments(review.PostComments, review.PostComments.SubComments)}
+ ${postComments(review.PostComments)}
 
 <!-----------------------------------------------/. comments and reply -->
 
@@ -301,7 +321,6 @@
 </section>
 
 `
-        tags(review.Tags);
     }
 </script>
 
@@ -356,7 +375,7 @@
 
             //$('#btnLoadEmployees').click(function () {
             $.ajax({
-              //  url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
+              // url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
                url: 'http://localhost:55407/api/Review/GetReviewPosts',
                 method: 'GET',
                 headers: {
