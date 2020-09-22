@@ -10,7 +10,7 @@ namespace ReviewVaiApp.Controllers
 {
     public class ReviewGetPostController : Controller
     {
-        
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: ReviewGetPost
         public ActionResult Index()
         {
@@ -22,6 +22,20 @@ namespace ReviewVaiApp.Controllers
         {
             return View();
         }
+
+        
+        public ActionResult CreateReview()
+        {
+            return View();
+        }
+
+        public ActionResult Reviews1()
+        {
+            return View();
+        }
+
+
+
 
 
     }

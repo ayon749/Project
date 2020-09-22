@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "CreateReview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateReview</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+   
+
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <div class="content-section">
+        <form method="POST" enctype="multipart/form-data">
+
+
+            <div data-validate="Name is reauired">
+                <span>Restaurent</span>
+                <select id="restaurent" class="select form-control" name="restaurent" required></select>
+            </div>
+
+            <div data-validate="Name is reauired">
+                <span>Title</span>
+                <input id="title" class="textinput textInput form-control" type="text" name="title" maxlength="100" autofocus="" placeholder="Type your Name" required>
+            </div>
+
+            <div data-validate="Name is reauired">
+                <span>Review Body</span>
+                <textarea id="body" class="textarea form-control" name="body" cols="40" rows="10" placeholder="Type your Name" required></textarea>
+            </div>
+            <div>
+                @*<span>Items</span>
+                    <select id="choices-multiple-remove-button" placeholder="Select upto 5 Items" name="{{ }}" multiple>
+                        {%for item in reviewForm.items %}
+                        {{}}
+                        {%endfor%}
+                    </select>*@
+                <span>Tags</span>
+                <select id="choices" placeholder="Select upto 5 tags" name="Tag" multiple></select>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="offered">
+                <label class="form-check-label" for="offered">Offered Food</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="recom">
+                <label class="form-check-label" for="recom">Recommended</label>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-info">Post</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if (sessionStorage.getItem('accessToken') == null) {
+                //window.location.href = "http://reviewbhai.somee.com/user/signin";
+                window.location.href = "http://localhost:55407/user/signin";
+            }
+
+            $('#linkClose').click(function () {
+                $('#divError').hide('fade');
+            });
+
+            $('#errorModal').on('hidden.bs.modal', function () {
+                window.location.href = "Login.html";
+            });
+
+
+            $.ajax({
+                // url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
+                url: 'http://localhost:55407/api/Tag',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+
+                success: function (data) {
+                    console.log(data);
+
+                    $.each(data, function (index, value) {
+                        var tagOption = ('<option>' + value.Name + '</option>');
+                        console.log(value.Name);
+                        $('#choices').append(tagOption);
+
+                    });
+
+                },
+                error: function (jQXHR) {
+                    // If status code is 401, access token expired, so
+                    // redirect the user to the login page
+                    if (jQXHR.status == "401") {
+                        $('#errorModal').modal('show');
+                    }
+                    else {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+                }
+            });
+
+        });
+    </script>
+    <script src="~/Content/review/multiselectbox.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+}
