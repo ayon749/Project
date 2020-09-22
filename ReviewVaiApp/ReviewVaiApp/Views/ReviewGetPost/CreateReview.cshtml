@@ -13,9 +13,6 @@
 
 
 
-    <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
-    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <div class="content-section">
         <form method="POST" enctype="multipart/form-data">
@@ -23,7 +20,7 @@
 
             <div data-validate="Name is reauired">
                 <span>Restaurent</span>
-                <select id="restaurent" class="select form-control" name="restaurent" required></select>
+                <select id="choices-restaurent" class="select form-control" name="restaurent" multiple required></select>
             </div>
 
             <div data-validate="Name is reauired">
@@ -36,14 +33,10 @@
                 <textarea id="body" class="textarea form-control" name="body" cols="40" rows="10" placeholder="Type your Name" required></textarea>
             </div>
             <div>
-                @*<span>Items</span>
-                    <select id="choices-multiple-remove-button" placeholder="Select upto 5 Items" name="{{ }}" multiple>
-                        {%for item in reviewForm.items %}
-                        {{}}
-                        {%endfor%}
-                    </select>*@
+                <span>Items</span>
+                <select id="choices-item" placeholder="Select upto 5 tags" name="items" multiple required></select>
                 <span>Tags</span>
-                <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" name="tags" multiple></select>
+                <select id="choices" placeholder="Select upto 5 tags" name="tags" multiple></select>
             </div>
 
             <div class="form-check">
@@ -70,7 +63,7 @@
         $(document).ready(function () {
 
             if (sessionStorage.getItem('accessToken') == null) {
-                //window.location.href = "http://reviewbhai.somee.com/user/signin";
+               
                 window.location.href = "http://localhost:55407/user/signin";
             }
 
@@ -84,7 +77,7 @@
 
 
             $.ajax({
-                // url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
+                
                 url: 'http://localhost:55407/api/Tag',
                 method: 'GET',
                 headers: {
@@ -94,18 +87,99 @@
 
                 success: function (data) {
                     console.log(data);
-
+                    maindata = data;
                     $.each(data, function (index, value) {
+                      
                         var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
                         console.log(value.Name);
-                        $('#choices-multiple-remove-button').append(tagOption);
+                        $('#choices').append(tagOption);
 
                     });
-
+                    var multipleCancelButton = new Choices('#choices', {
+                        removeItemButton: true,
+                        maxItemCount: 5,
+                        searchResultLimit: 5,
+                        renderChoiceLimit: 5
+                    });
                 },
                 error: function (jQXHR) {
-                    // If status code is 401, access token expired, so
-                    // redirect the user to the login page
+                    if (jQXHR.status == "401") {
+                        $('#errorModal').modal('show');
+                    }
+                    else {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+                }
+            });
+
+
+
+            $.ajax({
+
+                url: 'http://localhost:55407/api/Item',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+
+                success: function (data) {
+                    console.log(data);
+                    maindata = data;
+                    $.each(data, function (index, value) {
+
+                        var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
+                        console.log(value.Name);
+                        $('#choices-item').append(tagOption);
+
+                    });
+                    var multipleCancelButton = new Choices('#choices-item', {
+                        removeItemButton: true,
+                        maxItemCount: 5,
+                        searchResultLimit: 5,
+                        renderChoiceLimit: 5
+                    });
+                },
+                error: function (jQXHR) {
+                    if (jQXHR.status == "401") {
+                        $('#errorModal').modal('show');
+                    }
+                    else {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+                }
+            });
+
+
+            $.ajax({
+
+                url: 'http://localhost:55407/api/RestaurantOrPlace',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+
+                success: function (data) {
+                    console.log(data);
+                    maindata = data;
+                    $.each(data, function (index, value) {
+
+                        var tagOption = ('<option value=' + value.ApplicationUser.Id + '>' + value.ApplicationUser.Name + '</option>');
+                        console.log(value.ApplicationUser.Name);
+                        $('#choices-restaurent').append(tagOption);
+
+                    });
+                    var multipleCancelButton = new Choices('#choices-restaurent', {
+                        removeItemButton: true,
+                        maxItemCount: 1,
+                        searchResultLimit: 5,
+                        renderChoiceLimit: 10
+                    });
+                },
+                error: function (jQXHR) {
                     if (jQXHR.status == "401") {
                         $('#errorModal').modal('show');
                     }
@@ -118,7 +192,7 @@
 
         });
     </script>
-     <script src="~/Content/review/multiselectbox.js"></script>
+  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
    
 }
