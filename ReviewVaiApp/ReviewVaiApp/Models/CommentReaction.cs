@@ -10,9 +10,9 @@ namespace ReviewVaiApp.Models
 	{
 		public long Id { get; set; }
 		[JsonIgnore]
-		public PostComment PostComment { get; set; }
+		public  PostComment PostComment { get; set; }
 		public long PostCommentId { get; set; }
-		public ApplicationUser ApplicationUser { get; set; }
+		public virtual ApplicationUser ApplicationUser { get; set; }
 		public string ApplicationUserId { get; set; }
 		public int IsLiked { get; set; }
 		public int IsHelpfull { get; set; }
