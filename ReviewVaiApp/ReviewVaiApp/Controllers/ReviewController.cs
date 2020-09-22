@@ -122,7 +122,7 @@ namespace ReviewVaiApp.Controllers
 					tagss.Add(tagInDb);
 				}
 				}
-				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPalceId).SingleOrDefault();
+				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPalce.Id).SingleOrDefault();
 				if (restaurantInDb == null)
 				{
 					db.RestaurantOrPlaces.Add(model.RestaurantOrPalce);
