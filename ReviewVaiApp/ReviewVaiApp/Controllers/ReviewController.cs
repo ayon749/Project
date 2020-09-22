@@ -442,5 +442,21 @@ namespace ReviewVaiApp.Controllers
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + replyReaction.Id), replyReaction);
 		}
+
+		public IHttpActionResult DeleteAReplyReaction(long id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var reactionInDb = db.ReplyReactions.Where(i => i.Id == id).FirstOrDefault();
+			if(reactionInDb==null)
+			{
+				return NotFound();
+			}
+			db.ReplyReactions.Remove(reactionInDb);
+			db.SaveChanges();
+			return Ok();
+		}
 	}
 }
