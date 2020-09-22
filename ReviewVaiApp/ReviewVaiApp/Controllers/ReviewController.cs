@@ -442,7 +442,7 @@ namespace ReviewVaiApp.Controllers
 			db.SaveChanges();
 			return Created(new Uri(Request.RequestUri + "/" + replyReaction.Id), replyReaction);
 		}
-
+		[HttpDelete]
 		public IHttpActionResult DeleteAReplyReaction(long id)
 		{
 			if (!ModelState.IsValid)
@@ -455,6 +455,24 @@ namespace ReviewVaiApp.Controllers
 				return NotFound();
 			}
 			db.ReplyReactions.Remove(reactionInDb);
+			db.SaveChanges();
+			return Ok();
+		}
+		[HttpPut]
+		public IHttpActionResult UpdateAReplyReaction(long id,ReplyReaction replyReaction)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+
+			var replayReactionInDb = db.ReplyReactions.Where(i => i.Id == id).FirstOrDefault();
+			if (replayReactionInDb == null)
+			{
+				return NotFound();
+			}
+			replayReactionInDb.IsHelpfull = replyReaction.IsHelpfull;
+			replayReactionInDb.IsLiked = replyReaction.IsHelpfull;
 			db.SaveChanges();
 			return Ok();
 		}
