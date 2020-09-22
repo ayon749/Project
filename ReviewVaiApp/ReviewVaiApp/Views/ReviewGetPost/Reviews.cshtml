@@ -360,8 +360,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+
             if (sessionStorage.getItem('accessToken') == null) {
-                 //window.location.href = "http://reviewbhai.somee.com/user/signin";
+                // window.location.href = "http://reviewbhai.somee.com/user/signin";
                  window.location.href = "http://localhost:55407/user/signin";
             }
 
@@ -375,7 +377,7 @@
 
             //$('#btnLoadEmployees').click(function () {
             $.ajax({
-              // url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
+               //url: 'http://reviewbhai.somee.com/api/Review/GetReviewPosts',
                url: 'http://localhost:55407/api/Review/GetReviewPosts',
                 method: 'GET',
                 headers: {
