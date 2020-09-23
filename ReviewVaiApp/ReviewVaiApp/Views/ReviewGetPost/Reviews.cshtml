@@ -265,7 +265,7 @@
         console.log(userId);
         postId = postId;
         console.log(postId);
-        commentText = $("#commentBox").val();
+        commentText = $("#commentBox"+postId).val();
         console.log(commentText)
         var comment = {
             ApplicationUserId: String(userId),
@@ -288,6 +288,7 @@
                 dataType: "Json",
                 success: function (response) {
                     console.log(response);
+                    $('#commentBox'+postId).val("");
                 }
             });
         }
@@ -329,6 +330,7 @@
                 dataType: "Json",
                 success: function (response) {
                     console.log(response);
+                    $("#replybox" + commentId).val("");
                 }
             });
         }
@@ -436,7 +438,7 @@
                             <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
                         </span>
                         <div class="row" >
-                          <textarea style="height:38px;border-radius: 50px;resize: none;" class="form-control custom-control" id="commentBox" style="width:100%;" rows="1" placeholder="Write a comment" type="text" ></textarea>
+                          <textarea style="height:38px;border-radius: 50px;resize: none;" class="form-control custom-control" id="commentBox${review.Id}" style="width:100%;" rows="1" placeholder="Write a comment" type="text" ></textarea>
                           <span><button  style="border-radius: 50px;"  id="commentButton" onclick="postComment(${review.Id})" class="btn btn-primary">comment</button></span>
                         <!--/. Search -->
                         </div>
