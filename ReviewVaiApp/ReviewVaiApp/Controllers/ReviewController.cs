@@ -477,7 +477,7 @@ namespace ReviewVaiApp.Controllers
 				return NotFound();
 			}
 			replayReactionInDb.IsHelpfull = replyReaction.IsHelpfull;
-			replayReactionInDb.IsLiked = replyReaction.IsHelpfull;
+			replayReactionInDb.IsLiked = replyReaction.IsLiked;
 			db.SaveChanges();
 			return Ok();
 		}
