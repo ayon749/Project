@@ -147,7 +147,7 @@
         document.getElementById(commentId).style.color = 'red';
     }
 
-    function commentsReplyLike(x, id) {
+    function commentsReplyLike(x,id) {
         console.log(id);
         replyId = "replyLike" + String(id);
         document.getElementById(replyId).style.color = 'red';
@@ -179,7 +179,7 @@
                                     </div>
 
                                 </div><span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].Id}</span>
-                                <div>
+                                <div> 
                                   <i id="commentLike${postcomment[i].Id}" onclick="commentsLike(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
                                    <span>52</span>
 
@@ -200,7 +200,7 @@
                                                 <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${ capitalizeFirstLetter(postcomment[i].SubComments[j].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].SubComments[j].Text}</span></h6>
                                             </div>
                                         </div> <span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].SubComments[j].Id}</span>
-                                <div>
+                                <div> 
                                    <i id="replyLike${postcomment[i].SubComments[j].Id}" onclick="commentsReplyLike(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-up"></i>
                                     <span>52</span>
                                   <i id="replyDisLike${postcomment[i].SubComments[j].Id}" onclick="commentsReplyDisLike(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-down"></i>
@@ -218,8 +218,8 @@
                                     <div class="col-12 d-flex">
                                         <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a> &nbsp; <span>${postcomment[i].Text}</span></h6>
                                     </div>
-                                </div>
-                                <div>
+                                </div>                                 
+                                <div> 
                                    <i id="commentLike${postcomment[i].Id}" onclick="commentsLike(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
                                     <span>52</span>
 
@@ -434,8 +434,8 @@
                     console.log(data[0].ApplicationUser.Name);
 
                     document.getElementById("listitems").innerHTML = `
-                                ${ data.map(reviewTemplate).join('')}
-                                `
+                            ${ data.map(reviewTemplate).join('')}
+                            `
                 },
                 error: function (jQXHR) {
                     // If status code is 401, access token expired, so
