@@ -11,7 +11,58 @@
     @Html.AntiForgeryToken()
 
 
+    <script>
+        function createReview() {
 
+            var review = {};
+            review.PostTitle = $("#title").val();
+            console.log(review.PostTitle);
+
+            review.PostBody = $("#body").val();
+            console.log(review.PostBody);
+
+            review.RestaurantOrPalce = $("#choices-restaurent").val();
+            console.log(review.RestaurantOrPalce);
+
+            review.Items = $("#choices-item").val();
+            console.log(review.Items);
+
+            review.tags = $("#choices").val();
+            console.log(review.tags);
+
+            review.IsOfferOrPlanned = $("#offered").val();
+            console.log(review.IsOfferOrPlanned);
+
+            review.IsRecommended = $("#recom").val();
+            console.log(review.IsRecommended);
+
+            review.Cleanliness = 1;
+
+            review.Environment = 3;
+            console.log(review.Environment);
+
+            review.Food = 4;
+
+            review.Service = 5;
+
+
+            $.ajax({
+                url: "api/Review/PostReviewPost",
+                method: "POST",
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+                contentType: "Application/Json;charset=utf-8",
+                data: JSON.stringify(review),
+                dataType: "Json",
+                success: function (response) {
+                    alert(response);
+                }
+
+            });
+        }
+    </script>
 
 
     <div class="content-section">
@@ -48,7 +99,7 @@
                 <label class="form-check-label" for="recom">Recommended</label>
             </div>
             <div>
-                <button type="submit" class="btn btn-info">Post</button>
+                <button id="submit" type="submit" class="btn btn-info">Post</button>
             </div>
         </form>
     </div>
@@ -167,8 +218,9 @@
                     maindata = data;
                     $.each(data, function (index, value) {
 
-                        var tagOption = ('<option value=' + value.ApplicationUser.Id + '>' + value.ApplicationUser.Name + '</option>');
+                        var tagOption = ('<option value=' + value.Id + '>' + value.ApplicationUser.Name + '</option>');
                         console.log(value.ApplicationUser.Name);
+                        console.log(value.Id);
                         $('#choices-restaurent').append(tagOption);
 
                     });
@@ -189,6 +241,13 @@
                     }
                 }
             });
+
+
+            $("#submit").click(function (e) {
+                createReview();
+                e.preventDefault();
+            });
+
 
         });
     </script>

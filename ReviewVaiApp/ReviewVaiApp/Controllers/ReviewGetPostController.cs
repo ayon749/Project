@@ -33,7 +33,7 @@ namespace ReviewVaiApp.Controllers
         {
             return View();
         }
-        public ActionResult Reviews2()
+        public ActionResult showreviews()
         {
             return View();
         }
