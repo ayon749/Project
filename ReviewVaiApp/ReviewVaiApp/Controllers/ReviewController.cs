@@ -10,6 +10,10 @@ using Newtonsoft.Json;
 using System.Web.Helpers;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Migrations;
+using System.Web;
+using System.IO;
+
+
 
 namespace ReviewVaiApp.Controllers
 {    [Authorize]
@@ -91,6 +95,7 @@ namespace ReviewVaiApp.Controllers
 			{
 				return BadRequest();
 			}
+			
 			try
 			{
 				var items = model.Items;

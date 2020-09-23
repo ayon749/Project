@@ -240,6 +240,10 @@
     <Compile Include="Migrations\202009220820306_postcommentnew.designer.cs">
       <DependentUpon>202009220820306_postcommentnew.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009221517299_postcommentreactionv1.cs" />
+    <Compile Include="Migrations\202009221517299_postcommentreactionv1.designer.cs">
+      <DependentUpon>202009221517299_postcommentreactionv1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -667,6 +671,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ImgUpload\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -688,6 +693,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009220820306_postcommentnew.resx">
       <DependentUpon>202009220820306_postcommentnew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009221517299_postcommentreactionv1.resx">
+      <DependentUpon>202009221517299_postcommentreactionv1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
