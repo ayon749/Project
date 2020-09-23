@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 
 namespace ReviewVaiApp.Controllers
 {
@@ -35,6 +36,11 @@ namespace ReviewVaiApp.Controllers
         }
         public ActionResult showreviews()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var ID = User.Identity.GetUserId();
+                
+            }
             return View();
         }
 

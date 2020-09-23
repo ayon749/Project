@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "CreateReview";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,6 +15,9 @@
         function createReview() {
 
             var review = {};
+            review.ApplicationUserId = ("#userId").avl()
+            console.log(review.ApplicationUserId);
+
             review.PostTitle = $("#title").val();
             console.log(review.PostTitle);
 
@@ -57,7 +60,7 @@
                 data: JSON.stringify(review),
                 dataType: "Json",
                 success: function (response) {
-                    alert(response);
+                    console.log("Posted")
                 }
 
             });
@@ -67,7 +70,7 @@
 
     <div class="content-section">
         <form method="POST" enctype="multipart/form-data">
-
+            <input type="hidden" id="userId" name="custId" value=@User.Identity.GetUserId()>
 
             <div data-validate="Name is reauired">
                 <span>Restaurent</span>
@@ -114,7 +117,7 @@
         $(document).ready(function () {
 
             if (sessionStorage.getItem('accessToken') == null) {
-               
+
                 window.location.href = "http://localhost:55407/user/signin";
             }
 
@@ -128,7 +131,7 @@
 
 
             $.ajax({
-                
+
                 url: 'http://localhost:55407/api/Tag',
                 method: 'GET',
                 headers: {
@@ -140,7 +143,7 @@
                     console.log(data);
                     maindata = data;
                     $.each(data, function (index, value) {
-                      
+
                         var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
                         console.log(value.Name);
                         $('#choices').append(tagOption);
@@ -251,7 +254,7 @@
 
         });
     </script>
-  
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-   
+
 }
