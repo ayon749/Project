@@ -14,54 +14,86 @@
     <script>
         function createReview() {
 
-            var review = {};
-            review.ApplicationUserId = ("#userId").avl()
-            console.log(review.ApplicationUserId);
+            ApplicationUserId = $("#userId").val()
+            PostTitle = $("#title").val();
+            PostBody = $("#body").val();
+            RestaurantOrPalce = $("#choices-restaurent").val();
 
-            review.PostTitle = $("#title").val();
-            console.log(review.PostTitle);
 
-            review.PostBody = $("#body").val();
-            console.log(review.PostBody);
+            Cleanliness = 1;
+            Environment = 3;
+            Food = 4;
+            Service = 5;
 
-            review.RestaurantOrPalce = $("#choices-restaurent").val();
-            console.log(review.RestaurantOrPalce);
+           var Items = [];
+            $("#choices-item option").each(function () {
+                Items.push({ "Id": parseInt(this.value)})
+            });
+            console.log(Items);
 
-            review.Items = $("#choices-item").val();
-            console.log(review.Items);
 
-            review.tags = $("#choices").val();
-            console.log(review.tags);
+            var Tags = [];
+            $("#choices option").each(function () {
+                Tags.push({ "Id": parseInt(this.value), "Name": this.textContent})
+            });
+            console.log(Tags);
 
-            review.IsOfferOrPlanned = $("#offered").val();
-            console.log(review.IsOfferOrPlanned);
+            if ($("#offered").is(":checked")) {
+                IsOfferOrPlanned = true;
+            }
+            else {
+                IsOfferOrPlanned = false;
+            }
 
-            review.IsRecommended = $("#recom").val();
-            console.log(review.IsRecommended);
+            if ($("#recom").is(":checked")) {
+                IsRecommended = true;
+            }
+            else {
+                IsRecommended = false;
+            }            
 
-            review.Cleanliness = 1;
 
-            review.Environment = 3;
-            console.log(review.Environment);
 
-            review.Food = 4;
 
-            review.Service = 5;
+            var stars = {
+                Cleanliness: Cleanliness,
+                Environment: Environment,
+                Food: Food,
+                Service: Service
+            }
 
+            
+            var review = {
+
+                RestaurantOrPalceId: parseInt(RestaurantOrPalce),
+                ApplicationUserId: String(ApplicationUserId),
+                FoodOrTravel: 1,
+                IsOfferOrPlanned: IsOfferOrPlanned,
+                IsRecommended: IsRecommended,
+                Items: Items,
+                PostBody: PostBody,
+                PostTitle: PostTitle,
+                Stars: stars,
+                Tags: Tags
+
+            };
+            console.log(review)
 
             $.ajax({
-                url: "api/Review/PostReviewPost",
-                method: "POST",
+                url: "http://localhost:55407/api/Review/PostReviewPost",
+                type: "POST",
+                contentType: 'application/json',
                 headers: {
                     'Authorization': 'Bearer '
                         + sessionStorage.getItem("accessToken")
-                },
-                contentType: "Application/Json;charset=utf-8",
+                },                
                 data: JSON.stringify(review),
                 dataType: "Json",
                 success: function (response) {
-                    console.log("Posted")
-                }
+                    console.log("response")
+                },
+                
+                
 
             });
         }
