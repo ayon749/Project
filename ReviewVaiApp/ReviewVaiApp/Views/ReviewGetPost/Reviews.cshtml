@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "GetReviews";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -28,17 +28,6 @@
 
 <link href="~/Content/review/review.css" rel="stylesheet" />
 <link href="~/Content/review/comments-and-reply.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -132,32 +121,444 @@
         return total_help;
     }
 
+
+    function total_comment_reply_like(likes) {
+        var total_likes = 0;
+
+        if (likes == null) {
+            return total_like = 0;
+        }
+        if (likes.length > 0) {
+            for (var i = 0; i < likes.length; i++) {
+                if (likes[i].IsLiked == 1) {
+                    total_likes = total_likes + 1;
+                }
+            }
+        }
+        return total_likes;
+    }
+
+    function total_comment_reply_dislike(likes) {
+        var total_dislikes = 0;
+
+        if (likes == null) {
+            return total_dislike = 0;
+        }
+        if (likes.length > 0) {
+            for (var i = 0; i < likes.length; i++) {
+                if (likes[i].IsLiked == 2) {
+                    total_dislikes = total_dislikes + 1;
+                }
+            }
+        }
+        return total_dislikes;
+    }
+
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    function commentsLike(x, id) {
-        console.log(id);
-        commentId = "commentLike" + String(id);
-        document.getElementById(commentId).style.color = 'red';
-    }
-    function commentsDisLike(x, id) {
-        console.log(id);
-        commentId = "commentDisLike" + String(id);
-        document.getElementById(commentId).style.color = 'red';
+    //////// Reactions Check and show
+
+    function getPostReaction(postId) {
+        likeId = "postLike" + String(postId.Id);
+        dislikeId = "postDisLike" + String(postId.Id);
+        helpfulId = "postHelpful" + String(postId.Id);
+        userId = $("#userId").val();
+        if (postId.Reactions != null) {
+            for (var i = 0; i < postId.Reactions.length; i++) {
+                if (userId == postId.Reactions[i].ApplicationUserId) {
+                    if (postId.Reactions[i].IsHelpfull == 1) {
+                        document.getElementById(helpfulId).style.color = 'red';
+                    }
+                    if (postId.Reactions[i].IsLiked == 1) {
+                        document.getElementById(likeId).style.color = 'red';
+                    }
+                    else if (postId.Reactions[i].IsLiked == 2) {
+                        document.getElementById(dislikeId).style.color = 'red';
+                    }
+                }
+            }
+        }
     }
 
-    function commentsReplyLike(x, id) {
-        console.log(id);
-        replyId = "replyLike" + String(id);
-        document.getElementById(replyId).style.color = 'red';
-    }
-    function commentsReplyDisLike(x, id) {
-        console.log(id);
-        replyId = "replyDisLike" + String(id);
-        document.getElementById(replyId).style.color = 'red';
+    function getcomment_subcommentReaction(postId) {
+        var userId = $("#userId").val();
+        if (postId.PostComments != null) {
+            for (var i = 0; i < postId.PostComments.length; i++) {
+                commentLikeId = "commentLike" + String(postId.PostComments[i].Id);
+                commentDisLikeId = "commentDisLike" + String(postId.PostComments[i].Id);
+                //comment reaction check
+                if (postId.PostComments[i].CommentReactions != null) {
+                    console.log("comment reaction found and its length is ");
+                    console.log(postId.PostComments[i].CommentReactions.length);
+                    for (var j = 0; j < postId.PostComments[i].CommentReactions.length; j++) {
+                        if (userId == postId.PostComments[i].CommentReactions[j].ApplicationUserId) {
+                            if (postId.PostComments[i].CommentReactions[j].IsLiked == 1) {
+                                document.getElementById(commentLikeId).style.color = 'red';
+                            }
+                            else if (postId.PostComments[i].CommentReactions[j].IsLiked == 2) {
+                                document.getElementById(commentDisLikeId).style.color = 'red';
+                            }
+                        }
+                    }
+
+                }
+                //subcomment reaction check
+                if (postId.PostComments[i].SubComments != null) {
+                    for (var k = 0; k < postId.PostComments[i].SubComments.length; k++) {
+                        replyLikeId = "replyLike" + String(postId.PostComments[i].SubComments[k].Id);
+                        replyDisLikeId = "replyDisLike" + String(postId.PostComments[i].SubComments[k].Id);
+                        if (postId.PostComments[i].SubComments[k].ReplyReactions != null) {
+                            for (var l = 0; l < postId.PostComments[i].SubComments[k].ReplyReactions.length; l++) {
+                                if (userId == postId.PostComments[i].SubComments[k].ReplyReactions[l].ApplicationUserId) {
+                                    if (postId.PostComments[i].SubComments[k].ReplyReactions[l].IsLiked == 1) {
+                                        document.getElementById(replyLikeId).style.color = 'red';
+                                    }
+                                    else if (postId.PostComments[i].SubComments[k].ReplyReactions[l].IsLiked == 2) {
+                                        document.getElementById(replyDisLikeId).style.color = 'red';
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+            }
+        }
+
     }
 
+
+    /////// Comment & reply reaction
+
+    function deleteCommentReaction(commentId) {
+        commentReactionUrl = "http://localhost:55407/api/Review/DeleteACommentReaction/" + String(commentId);
+        $.ajax({
+            url: commentReactionUrl,
+            type: "DELETE",
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+
+
+    function deleteReplyReaction(commentId) {
+        replyReactionUrl = "http://localhost:55407/api/Review/DeleteAReplyReaction/" + String(commentId);
+        $.ajax({
+            url: replyReactionUrl,
+            type: "DELETE",
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+
+
+
+    function postCommentReaction(commentId, userId, like, helpful) {
+        commentReactionUrl = "http://localhost:55407/api/Review/PostACommentReaction";
+        commentId = commentId
+        userId = userId
+        like = like
+        helpful = helpful
+
+        var commentReaction = {
+            PostCommentId: commentId,
+            ApplicationUserId: userId,
+            IsLiked: like,
+            IsHelpfull: helpful
+        }
+        $.ajax({
+            url: commentReactionUrl,
+            type: "POST",
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(commentReaction),
+            dataType: "Json",
+            success: function (data) {
+
+                console.log(data);
+            }
+        });
+
+    }
+
+
+    function postReplyReaction(commentId, userId, like, helpful) {
+        replyReactionUrl = "http://localhost:55407/api/Review/PostAReplyReaction";
+        commentId = commentId
+        userId = userId
+        like = like
+        helpful = helpful
+
+        var commentReaction = {
+            SubCommentId: commentId,
+            ApplicationUserId: userId,
+            IsLiked: like,
+            IsHelpfull: helpful
+        }
+        $.ajax({
+            url: replyReactionUrl,
+            type: "POST",
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(commentReaction),
+            dataType: "Json",
+            success: function (data) {
+
+                console.log(data);
+            }
+        });
+
+    }
+
+
+
+    function updateCommentReaction(commentId, userId, like, helpful, reactionId) {
+        commentReactionUrl = "http://localhost:55407/api/Review/UpdateACommentReaction/" + String(reactionId);
+        commentId = commentId
+        userId = userId
+        like = like
+        helpful = helpful
+
+        var commentReaction = {
+            PostCommentId: commentId,
+            ApplicationUserId: userId,
+            IsLiked: like,
+            IsHelpfull: helpful
+        }
+
+        $.ajax({
+            url: commentReactionUrl,
+            type: "PUT",
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(commentReaction),
+            dataType: "Json",
+            success: function (data) {
+
+                console.log(data);
+            }
+        });
+    }
+
+
+    function updateReplyReaction(commentId, userId, like, helpful, reactionId) {
+        commentReactionUrl = "http://localhost:55407/api/Review/UpdateAReplyReaction/" + String(reactionId);
+        commentId = commentId
+        userId = userId
+        like = like
+        helpful = helpful
+
+        var commentReaction = {
+            SubCommentId: commentId,
+            ApplicationUserId: userId,
+            IsLiked: like,
+            IsHelpfull: helpful
+        }
+
+        $.ajax({
+            url: commentReactionUrl,
+            type: "PUT",
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(commentReaction),
+            dataType: "Json",
+            success: function (data) {
+
+                console.log(data);
+            }
+        });
+    }
+
+
+
+
+    function commentsReaction(x, id) {
+        var userId = $("#userId").val();
+        console.log("this is the value of xxxxxxxxxxxxx");
+        console.log(id);
+        console.log("this is the value of xxxxxxxxxxxxx");
+        commentLikeId = "commentLike" + String(id);
+        commentDisLikeId = "commentDisLike" + String(id);
+        commentReactionsenUrl = "http://localhost:55407/api/Review/GetACommentReactions/" + String(id);
+
+        $.ajax({
+            url: commentReactionsenUrl,
+            type: "GET",
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            success: function (data) {
+
+                var isFound;
+                $.each(data, function (index, value) {
+                    if (userId == value.ApplicationUserId) {
+                        isFound = true;
+                    }
+
+                    else {
+                        isFound = false;
+                    }
+                });
+                if (isFound == true) {
+                    $.each(data, function (index, value) {
+                        console.log(value);
+                        if (userId == value.ApplicationUserId) {
+                            if (x.id == commentLikeId) {
+                                if (value.IsLiked == 1) {
+                                    deleteCommentReaction(value.Id);
+                                    document.getElementById(commentLikeId).style.color = 'black';
+                                }
+                                else if (value.IsLiked == 2) {
+                                    updateCommentReaction(id, userId, 1, 0, value.Id)
+                                    document.getElementById(commentDisLikeId).style.color = 'black';
+                                    document.getElementById(commentLikeId).style.color = 'red';
+                                    //update comment Reaction
+                                }
+                            }
+                            else if (x.id == commentDisLikeId) {
+                                if (value.IsLiked == 2) {
+                                    deleteCommentReaction(value.Id);
+                                    document.getElementById(commentDisLikeId).style.color = 'black';
+                                }
+                                else if (value.IsLiked == 1) {
+                                    updateCommentReaction(id, userId, 2, 0, value.Id)
+                                    document.getElementById(commentLikeId).style.color = 'black';
+                                    document.getElementById(commentDisLikeId).style.color = 'red';
+                                    //update comment Reaction
+                                }
+                            }
+
+
+                        }
+                    });
+                }
+                else {
+                    if (x.id == commentLikeId) {
+                        postCommentReaction(id, userId, 1, 0);
+                        document.getElementById(commentLikeId).style.color = 'red';
+                    }
+                    else if (x.id == commentDisLikeId) {
+                        postCommentReaction(id, userId, 2, 0);
+                        document.getElementById(commentDisLikeId).style.color = 'red';
+                    }
+                }
+            }
+        });
+
+    }
+
+
+
+
+    function replyReaction(x, id) {
+        var userId = $("#userId").val();
+        console.log("this is the value of xxxxxxxxxxxxx");
+        console.log(id);
+        console.log("this is the value of xxxxxxxxxxxxx");
+        replyLikeId = "replyLike" + String(id);
+        replyDisLikeId = "replyDisLike" + String(id);
+        replyReactionsenUrl = "http://localhost:55407/api/Review/GetAReplyReactions/" + String(id);
+
+        $.ajax({
+            url: replyReactionsenUrl,
+            type: "GET",
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            success: function (data) {
+
+                var isFound;
+                $.each(data, function (index, value) {
+                    if (userId == value.ApplicationUserId) {
+                        isFound = true;
+                    }
+
+                    else {
+                        isFound = false;
+                    }
+                });
+                if (isFound == true) {
+                    $.each(data, function (index, value) {
+                        console.log(value);
+                        if (userId == value.ApplicationUserId) {
+                            if (x.id == replyLikeId) {
+                                if (value.IsLiked == 1) {
+                                    deleteReplyReaction(value.Id);
+                                    document.getElementById(replyLikeId).style.color = 'black';
+                                }
+                                else if (value.IsLiked == 2) {
+                                    updateReplyReaction(id, userId, 1, 0, value.Id)
+                                    document.getElementById(replyDisLikeId).style.color = 'black';
+                                    document.getElementById(replyLikeId).style.color = 'red';
+
+                                }
+                            }
+                            else if (x.id == replyDisLikeId) {
+                                if (value.IsLiked == 2) {
+                                    deleteReplyReaction(value.Id);
+                                    document.getElementById(replyDisLikeId).style.color = 'black';
+                                }
+                                else if (value.IsLiked == 1) {
+                                    updateReplyReaction(id, userId, 2, 0, value.Id)
+                                    document.getElementById(replyLikeId).style.color = 'black';
+                                    document.getElementById(replyDisLikeId).style.color = 'red';
+
+                                }
+                            }
+
+
+                        }
+                    });
+                }
+                else {
+                    if (x.id == replyLikeId) {
+                        postReplyReaction(id, userId, 1, 0);
+                        document.getElementById(replyLikeId).style.color = 'red';
+                    }
+                    else if (x.id == replyDisLikeId) {
+                        postReplyReaction(id, userId, 2, 0);
+                        document.getElementById(replyDisLikeId).style.color = 'red';
+                    }
+                }
+            }
+        });
+
+    }
+
+
+
+
+    /////////////////comment and reply add
     function postComments(postcomment) {
         var subcomment = []
         var comments = []
@@ -169,6 +570,7 @@
         if (postcomment.length > 0) {
             for (var i = 0; i < postcomment.length; i++) {
                 if (postcomment[i].SubComments.length <= 0) {
+
                     console.log(111111111111)
                     comments.push(`              <div class="col-md-12">
                         <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
@@ -180,14 +582,25 @@
 
                                 </div><span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].Id}</span>
                                 <div>
-                                  <i id="commentLike${postcomment[i].Id}" onclick="commentsLike(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
-                                   <span>52</span>
+                                  <i id="commentLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
+                                   <span>${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
 
-                                  <i id="commentLike${postcomment[i].Id}" onclick="commentsLike(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
-                                   <span>52</span>
+                                  <i id="commentDisLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
+                                   <span>${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
                                 </div>
                             </div>
                         </div>
+                    <div class="cardbox-comments " style="width:90%;">
+                        <span class="comment-avatar float-left">
+                            <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
+                        </span>
+                        <div class=row >
+                        <span>
+                          <textarea rows="1" style="height:38px;border-radius: 50px;resize: none;" class="form-control" id="replybox${postcomment[i].Id}" style="width:100%; " placeholder="Write a Reply" type="text" ></textarea> </span>
+                          <span>  <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id})" class="btn btn-primary">Reply</button></span>
+                        <!--/. Search -->
+                        </div>
+                    </div>
                  </div>`)
                 }
                 else {
@@ -201,12 +614,13 @@
                                             </div>
                                         </div> <span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].SubComments[j].Id}</span>
                                 <div>
-                                   <i id="replyLike${postcomment[i].SubComments[j].Id}" onclick="commentsReplyLike(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-up"></i>
-                                    <span>52</span>
-                                  <i id="replyDisLike${postcomment[i].SubComments[j].Id}" onclick="commentsReplyDisLike(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-down"></i>
-                                   <span>52</span>
+                                   <i id="replyLike${postcomment[i].SubComments[j].Id}" onclick="replyReaction(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-up"></i>
+                                    <span>${total_comment_reply_like(postcomment[i].SubComments[j].ReplyReactions)}</span>
+                                  <i id="replyDisLike${postcomment[i].SubComments[j].Id}" onclick="replyReaction(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-down"></i>
+                                   <span>${total_comment_reply_dislike(postcomment[i].SubComments[j].ReplyReactions)}</span>
                                 </div>
                                     </div>
+
                                 </div>`);
                     }
                     var commentandsubcomment = subcomment.slice(0, -1).join(' &nbsp; ') + '  ' + subcomment.slice(-1);
@@ -220,15 +634,27 @@
                                     </div>
                                 </div>
                                 <div>
-                                   <i id="commentLike${postcomment[i].Id}" onclick="commentsLike(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
-                                    <span>52</span>
+                                   <i id="commentLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
+                                    <span>${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
 
-                                  <i id="commentDisLike${postcomment[i].Id}" onclick="commentsDisLike(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
-                                   <span>52</span>
+                                  <i id="commentDisLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
+                                   <span>${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
                                 </div>
                                 <span class="text-muted" style="font-size:12px">  Id: ${postcomment[i].Id}</span>  ${commentandsubcomment}
                             </div>
+
                         </div>
+                    <div class="cardbox-comments " style="width:90%;">
+                        <span class="comment-avatar float-left">
+                            <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
+                        </span>
+                        <div class=row >
+                        <span>
+                           <textarea rows="1" style="height:38px;border-radius: 50px;resize: none;" class="form-control" id="replybox${postcomment[i].Id}" style="width:100%; " placeholder="Write a Reply" type="text" ></textarea></span>
+                           <span> <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id})" class="btn btn-primary">Reply</button></span>
+                        <!--/. Search -->
+                        </div>
+                    </div>
                  </div>`)
                 }
 
@@ -246,12 +672,91 @@
     }
 
 
+    function postComment(postId) {
+        var userId = $("#userId").val();
+        console.log(userId);
+        postId = postId;
+        console.log(postId);
+        commentText = $("#commentBox" + postId).val();
+        console.log(commentText)
+        var comment = {
+            ApplicationUserId: String(userId),
+            PostId: postId,
+            Text: commentText,
+        }
+        console.log(comment);
+
+        if (commentText.replace(/^\s+|\s+$/g, "").length != 0) {
+            $.ajax({
+                url: 'http://reviewbhai.somee.com/api/Review/PostAComment',
+                //url: 'http://localhost:55407/api/Review/PostAComment',
+                type: 'POST',
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+                data: JSON.stringify(comment),
+                dataType: "Json",
+                success: function (response) {
+                    console.log(response);
+                    $('#commentBox' + postId).val("");
+                }
+            });
+        }
+
+    }
+
+
+
+
+    function commentReply(commentId) {
+        userId = $("#userId").val();
+        console.log(userId);
+
+        commentId = commentId;
+        console.log(commentId);
+
+
+
+        commentText = $("#replybox" + commentId).val();
+        console.log(commentText)
+
+        var comment = {
+            ApplicationUserId: String(userId),
+            PostCommentId: commentId,
+            Text: commentText,
+        }
+        console.log(comment);
+        if (commentText.replace(/^\s+|\s+$/g, "").length != 0) {
+            $.ajax({
+                url: 'http://reviewbhai.somee.com/api/Review/PostAReplayAComment/',
+                // url: 'http://localhost:55407/api/Review/PostAReplayAComment/',
+                type: 'POST',
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+                data: JSON.stringify(comment),
+                dataType: "Json",
+                success: function (response) {
+                    console.log(response);
+                    $("#replybox" + commentId).val("");
+                }
+            });
+        }
+
+    }
+
+
+
+
+
+
     function reviewTemplate(review) {
 
         return `
-
-
-
 <section class="hero">
     <div class="container">
         <div class="row">
@@ -308,7 +813,6 @@
                             </div>
                             <div class="tags mb-3" id="tags">
                                 ${tags(review.Tags)}
-
                             </div>
                         </div>
                     </div><!--/ cardbox-item -->
@@ -318,7 +822,7 @@
                             <li><a><em class="mr-5">12</em></a></li>
                         </ul>
                         <ul>
-                            <li><a><i class="fa fa-thumbs-up"></i></a></li>
+                            <li><a><i id="postLike${review.Id}" onclick="" class="fa fa-thumbs-up"></i></a></li>
 
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/5.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
@@ -326,14 +830,14 @@
                         </ul>
 
                         <ul>
-                            <li><a><i class="fa fa-thumbs-down"></i></a></li>
+                            <li><a><i id="postDisLike${review.Id}" onclick="" class="fa fa-thumbs-down"></i></a></li>
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
 
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                             <li><a><span>${totalDisLikes(review.Reactions)}</span></a></li>
                         </ul>
                         <ul>
-                            <li><a><i class="fas fa-heart"></i></a></li>
+                            <li><a><i id="postHelpful${review.Id}" onclick="" class="fas fa-heart"></i></a></li>
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/1.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
 
@@ -342,14 +846,15 @@
                     </div><!--/ cardbox-base -->
                     <div class="cardbox-comments " style="width:90%;">
                         <span class="comment-avatar float-left">
-                            <a href=""><img class="rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
+                            <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
                         </span>
-                        <div class="search" >
-                            <input style="width:100%;" placeholder="Write a comment" type="text" >
-                        </div><!--/. Search -->
+                        <div class="row" >
+                          <textarea style="height:38px;border-radius: 50px;resize: none;" class="form-control custom-control" id="commentBox${review.Id}" style="width:100%;" rows="1" placeholder="Write a comment" type="text" ></textarea>
+                          <span><button  style="border-radius: 50px;"  id="commentButton" onclick="postComment(${review.Id})" class="btn btn-primary">comment</button></span>
+                        <!--/. Search -->
+                        </div>
                     </div><!--/ cardbox-like -->
-<div id="himu">
-</div>
+
 
 <!-----------------------------------------------/. comments and reply -->
 
@@ -376,7 +881,7 @@
 
 
 
-
+<input type="hidden" id="userId" name="custId" value=@User.Identity.GetUserId()>
 
 
 
@@ -404,13 +909,17 @@
 
 
     <script type="text/javascript">
+
         $(document).ready(function () {
 
+            var id = $('#userId').val();
+            console.log(id);
 
             if (sessionStorage.getItem('accessToken') == null) {
-                // window.location.href = "http://reviewbhai.somee.com/user/signin";
+                //window.location.href = "http://reviewbhai.somee.com/user/signin";
                 window.location.href = "http://localhost:55407/user/signin";
             }
+
 
             $('#linkClose').click(function () {
                 $('#divError').hide('fade');
@@ -434,8 +943,15 @@
                     console.log(data[0].ApplicationUser.Name);
 
                     document.getElementById("listitems").innerHTML = `
-                                ${ data.map(reviewTemplate).join('')}
-                                `
+                                                            ${ data.map(reviewTemplate).join('')}
+
+                                        `
+                    $.each(data, function (index, value) {
+                        getPostReaction(value);
+                        getcomment_subcommentReaction(value);
+                        console.log("value id from document read >");
+                        console.log(value);
+                    });
                 },
                 error: function (jQXHR) {
                     // If status code is 401, access token expired, so
