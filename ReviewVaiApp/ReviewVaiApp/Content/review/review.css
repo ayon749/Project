@@ -231,6 +231,7 @@
     border: 2px solid #f4f4f4;
     width: 100%;
     overflow: hidden;
+    border-radius: 50px;
 }
 
     .search input[type="text"] {
