@@ -26,7 +26,7 @@ namespace ReviewVaiApp.Controllers
 		[HttpGet]
 		public IHttpActionResult GetReviewPosts()
 		{
-			var posts = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPalce.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).ToList();
+			var posts = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPlace.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).ToList();
 
 			//if (posts == null)
 			//{
@@ -51,7 +51,7 @@ namespace ReviewVaiApp.Controllers
 		//[Route("{id}/ReviewPost",Name="Review-Post")]
 		public IHttpActionResult GetReviewPost(long id)
 		{
-			var post = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPalce.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).First(p => p.Id == id);
+			var post = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPlace.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).First(p => p.Id == id);
 			var reactions = db.Reactions.Where(p => p.PostId == id).ToList();
 			var photos = db.Photos.Where(p => p.PostId == id).ToList();
 			var comments = db.PostComments.Where(p => p.PostId == id).ToList();
@@ -64,7 +64,7 @@ namespace ReviewVaiApp.Controllers
 		//[Route("{id:alpha}")]
 		public IHttpActionResult ReviewPostByUserId(string id)
 		{
-			var posts = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPalce.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).Where(p => p.ApplicationUserId == id).ToList();
+			var posts = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPlace.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).Where(p => p.ApplicationUserId == id).ToList();
 			foreach (Post post in posts)
 			{
 				var reactions = db.Reactions.Where(p => p.PostId == post.Id).ToList();
@@ -214,12 +214,27 @@ namespace ReviewVaiApp.Controllers
 					tagss.Add(tagInDb);
 				}
 				}
-				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPalce.Id).SingleOrDefault();
-				if (restaurantInDb == null)
+				//var restaurantInDb ;
+				if (model.RestaurantOrPlace != null)
 				{
-					db.RestaurantOrPlaces.Add(model.RestaurantOrPalce);
+					var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPlace.Id).SingleOrDefault();
+
+					if (restaurantInDb == null)
+					{
+						db.RestaurantOrPlaces.Add(model.RestaurantOrPlace);
+					}
+					model.RestaurantOrPlace = restaurantInDb;
 				}
-				model.RestaurantOrPalce = restaurantInDb;
+				else
+				{
+					var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPlaceId).SingleOrDefault();
+
+					if (restaurantInDb == null)
+					{
+						db.RestaurantOrPlaces.Add(model.RestaurantOrPlace);
+					}
+					model.RestaurantOrPlace = restaurantInDb;
+				}
 
 				//db.Items.AddOrUpdate(items.ToArray());
 				model.Tags = tagss;
@@ -251,7 +266,7 @@ namespace ReviewVaiApp.Controllers
 			{
 				return BadRequest();
 			}
-			var postInDb = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPalce.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).Include(p=>p.Photos).First(p => p.Id == id);
+			var postInDb = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPlace.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).Include(p=>p.Photos).First(p => p.Id == id);
 			if (postInDb == null)
 			{
 				return NotFound();
@@ -270,7 +285,7 @@ namespace ReviewVaiApp.Controllers
 			postInDb.Photos = post.Photos;
 			postInDb.PostBody = post.PostBody;
 			postInDb.PostTitle = post.PostTitle;
-			postInDb.RestaurantOrPalceId = post.RestaurantOrPalceId;
+			postInDb.RestaurantOrPlaceId = post.RestaurantOrPlaceId;
 			postInDb.Stars = post.Stars;
 			postInDb.Tags = post.Tags;
 			
@@ -286,7 +301,7 @@ namespace ReviewVaiApp.Controllers
 			{
 				return BadRequest();
 			}
-			var postInDb = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPalce.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).Include(p => p.Photos).First(p => p.Id == id);
+			var postInDb = db.Posts.Include(p => p.Stars).Include(r => r.RestaurantOrPlace.ApplicationUser).Include(p => p.Items).Include(p => p.Tags).Include(p => p.Photos).First(p => p.Id == id);
 			if (postInDb == null)
 			{
 				return NotFound();

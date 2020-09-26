@@ -244,6 +244,10 @@
     <Compile Include="Migrations\202009221517299_postcommentreactionv1.designer.cs">
       <DependentUpon>202009221517299_postcommentreactionv1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009260901450_RestaurantOrPlaceId.cs" />
+    <Compile Include="Migrations\202009260901450_RestaurantOrPlaceId.designer.cs">
+      <DependentUpon>202009260901450_RestaurantOrPlaceId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -696,6 +700,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009221517299_postcommentreactionv1.resx">
       <DependentUpon>202009221517299_postcommentreactionv1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009260901450_RestaurantOrPlaceId.resx">
+      <DependentUpon>202009260901450_RestaurantOrPlaceId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
