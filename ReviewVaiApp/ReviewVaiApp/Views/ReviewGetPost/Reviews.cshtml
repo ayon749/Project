@@ -231,6 +231,253 @@
 
     }
 
+    /////////////////Post reactions
+
+    function createPostReaction(postId, userId, like, helpful) {
+        commentReactionUrl = "http://localhost:55407/api/Review/CreateReaction/";
+        postId = postId
+        userId = userId
+        like = like
+        helpful = helpful
+
+        var reaction = {
+            PostId: postId,
+            ApplicationUserId: userId,
+            IsLiked: like,
+            IsHelpfull: helpful
+        }
+        $.ajax({
+            url: commentReactionUrl,
+            type: "POST",
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(reaction),
+            dataType: "Json",
+            success: function (data) {
+
+                console.log(data);
+            }
+        });
+
+    }
+
+    function deletePostReaction(reactionId) {
+        postReactionUrl = "http://localhost:55407/api/Review/DeleteReaction/" + String(reactionId);
+        $.ajax({
+            url: postReactionUrl,
+            type: "DELETE",
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+
+
+    function updatePostReaction(postId, userId, like, helpful, reactionId) {
+        commentReactionUrl = "http://localhost:55407/api/Review/UpdateReaction/" + String(reactionId);
+        postId = postId
+        userId = userId
+        like = like
+        helpful = helpful
+
+        var postReaction = {
+            PostId: postId,
+            ApplicationUserId: userId,
+            IsLiked: like,
+            IsHelpfull: helpful
+        }
+
+        $.ajax({
+            url: commentReactionUrl,
+            type: "PUT",
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(postReaction),
+            dataType: "Json",
+            success: function (data) {
+
+
+            }
+        });
+    }
+
+
+
+    function postReaction(x, postId) {
+        //postId = postId;
+        isLiked = "postLike" + String(postId);
+        isDisLike = "postDisLike" + String(postId);
+        isHelpful = "postHelpful" + String(postId);
+        var userId = $("#userId").val();
+        console.log("postid = " + postId);
+        postReactionUrl = "http://localhost:55407/api/Review/GetReaction/" + String(postId);
+        $.ajax({
+            url: postReactionUrl,
+            type: "GET",
+            headers: {
+                'Authorization': 'Bearer '
+                    + sessionStorage.getItem("accessToken")
+            },
+            success: function (data) {
+                var userFound;
+                $.each(data, function (index, value) {
+                    if (userId == value.ApplicationUserId) {
+                        userFound = true;
+                    }
+                    else {
+                        userFound = false;
+                    }
+                });
+
+
+                if (userFound == true) {
+                    $.each(data, function (index, value) {
+                        if (userId == value.ApplicationUserId) {
+                            if (x.id == isLiked) {
+                                console.log("isliked = " + value.IsLiked);
+                                console.log("reaction Id =" + value.Id);
+                                if (value.IsLiked == 1) {
+                                    if (value.IsHelpfull == 1) {
+                                        updatePostReaction(postId, userId, 0, 1, value.Id);
+                                        console.log("Like button pressed and and removed the like, Helpfull = 1");
+                                        document.getElementById(isLiked).style.color = "black";
+                                    }
+                                    else {
+                                        deletePostReaction(value.Id);
+                                        document.getElementById(isLiked).style.color = "black";
+                                        console.log("Like button pressed and and removed the like and helpful, Helpfull = 0/2");
+                                    }
+                                }
+                                else if (value.IsLiked == 2) {
+                                    if (value.IsHelpfull == 1) {
+                                        updatePostReaction(postId, userId, 1, 1, value.Id);
+                                        console.log("Like button pressed and and removed the dislike, Helpfull = 1");
+                                        document.getElementById(isDisLike).style.color = "black";
+                                        document.getElementById(isLiked).style.color = "red";
+                                    }
+                                    else {
+                                        updatePostReaction(postId, userId, 1, 0, value.Id);
+                                        console.log("Like button pressed and and removed the dislike and helpful, Helpfull = 0/2");
+                                        document.getElementById(isDisLike).style.color = "black";
+                                        document.getElementById(isLiked).style.color = "red";
+
+                                    }
+                                }
+                                else {
+                                    if (value.IsHelpfull == 1) {
+                                        updatePostReaction(postId, userId, 1, 1, value.Id);
+                                        console.log("Like button pressed and and added like, Helpfull = 1");
+                                        document.getElementById(isDisLike).style.color = "black";
+                                        document.getElementById(isLiked).style.color = "red";
+                                    }
+                                }
+                            }
+                            else if (x.id == isDisLike) {
+                                if (value.IsLiked == 1) {
+                                    if (value.IsHelpfull == 1) {
+                                        updatePostReaction(postId, userId, 2, 1, value.Id);
+                                        console.log("DisLike button pressed and and removed the like added dislike, Helpfull = 1");
+                                        document.getElementById(isLiked).style.color = "black";
+                                        document.getElementById(isDisLike).style.color = "red";
+                                    }
+                                    else {
+                                        updatePostReaction(postId, userId, 2, 0, value.Id);
+                                        console.log("DisLike button pressed and and removed the like added dislike, Helpfull = 0/2");
+                                        document.getElementById(isLiked).style.color = "black";
+                                        document.getElementById(isDisLike).style.color = "red";
+                                    }
+                                }
+                                else if (value.IsLiked == 2) {
+                                    if (value.IsHelpfull == 1) {
+                                        updatePostReaction(postId, userId, 0, 1, value.Id);
+                                        console.log("DisLike button pressed and and removed the  dislike, Helpfull = 1");
+                                        document.getElementById(isLiked).style.color = "black";
+                                        document.getElementById(isDisLike).style.color = "black";
+                                    }
+                                    else {
+                                        deletePostReaction(value.Id);
+                                        document.getElementById(isDisLike).style.color = "black";
+                                        console.log("DisLike button pressed  and removed the dislike and helpful, Helpfull = 0/2");
+                                    }
+                                }
+                                else {
+                                    if (value.IsHelpfull == 1) {
+                                        updatePostReaction(postId, userId, 2, 1, value.Id);
+                                        console.log("disLike button pressed and and added dislike, Helpfull = 1");
+                                        document.getElementById(isDisLike).style.color = "red";
+                                        document.getElementById(isLiked).style.color = "black";
+                                    }
+                                }
+                            }
+                            else if (x.id == isHelpful) {
+                                if (value.IsHelpfull == 1) {
+                                    if (value.IsLiked == 1) {
+                                        updatePostReaction(postId, userId, 1, 0, value.Id);
+                                        console.log("helpful button pressed and and removed the helpful, isliked = 1");
+                                        document.getElementById(isHelpful).style.color = "black";
+                                    }
+                                    else if (value.IsLiked == 2) {
+                                        updatePostReaction(postId, userId, 2, 0, value.Id);
+                                        console.log("helpful button pressed and and removed the helpful, isliked = 2");
+                                        document.getElementById(isHelpful).style.color = "black";
+                                    }
+                                    else {
+                                        deletePostReaction(value.Id);
+                                        console.log("helpful button pressed and and removed the helpful, isliked = 0");
+                                        document.getElementById(isHelpful).style.color = "black";
+                                    }
+                                }
+                                else {
+                                    if (value.IsLiked == 1) {
+                                        updatePostReaction(postId, userId, 1, 1, value.Id);
+                                        console.log("helpful button pressed and and added the helpful, isliked = 1");
+                                        document.getElementById(isHelpful).style.color = "red";
+                                    }
+                                    else if (value.IsLiked == 2) {
+                                        updatePostReaction(postId, userId, 2, 1, value.Id);
+                                        console.log("helpful button pressed and and added the helpful, isliked = 2");
+                                        document.getElementById(isHelpful).style.color = "red";
+                                    }
+                                }
+                            }
+                        }
+
+                    });
+                }
+                else {
+                    if (x.id == isLiked) {
+                        createPostReaction(postId, userId, 1, 0);
+                        console.log("Like button pressed and and created like, ishelpfull = 0/2");
+                        document.getElementById(isLiked).style.color = "red";
+                    }
+                    else if (x.id == isDisLike) {
+                        createPostReaction(postId, userId, 2, 0);
+                        console.log("DisLike button pressed and and created dislike, ishelpfull = 0/2");
+                        document.getElementById(isDisLike).style.color = "red";
+                    }
+                    else if (x.id == isHelpful) {
+                        createPostReaction(postId, userId, 0, 1);
+                        console.log("helpful button pressed and and created helpful, islike = 0/2+");
+                        document.getElementById(isHelpful).style.color = "red";
+                    }
+                }
+            },
+        });
+
+    }
+
+
 
     /////// Comment & reply reaction
 
@@ -688,8 +935,8 @@
 
         if (commentText.replace(/^\s+|\s+$/g, "").length != 0) {
             $.ajax({
-                url: 'http://reviewbhai.somee.com/api/Review/PostAComment',
-                //url: 'http://localhost:55407/api/Review/PostAComment',
+                // url: 'http://reviewbhai.somee.com/api/Review/PostAComment',
+                url: 'http://localhost:55407/api/Review/PostAComment',
                 type: 'POST',
                 contentType: 'application/json',
                 headers: {
@@ -730,8 +977,8 @@
         console.log(comment);
         if (commentText.replace(/^\s+|\s+$/g, "").length != 0) {
             $.ajax({
-                url: 'http://reviewbhai.somee.com/api/Review/PostAReplayAComment/',
-                // url: 'http://localhost:55407/api/Review/PostAReplayAComment/',
+                // url: 'http://reviewbhai.somee.com/api/Review/PostAReplayAComment/',
+                url: 'http://localhost:55407/api/Review/PostAReplayAComment/',
                 type: 'POST',
                 contentType: 'application/json',
                 headers: {
@@ -822,7 +1069,7 @@
                             <li><a><em class="mr-5">12</em></a></li>
                         </ul>
                         <ul>
-                            <li><a><i id="postLike${review.Id}" onclick="" class="fa fa-thumbs-up"></i></a></li>
+                            <li><a><i id="postLike${review.Id}" onclick="postReaction(this,${review.Id})" class="fa fa-thumbs-up"></i></a></li>
 
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/5.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
@@ -830,14 +1077,14 @@
                         </ul>
 
                         <ul>
-                            <li><a><i id="postDisLike${review.Id}" onclick="" class="fa fa-thumbs-down"></i></a></li>
+                            <li><a><i id="postDisLike${review.Id}" onclick="postReaction(this,${review.Id})" class="fa fa-thumbs-down"></i></a></li>
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
 
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                             <li><a><span>${totalDisLikes(review.Reactions)}</span></a></li>
                         </ul>
                         <ul>
-                            <li><a><i id="postHelpful${review.Id}" onclick="" class="fas fa-heart"></i></a></li>
+                            <li><a><i id="postHelpful${review.Id}" onclick="postReaction(this,${review.Id})" class="fas fa-heart"></i></a></li>
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
                             <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/1.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
 
@@ -943,9 +1190,9 @@
                     console.log(data[0].ApplicationUser.Name);
 
                     document.getElementById("listitems").innerHTML = `
-                                                            ${ data.map(reviewTemplate).join('')}
+                                                                    ${ data.map(reviewTemplate).join('')}
 
-                                        `
+                                                `
                     $.each(data, function (index, value) {
                         getPostReaction(value);
                         getcomment_subcommentReaction(value);
