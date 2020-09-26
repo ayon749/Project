@@ -20,6 +20,8 @@ namespace ReviewVaiApp.Controllers
 	public class ReviewController : ApiController
 	{
 		private ApplicationDbContext db = new ApplicationDbContext();
+		private object httpRequest;
+
 		//[Route("Get-Review-post")]
 		[HttpGet]
 		public IHttpActionResult GetReviewPosts()
@@ -74,8 +76,93 @@ namespace ReviewVaiApp.Controllers
 			return Ok(posts);
 
 		}
+		//--------------------------------------------------------------------//
 
-		
+		//public IHttpActionResult PostImages(HttpPostedFileBase[] images)
+
+		//{
+		//	List<string> urls = new List<string>();
+		//	try
+
+		//	{
+		//		foreach (HttpPostedFileBase image in images)
+
+		//		{
+
+		//			string imagename = System.IO.Path.GetFileName(image.FileName);
+
+		//			image.SaveAs(HttpContext.Current.Server.MapPath("~/ImgUpload/" + imagename));
+
+		//			string filepathtosave = "ImgUpload" + imagename;
+		//			urls.Add(filepathtosave);
+
+		//		}
+
+		//		//ViewBag.Message = "Selected Files are Upload successfully.";
+
+		//	}
+
+		//	catch
+
+		//	{
+
+
+
+		//	}
+
+		//	return Ok(urls);
+
+		//}
+		[HttpPost]
+		public IHttpActionResult PostImages()
+		{
+			//Dictionary<string, object> dict = new Dictionary<string, object>();
+
+
+			var httpRequest = HttpContext.Current.Request;
+			List<string> urls = new List<string>();
+			var flag = 0;
+			foreach (string file in httpRequest.Files)
+			{
+				HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
+
+				var postedFile = httpRequest.Files[file];
+				if (postedFile != null && postedFile.ContentLength > 0)
+				{
+
+					//int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB  
+
+					IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
+					var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
+					var extension = ext.ToLower();
+					if (!AllowedFileExtensions.Contains(extension))
+					{
+
+						//var message = string.Format("Please Upload image of type .jpg,.gif,.png.");
+
+						//dict.Add("error", message);
+						return BadRequest();
+					}
+
+					else
+					{
+
+
+
+						var filePath = HttpContext.Current.Server.MapPath("~/ImgUpload/" + postedFile.FileName + DateTime.Now.ToString("yyyyMMdd") + extension);
+						string url = "ImgUpload" + postedFile.FileName + DateTime.Now.ToString("yyyyMMdd") + extension;
+						postedFile.SaveAs(filePath);
+						urls.Add(url);
+
+					}
+
+
+
+				}
+			}
+			return Ok(urls);
+		}
+		//--------------------------------------------------------------------//
 
 		[HttpPost]
 		public IHttpActionResult PostReviewPost(Post post)
