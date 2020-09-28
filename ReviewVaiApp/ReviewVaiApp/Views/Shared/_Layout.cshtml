@@ -2,15 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 
+
+
     <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
     <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <link href="~/Content/review/review.css" rel="stylesheet" />
     <link href="~/Content/review/comments-and-reply.css" rel="stylesheet" />
     <meta charset="UTF-8">
@@ -40,11 +42,15 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item active">
+                        <a class="nav-link" href="/reviewgetpost/createreview">Create Review</a>
+                    </li>
+                    <li class="nav-item active">
                         <a class="nav-link" href="#">Logged in as @User.Identity.Name</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/user/logout">Logout</a>
                     </li>
+
                 }
                 else
                 {
@@ -78,6 +84,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
