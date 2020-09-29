@@ -25,16 +25,16 @@
             Food = 4;
             Service = 5;
 
-           var Items = [];
+            var Items = [];
             $("#choices-item option").each(function () {
-                Items.push({ "Id": parseInt(this.value)})
+                Items.push({ "Id": parseInt(this.value) })
             });
             console.log(Items);
 
 
             var Tags = [];
             $("#choices option").each(function () {
-                Tags.push({ "Id": parseInt(this.value), "Name": this.textContent})
+                Tags.push({ "Id": parseInt(this.value), "Name": this.textContent })
             });
             console.log(Tags);
 
@@ -50,7 +50,7 @@
             }
             else {
                 IsRecommended = false;
-            }            
+            }
 
 
 
@@ -62,10 +62,10 @@
                 Service: Service
             }
 
-            
+
             var review = {
 
-                RestaurantOrPalceId: parseInt(RestaurantOrPalce),
+                RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
                 ApplicationUserId: String(ApplicationUserId),
                 FoodOrTravel: 1,
                 IsOfferOrPlanned: IsOfferOrPlanned,
@@ -81,19 +81,20 @@
 
             $.ajax({
                 url: "http://localhost:55407/api/Review/PostReviewPost",
+                //url: "http://reviewbhai.somee.com/api/Review/PostReviewPost",
                 type: "POST",
                 contentType: 'application/json',
                 headers: {
                     'Authorization': 'Bearer '
                         + sessionStorage.getItem("accessToken")
-                },                
+                },
                 data: JSON.stringify(review),
                 dataType: "Json",
                 success: function (response) {
                     console.log("response")
                 },
-                
-                
+
+
 
             });
         }
@@ -141,8 +142,8 @@
 
 
 
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
 
-    <script src="~/Scripts/bootstrap.min.js"></script>
 
 
     <script type="text/javascript">
@@ -151,6 +152,7 @@
             if (sessionStorage.getItem('accessToken') == null) {
 
                 window.location.href = "http://localhost:55407/user/signin";
+                //window.location.href = "http://reviewbhai.somee.com/user/signin";
             }
 
             $('#linkClose').click(function () {
@@ -165,6 +167,7 @@
             $.ajax({
 
                 url: 'http://localhost:55407/api/Tag',
+                //url: 'http://reviewbhai.somee.com/api/Tag',
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer '
@@ -204,6 +207,7 @@
             $.ajax({
 
                 url: 'http://localhost:55407/api/Item',
+                //url: 'http://reviewbhai.somee.com/api/Item',
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer '
@@ -242,6 +246,7 @@
             $.ajax({
 
                 url: 'http://localhost:55407/api/RestaurantOrPlace',
+                // url: 'http://reviewbhai.somee.com/api/RestaurantOrPlace',
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer '
