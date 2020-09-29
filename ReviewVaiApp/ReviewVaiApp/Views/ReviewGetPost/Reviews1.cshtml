@@ -1,107 +1,17 @@
-﻿
-@{
-    ViewBag.Title = "CreateReview";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<h2>CreateReview</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-
-
-    <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
-    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-    <div class="content-section">
-        <form method="POST" enctype="multipart/form-data">
-
-
-            <div data-validate="Name is reauired">
-                <span>Restaurent</span>
-                <select id="restaurent" class="select form-control" name="restaurent" required></select>
-            </div>
-
-            <div data-validate="Name is reauired">
-                <span>Title</span>
-                <input id="title" class="textinput textInput form-control" type="text" name="title" maxlength="100" autofocus="" placeholder="Type your Name" required>
-            </div>
-
-            <div data-validate="Name is reauired">
-                <span>Review Body</span>
-                <textarea id="body" class="textarea form-control" name="body" cols="40" rows="10" placeholder="Type your Name" required></textarea>
-            </div>
-            <div>
-                <span>Tags</span>
-                <select id="choices" placeholder="Select upto 5 tags" name="tags" multiple></select>
-            </div>
-
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="offered">
-                <label class="form-check-label" for="offered">Offered Food</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="recom">
-                <label class="form-check-label" for="recom">Recommended</label>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-info">Post</button>
-            </div>
-        </form>
+<div>
+    <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Link with href
+        </a>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Button with data-target
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
     </div>
-
-
-
-
-    <script src="~/Scripts/bootstrap.min.js"></script>
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            if (sessionStorage.getItem('accessToken') == null) {
-
-                window.location.href = "http://localhost:55407/user/signin";
-            }
-            var maindata = [];
-                 $.ajax({
-
-                    url: 'http://localhost:55407/api/Tag',
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer '
-                            + sessionStorage.getItem("accessToken")                      
-                     },
-                     dataType: "json",
-                     success: function (data) {
-                         maindata.push(data)
-                     }
-
-                });
-            
-            
-            console.log(maindata);
-            $.each(maindata, function (index, value) {
-
-                var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
-                console.log(value.Name);
-                $('#choices').append(tagOption);
-
-            });
-
-            var multipleCancelButton = new Choices('#choices', {
-                removeItemButton: true,
-                maxItemCount: 5,
-                searchResultLimit: 5,
-                renderChoiceLimit: 5
-            });
-        });
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-}
+</div>
