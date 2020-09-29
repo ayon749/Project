@@ -113,6 +113,20 @@ namespace ReviewVaiApp.Controllers
 		//	return Ok(urls);
 
 		//}
+		[HttpGet]
+		public IHttpActionResult GetImages(long id)
+		{
+			var photos = db.Photos.Where(i => i.PostId == id).ToList();
+			List<byte[]> images = new List<byte[]>();
+			foreach(var photo in photos)
+			{
+				var url = photo.Url;
+				  Byte[] b = System.IO.File.ReadAllBytes("~/ImgUpload/" + url);
+				images.Add(b);
+			}
+			return Ok(images);
+		}
+
 		[HttpPost]
 		public IHttpActionResult PostImages()
 		{
