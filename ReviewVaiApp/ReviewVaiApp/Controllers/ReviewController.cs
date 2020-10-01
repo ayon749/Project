@@ -121,7 +121,7 @@ namespace ReviewVaiApp.Controllers
 			foreach(var photo in photos)
 			{
 				var url = photo.Url;
-				  Byte[] b = System.IO.File.ReadAllBytes("~/ImgUpload/" + url);
+				  Byte[] b = System.IO.File.ReadAllBytes(url);
 				images.Add(b);
 			}
 			return Ok(images);
@@ -290,13 +290,67 @@ namespace ReviewVaiApp.Controllers
 			postInDb.FoodOrTravel = post.FoodOrTravel;
 			postInDb.IsOfferOrPlanned = post.IsOfferOrPlanned;
 			postInDb.IsRecommended = post.IsRecommended;
-			postInDb.Items = post.Items;
+			var items = post.Items;
+			List<Item> itemss = new List<Item>();
+			if (items != null)
+			{
+				foreach (var item in items)
+				{
+					var aItem = item;
+					var itemInDb = db.Items.Where(i => i.Id == item.Id).SingleOrDefault();
+					if (itemInDb == null)
+					{
+						db.Items.Add(item);
+					}
+					itemss.Add(itemInDb);
+				}
+			}
+			postInDb.Items = itemss;
 			postInDb.Photos = post.Photos;
 			postInDb.PostBody = post.PostBody;
 			postInDb.PostTitle = post.PostTitle;
-			postInDb.RestaurantOrPlaceId = post.RestaurantOrPlaceId;
+			if(post.RestaurantOrPlaceId!=null)
+			{
+				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == post.RestaurantOrPlaceId).SingleOrDefault();
+
+
+
+				if (restaurantInDb != null)
+				{
+					//db.RestaurantOrPlaces.Add(post.RestaurantOrPlace);
+
+					postInDb.RestaurantOrPlaceId = post.RestaurantOrPlaceId;
+					postInDb.RestaurantOrPlace = null;
+				}
+			}
+			else
+			{
+				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == post.RestaurantOrPlace.Id).SingleOrDefault();
+
+				if (restaurantInDb == null)
+				{
+					db.RestaurantOrPlaces.Add(post.RestaurantOrPlace);
+				}
+				postInDb.RestaurantOrPlace = post.RestaurantOrPlace;
+				postInDb.RestaurantOrPlaceId = null;
+			}
+			
 			postInDb.Stars = post.Stars;
-			postInDb.Tags = post.Tags;
+			var tags = post.Tags;
+			List<Tag> tagss = new List<Tag>();
+			if (tags != null)
+			{
+				foreach (var tag in tags)
+				{
+					var tagInDb = db.Tags.Where(i => i.Id == tag.Id).SingleOrDefault();
+					if (tagInDb == null)
+					{
+						db.Tags.Add(tag);
+					}
+					tagss.Add(tagInDb);
+				}
+			}
+			postInDb.Tags = tagss;
 			
 			db.SaveChanges();
 
