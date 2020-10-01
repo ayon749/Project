@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "CreateReview";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>CreateReview</h2>
@@ -13,58 +12,45 @@
 
     <script>
         function createReview() {
-
             ApplicationUserId = $("#userId").val()
             PostTitle = $("#title").val();
             PostBody = $("#body").val();
             RestaurantOrPalce = $("#choices-restaurent").val();
 
-
-            Cleanliness = 1;
-            Environment = 3;
-            Food = 4;
-            Service = 5;
+            var Food = $("input:radio[name=food]:checked").val()
+            var Service = $("input:radio[name=service]:checked").val()
+            var Environment = $("input:radio[name=environment]:checked").val()
+            var Cleanliness = $("input:radio[name=cleanliness]:checked").val()
 
             var Items = [];
             $("#choices-item option").each(function () {
                 Items.push({ "Id": parseInt(this.value) })
             });
             console.log(Items);
-
-
             var Tags = [];
             $("#choices option").each(function () {
                 Tags.push({ "Id": parseInt(this.value), "Name": this.textContent })
             });
             console.log(Tags);
-
             if ($("#offered").is(":checked")) {
                 IsOfferOrPlanned = true;
             }
             else {
                 IsOfferOrPlanned = false;
             }
-
             if ($("#recom").is(":checked")) {
                 IsRecommended = true;
             }
             else {
                 IsRecommended = false;
             }
-
-
-
-
             var stars = {
                 Cleanliness: Cleanliness,
                 Environment: Environment,
                 Food: Food,
                 Service: Service
             }
-
-
             var review = {
-
                 RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
                 ApplicationUserId: String(ApplicationUserId),
                 FoodOrTravel: 1,
@@ -75,10 +61,8 @@
                 PostTitle: PostTitle,
                 Stars: stars,
                 Tags: Tags
-
             };
             console.log(review)
-
             $.ajax({
                 url: "http://localhost:55407/api/Review/PostReviewPost",
                 //url: "http://reviewbhai.somee.com/api/Review/PostReviewPost",
@@ -93,9 +77,6 @@
                 success: function (response) {
                     console.log("response")
                 },
-
-
-
             });
         }
     </script>
@@ -126,6 +107,90 @@
                 <select id="choices" placeholder="Select upto 5 tags" name="tags" multiple></select>
             </div>
 
+            <div class="form-control" style="border: 0;">
+                <table>
+                    <tr>
+                        <td>Food:</td>
+                        <td style="padding:8px 0px 0px 0px">
+                            <div class="rating">
+                                <input type="radio" id="food1" name="food" value="5" /><label class="full" for="food1" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="food2" name="food" value="4.5" /><label class="half" for="food2" title="Pretty good - 4.5 stars"></label>
+                                <input type="radio" id="food3" name="food" value="4" /><label class="full" for="food3" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="food4" name="food" value="3.5" /><label class="half" for="food4" title="Meh - 3.5 stars"></label>
+                                <input type="radio" id="food5" name="food" value="3" /><label class="full" for="food5" title="Meh - 3 stars"></label>
+                                <input type="radio" id="food6" name="food" value="2.5" /><label class="half" for="food6" title="Kinda bad - 2.5 stars"></label>
+                                <input type="radio" id="food7" name="food" value="2" /><label class="full" for="food7" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="food8" name="food" value="1.5" /><label class="half" for="food8" title="Meh - 1.5 stars"></label>
+                                <input type="radio" id="food9" name="food" value="1" /><label class="full" for="food9" title="Sucks big time - 1 star"></label>
+                                <input type="radio" id="food10" name="food" value="half" /><label class="half" for="food10" title="Sucks big time - 0.5 stars"></label>
+
+                            </div>
+                        </td>
+
+                        <td>Environment:</td>
+                        <td style="padding:8px 0px 0px 0px">
+                            <div class="rating">
+                                <input type="radio" id="environment1" name="environment" value="5" /><label class="full" for="environment1" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="environment2" name="environment" value="4.5" /><label class="half" for="environment2" title="Pretty good - 4.5 stars"></label>
+                                <input type="radio" id="environment3" name="environment" value="4" /><label class="full" for="environment3" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="environment4" name="environment" value="3.5" /><label class="half" for="environment4" title="Meh - 3.5 stars"></label>
+                                <input type="radio" id="environment5" name="environment" value="3" /><label class="full" for="environment5" title="Meh - 3 stars"></label>
+                                <input type="radio" id="environment6" name="environment" value="2.5" /><label class="half" for="environment6" title="Kinda bad - 2.5 stars"></label>
+                                <input type="radio" id="environment7" name="environment" value="2" /><label class="full" for="environment7" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="environment8" name="environment" value="1.5" /><label class="half" for="environment8" title="Meh - 1.5 stars"></label>
+                                <input type="radio" id="environment9" name="environment" value="1" /><label class="full" for="environment9" title="Sucks big time - 1 star"></label>
+                                <input type="radio" id="environment10" name="environment" value="half" /><label class="half" for="environment10" title="Sucks big time - 0.5 stars"></label>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-control" style="border: 0;">
+                <table>
+                    <tr>
+                        <td>Service:</td>
+                        <td style="padding:8px 0px 0px 0px">
+                            <div class="rating">
+                                <input type="radio" id="service1" name="service" value="5" /><label class="full" for="service1" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="service2" name="service" value="4.5" /><label class="half" for="service2" title="Pretty good - 4.5 stars"></label>
+                                <input type="radio" id="service3" name="service" value="4" /><label class="full" for="service3" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="service4" name="service" value="3.5" /><label class="half" for="service4" title="Meh - 3.5 stars"></label>
+                                <input type="radio" id="service5" name="service" value="3" /><label class="full" for="service5" title="Meh - 3 stars"></label>
+                                <input type="radio" id="service6" name="service" value="2.5" /><label class="half" for="service6" title="Kinda bad - 2.5 stars"></label>
+                                <input type="radio" id="service7" name="service" value="2" /><label class="full" for="service7" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="service8" name="service" value="1.5" /><label class="half" for="service8" title="Meh - 1.5 stars"></label>
+                                <input type="radio" id="service9" name="service" value="1" /><label class="full" for="service9" title="Sucks big time - 1 star"></label>
+                                <input type="radio" id="service10" name="service" value="half" /><label class="half" for="service10" title="Sucks big time - 0.5 stars"></label>
+
+                            </div>
+                        </td>
+
+                        <td>Cleanliness:</td>
+                        <td style="padding:8px 0px 0px 0px">
+                            <div class="rating">
+                                <input type="radio" id="star5" name="cleanliness" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="star4half" name="cleanliness" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                <input type="radio" id="star4" name="cleanliness" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="star3half" name="cleanliness" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                <input type="radio" id="star3" name="cleanliness" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+                                <input type="radio" id="star2half" name="cleanliness" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                <input type="radio" id="star2" name="cleanliness" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="star1half" name="cleanliness" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                <input type="radio" id="star1" name="cleanliness" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                                <input type="radio" id="starhalf" name="cleanliness" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr></tr>
+                </table>
+            </div>
+
+            <br>
+
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="offered">
                 <label class="form-check-label" for="offered">Offered Food</label>
@@ -134,9 +199,7 @@
                 <input type="checkbox" class="form-check-input" id="recom">
                 <label class="form-check-label" for="recom">Recommended</label>
             </div>
-            <div>
-                <button id="submit" type="submit" class="btn btn-info">Post</button>
-            </div>
+
         </form>
     </div>
 
@@ -148,24 +211,17 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
             if (sessionStorage.getItem('accessToken') == null) {
-
                 window.location.href = "http://localhost:55407/user/signin";
                 //window.location.href = "http://reviewbhai.somee.com/user/signin";
             }
-
             $('#linkClose').click(function () {
                 $('#divError').hide('fade');
             });
-
             $('#errorModal').on('hidden.bs.modal', function () {
                 window.location.href = "Login.html";
             });
-
-
             $.ajax({
-
                 url: 'http://localhost:55407/api/Tag',
                 //url: 'http://reviewbhai.somee.com/api/Tag',
                 method: 'GET',
@@ -173,16 +229,13 @@
                     'Authorization': 'Bearer '
                         + sessionStorage.getItem("accessToken")
                 },
-
                 success: function (data) {
                     console.log(data);
                     maindata = data;
                     $.each(data, function (index, value) {
-
                         var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
                         console.log(value.Name);
                         $('#choices').append(tagOption);
-
                     });
                     var multipleCancelButton = new Choices('#choices', {
                         removeItemButton: true,
@@ -201,11 +254,7 @@
                     }
                 }
             });
-
-
-
             $.ajax({
-
                 url: 'http://localhost:55407/api/Item',
                 //url: 'http://reviewbhai.somee.com/api/Item',
                 method: 'GET',
@@ -213,16 +262,13 @@
                     'Authorization': 'Bearer '
                         + sessionStorage.getItem("accessToken")
                 },
-
                 success: function (data) {
                     console.log(data);
                     maindata = data;
                     $.each(data, function (index, value) {
-
                         var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
                         console.log(value.Name);
                         $('#choices-item').append(tagOption);
-
                     });
                     var multipleCancelButton = new Choices('#choices-item', {
                         removeItemButton: true,
@@ -241,10 +287,7 @@
                     }
                 }
             });
-
-
             $.ajax({
-
                 url: 'http://localhost:55407/api/RestaurantOrPlace',
                 // url: 'http://reviewbhai.somee.com/api/RestaurantOrPlace',
                 method: 'GET',
@@ -252,17 +295,14 @@
                     'Authorization': 'Bearer '
                         + sessionStorage.getItem("accessToken")
                 },
-
                 success: function (data) {
                     console.log(data);
                     maindata = data;
                     $.each(data, function (index, value) {
-
                         var tagOption = ('<option value=' + value.Id + '>' + value.ApplicationUser.Name + '</option>');
                         console.log(value.ApplicationUser.Name);
                         console.log(value.Id);
                         $('#choices-restaurent').append(tagOption);
-
                     });
                     var multipleCancelButton = new Choices('#choices-restaurent', {
                         removeItemButton: true,
@@ -281,14 +321,10 @@
                     }
                 }
             });
-
-
             $("#submit").click(function (e) {
                 createReview();
                 e.preventDefault();
             });
-
-
         });
     </script>
 
