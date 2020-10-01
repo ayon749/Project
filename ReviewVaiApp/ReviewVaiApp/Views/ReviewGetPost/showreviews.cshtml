@@ -881,7 +881,6 @@
 
 
 
-
             /////////////////comment and reply add
             function postComments(postcomment) {
                 var subcomment = []
@@ -897,91 +896,91 @@
 
                             console.log(111111111111)
                             comments.push(`              <div class="col-md-12">
-                                                            <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
-                                                                <div class="media-body">
-                                                                    <div class="row">
-                                                                        <div class="col-12 d-flex">
-                                                                            <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].Text} </span></h6>    ${commentDelCheck(postcomment[i].Id, postcomment[i].ApplicationUser.Id)}
-                                                                        </div>
+                                                                                                                            <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
+                                                                                                                                <div class="media-body">
+                                                                                                                                    <div class="row">
+                                                                                                                                        <div class="col-12 d-flex">
+                                                                                                                                            <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].Text} </span></h6>    ${commentDelCheck(postcomment[i].Id, postcomment[i].ApplicationUser.Id)}
+                                                                                                                                        </div>
 
-                                                                    </div><span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].Id}</span>
-                                                                    <div>
-                                                                      <i id="commentLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
-                                                                       <span>${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
+                                                                                                                                    </div><span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].Id}</span>
+                                                                                                                                    <div>
+                                                                                                                                      <i id="commentLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
+                                                                                                                                       <span>${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
 
-                                                                      <i id="commentDisLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
-                                                                       <span>${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <div class="cardbox-comments " style="width:90%;">
-                                                            <span class="comment-avatar float-left">
-                                                                <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
-                                                            </span>
-                                                         <div class="row" >
-                                                            <div class="input-group">
-                                                              <textarea rows="1" style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control" id="replybox${postcomment[i].Id}" style="width:100%; " placeholder="Write a Reply" type="text" ></textarea> 
-                                                              <span>  <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0 50px 50px 0 !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
-                                                            <!--/. Search -->
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                     </div>`)
+                                                                                                                                      <i id="commentDisLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
+                                                                                                                                       <span>${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        <div class="cardbox-comments " style="width:90%;">
+                                                                                                                            <span class="comment-avatar float-left">
+                                                                                                                                <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
+                                                                                                                            </span>
+                                                                                                                         <div class="row" >
+                                                                                                                            <div class="input-group">
+                                                                                                                              <textarea rows="1" style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control" id="replybox${postcomment[i].Id}" style="width:100%; " placeholder="Write a Reply" type="text" ></textarea>
+                                                                                                                              <span>  <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0 50px 50px 0 !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
+                                                                                                                            <!--/. Search -->
+                                                                                                                            </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                     </div>`)
                         }
                         else {
                             console.log(22222222222222)
                             for (var j = 0; j < postcomment[i].SubComments.length; j++) {
                                 subcomment.push(` <div class="media mt-2"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src="https://i.imgur.com/xELPaag.jpg" /></a>
-                                                                        <div class="media-body">
-                                                                            <div class="row">
-                                                                                <div class="col-12 d-flex" >
-                                                                                    <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${ capitalizeFirstLetter(postcomment[i].SubComments[j].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].SubComments[j].Text}</span></h6>${replyDelCheck(postcomment[i].SubComments[j].Id, postcomment[i].SubComments[j].ApplicationUser.Id)}
-                                                                                </div>
-                                                                            </div> <span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].SubComments[j].Id}</span>
-                                                                    <div>
-                                                                       <i id="replyLike${postcomment[i].SubComments[j].Id}" onclick="replyReaction(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-up"></i>
-                                                                        <span>${total_comment_reply_like(postcomment[i].SubComments[j].ReplyReactions)}</span>
-                                                                      <i id="replyDisLike${postcomment[i].SubComments[j].Id}" onclick="replyReaction(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-down"></i>
-                                                                       <span>${total_comment_reply_dislike(postcomment[i].SubComments[j].ReplyReactions)}</span>
-                                                                    </div>
-                                                                        </div>
+                                                                                                                                        <div class="media-body">
+                                                                                                                                            <div class="row">
+                                                                                                                                                <div class="col-12 d-flex" >
+                                                                                                                                                    <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${ capitalizeFirstLetter(postcomment[i].SubComments[j].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].SubComments[j].Text}</span></h6>${replyDelCheck(postcomment[i].SubComments[j].Id, postcomment[i].SubComments[j].ApplicationUser.Id)}
+                                                                                                                                                </div>
+                                                                                                                                            </div> <span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].SubComments[j].Id}</span>
+                                                                                                                                    <div>
+                                                                                                                                       <i id="replyLike${postcomment[i].SubComments[j].Id}" onclick="replyReaction(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-up"></i>
+                                                                                                                                        <span>${total_comment_reply_like(postcomment[i].SubComments[j].ReplyReactions)}</span>
+                                                                                                                                      <i id="replyDisLike${postcomment[i].SubComments[j].Id}" onclick="replyReaction(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-down"></i>
+                                                                                                                                       <span>${total_comment_reply_dislike(postcomment[i].SubComments[j].ReplyReactions)}</span>
+                                                                                                                                    </div>
+                                                                                                                                        </div>
 
-                                                                    </div>`);
+                                                                                                                                    </div>`);
                             }
                             var commentandsubcomment = subcomment.slice(0, -1).join(' &nbsp; ') + '  ' + subcomment.slice(-1);
                             var subcomment = [];
                             comments.push(`<div class="col-md-12">
-                                                            <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
-                                                                <div class="media-body">
-                                                                    <div class="row">
-                                                                        <div class="col-12 d-flex">
-                                                                            <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a> &nbsp; <span>${postcomment[i].Text}</span></h6>${commentDelCheck(postcomment[i].Id, postcomment[i].ApplicationUser.Id)}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div>
-                                                                       <i id="commentLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
-                                                                        <span>${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
+                                                                                                                            <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
+                                                                                                                                <div class="media-body">
+                                                                                                                                    <div class="row">
+                                                                                                                                        <div class="col-12 d-flex">
+                                                                                                                                            <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a> &nbsp; <span>${postcomment[i].Text}</span></h6>${commentDelCheck(postcomment[i].Id, postcomment[i].ApplicationUser.Id)}
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div>
+                                                                                                                                       <i id="commentLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
+                                                                                                                                        <span>${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
 
-                                                                      <i id="commentDisLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
-                                                                       <span>${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
-                                                                    </div>
-                                                                    <span class="text-muted" style="font-size:12px">  Id: ${postcomment[i].Id}</span>  ${commentandsubcomment}
-                                                                </div>
+                                                                                                                                      <i id="commentDisLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
+                                                                                                                                       <span>${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <span class="text-muted" style="font-size:12px">  Id: ${postcomment[i].Id}</span>  ${commentandsubcomment}
+                                                                                                                                </div>
 
-                                                            </div>
-                                                        <div class="cardbox-comments " style="width:90%;">
-                                                            <span class="comment-avatar float-left">
-                                                                <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
-                                                            </span>
-                                                            <div class="row " >
-                                                            <div class="input-group">
-                                                               <textarea rows="1" style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control" id="replybox${postcomment[i].Id}" style="width:100%; " placeholder="Write a Reply" type="text"></textarea>
-                                                               <span> <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0 50px 50px 0 !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
-                                                            <!--/. Search -->
-                                                           </div>
-                                                            </div>
-                                                        </div>
-                                                     </div>`)
+                                                                                                                            </div>
+                                                                                                                        <div class="cardbox-comments " style="width:90%;">
+                                                                                                                            <span class="comment-avatar float-left">
+                                                                                                                                <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
+                                                                                                                            </span>
+                                                                                                                            <div class="row " >
+                                                                                                                            <div class="input-group">
+                                                                                                                               <textarea rows="1" style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control" id="replybox${postcomment[i].Id}" style="width:100%; " placeholder="Write a Reply" type="text"></textarea>
+                                                                                                                               <span> <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0 50px 50px 0 !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
+                                                                                                                            <!--/. Search -->
+                                                                                                                           </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                     </div>`)
                         }
 
                     }
@@ -1094,22 +1093,161 @@
 
             }
 
+            function buttonUpdate(x, reviewId) {
+                console.log("id of this buton = " + reviewId);
+                
+                if (x.id == "editPost") {
+                    document.getElementById("post_up_button").innerHTML = `<button id="updatePost" onclick="createReview(this,${reviewId})" class="btn btn-info">Update</button>`; 
+                }
+                else {
+                    document.getElementById("post_up_button").innerHTML = `<button id="createPost" onclick="createReview(this)" class="btn btn-info">Post</button>`; 
+                }
+            }
+
+
+            /////////////////Review Update
+
+           // function updateReview(reviewId) {
+           //     reviewId = reviewId;
+           //     ApplicationUserId = $("#userId").val()
+           //     PostTitle = $("#title").val();
+           //     PostBody = $("#body").val();
+           //     RestaurantOrPalce = $("#choices-restaurent").val();
+
+           //     var Food = $("input:radio[name=food]:checked").val()
+           //     var Service = $("input:radio[name=service]:checked").val()
+           //     var Environment = $("input:radio[name=environment]:checked").val()
+           //     var Cleanliness = $("input:radio[name=cleanliness]:checked").val()
+
+
+
+           //     var Items = [];
+           //     $("#choices-item option").each(function () {
+           //         Items.push({ "Id": parseInt(this.value) })
+           //     });
+           //     console.log(Items);
+
+
+           //     var Tags = [];
+           //     $("#choices option").each(function () {
+           //         Tags.push({ "Id": parseInt(this.value), "Name": this.textContent })
+           //     });
+           //     console.log(Tags);
+
+           //     if ($("#offered").is(":checked")) {
+           //         IsOfferOrPlanned = true;
+           //     }
+           //     else {
+           //         IsOfferOrPlanned = false;
+           //     }
+
+           //     if ($("#recom").is(":checked")) {
+           //         IsRecommended = true;
+           //     }
+           //     else {
+           //         IsRecommended = false;
+           //     }
+           //     var stars = {
+           //         Cleanliness: Cleanliness,
+           //         Environment: Environment,
+           //         Food: Food,
+           //         Service: Service
+           //     }
+           //     var updateReview = {
+           //         Id : parseInt(reviewId),
+           //         RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
+           //         ApplicationUserId: String(ApplicationUserId),
+           //         FoodOrTravel: 1,
+           //         IsOfferOrPlanned: IsOfferOrPlanned,
+           //         IsRecommended: IsRecommended,
+           //         Items: Items,
+           //         PostBody: PostBody,
+           //         PostTitle: PostTitle,
+           //         Stars: stars,
+           //         Tags: Tags
+           //     }
+           //     updateUrl = "http://localhost:55407/api/Review/UpdatePost/" + String(reviewId);
+           //// updateUrl = "http://reviewbhai.somee.com/api/Review/UpdatePost/" + String(reviewId);
+           //     console.log(updateReview)
+           //     $.ajax({
+           //         url: updateUrl,
+           //         type: "PUT",
+           //         contentType: 'application/json',
+           //         headers: {
+           //             'Authorization': 'Bearer '
+           //                 + sessionStorage.getItem("accessToken")
+           //         },
+           //         data: JSON.stringify(updateReview),
+           //         dataType: "Json",
+           //         success: function (response) {
+           //             console.log("response")
+           //         },
+           //     });
+           // }
+            
+
+            ///////////////////////// Review Edit Form
+
+            function postEdit(reviewId, posterId) {
+                userId = $("#userId").val();
+                reviewUrl = "http://localhost:55407/api/Review/GetReviewPost/" + String(reviewId);
+                //reviewUrl = "http://reviewbhai.somee.com/api/Review/GetReviewPost/" + String(id);
+
+                //$(".choices__inner").remove();
+                //$(".choices__inner").remove();
+
+                if (userId == posterId) {
+                                                     
+                    $.ajax({
+                        url: reviewUrl,
+                        type: "GET",
+                        headers: {
+                            'Authorization': 'Bearer '
+                                + sessionStorage.getItem("accessToken")
+                        },
+                        success: function (data) {
+                            console.log("Review get by id =  ");
+                            console.log(data);
+                            $('#body').val(data.PostBody);
+                            $('#title').val(data.PostTitle);
+                            console.log("Food rating is " + data.Stars.Food);
+                            var foodrating = "'" + String(data.Stars.Food) + "'";
+                            var servicerating = "'" + String(data.Stars.Service) + "'";
+                            var cleanrating = "'" + String(data.Stars.Cleanliness) + "'";
+                            var envrating = "'" + String(data.Stars.Environment) + "'";
+                            $("input[name=food][value=" +foodrating+ "]").prop("checked", true);
+                            $("input[name=service][value=" + servicerating+ "]").prop("checked", true);
+                            $("input[name=cleanliness][value=" + cleanrating+ "]").prop("checked", true);
+                            $("input[name=environment][value=" + envrating + "]").prop("checked", true);
+
+
+                            $( '#choices-restaurent' ).val(1);
+
+                        }
+                    });
+                }
+            }
+
+
+
+
             function dropdown(reviewerId, reviewId) {
                 userId = $("#userId").val();
+                reviewerIdS = String(reviewerId);
                 if (userId == reviewerId) {
                     return `             <ul class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                    <li> <a class="dropdown-item" href="#">Hide post</a></li>
-                                                                    <li> <a class="dropdown-item" href="#">Edit</a></li>
-                                                                    <li><a class="dropdown-item" href="#" onclick="deletePost(${reviewId})" >Delete</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Save</a></li>
-                                                                </ul>`
+                                                    <li> <a class="dropdown-item" href="#">Hide post</a></li>
+                                                    <li id="editPost"  onclick="buttonUpdate(this,${reviewId})"> <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" href="#" onclick="postEdit(${reviewId},'${reviewerIdS}')">Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#" onclick="deletePost(${reviewId})" >Delete</a></li>
+                                                    <li><a class="dropdown-item" href="#">Save</a></li>
+                                                </ul>`
                 }
                 else {
                     return `             <ul class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                    <li> <a class="dropdown-item" href="#">Hide post</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Save</a></li>
-                                                                   <li> <a class="dropdown-item" href="#">Report</a></li>
-                                                                </ul>`
+                                                <li> <a class="dropdown-item" href="#">Hide post</a></li>
+                                                <li><a class="dropdown-item" href="#">Save</a></li>
+                                                <li> <a class="dropdown-item" href="#">Report</a></li>
+                                                </ul>`
                 }
 
 
@@ -1117,150 +1255,179 @@
 
 
             function reviewTemplate(review) {
-
                 return `
 <section class="hero">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-lg-8 offset-lg-3">
-                                                    <div class="cardbox shadow-lg bg-white">
-                                                        <div class="cardbox-heading">
-                                                            <!-- START dropdown-->
-                                                            <div class="dropdown float-right" id="dropdown${review.Id}">
-                                                                <button class="btn btn-flat " type="button" data-toggle="dropdown" aria-expanded="false">
-                                                                    <em class="fa fa-ellipsis-h"></em>
-                                                                </button>
+<div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-3">
+                    <div class="cardbox shadow-lg bg-white">
+                        <div class="cardbox-heading">
+                            <!-- START dropdown-->
+                            <div class="dropdown float-right" id="dropdown${review.Id}">
+                                <button class="btn btn-flat " type="button" data-toggle="dropdown" aria-expanded="false">
+                                    <em class="fa fa-ellipsis-h"></em>
+                                </button>
 
-                                                                ${dropdown(review.ApplicationUser.Id, review.Id)}
+                                ${dropdown(review.ApplicationUser.Id, review.Id)}
 
-                                                            </div><!--/ dropdown -->
-                                                            <div class="media m-0">
-                                                                <div class="d-flex mr-3">
-                                                                    <a href="#"><img class="img-fluid rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" alt="User"></a>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <p class="m-0">
-                                                                        <a class="mr-2" href="#">${capitalizeFirstLetter(review.ApplicationUser.Name)}</a>reviewed
-                                                                        <a href="#">${items(review.Items)}</a>
-                                                                        at <a class="mr-2" href="#">   <strong>${review.RestaurantOrPlace.ApplicationUser.Name}</strong> </a>
-                                                                    </p>
-                                                                    <small><span><i class="icon ion-md-pin"></i> ${review.RestaurantOrPlace.Location}</span></small>
-                                                                    <small><span><i class="icon ion-md-time"></i> ${review.TimePosted}</span></small>
-                                                                </div>
-                                                            </div><!--/ media -->
-                                                        </div><!--/ cardbox-heading -->
-                                                        <div class="cardbox-item">
-                                                            <img class="img-fluid" style="width:100%;" src="https://i.ibb.co/mTTFQKJ/unnamed.png" alt="Image">
+                            </div><!--/ dropdown -->
+                            <div class="media m-0">
+                                <div class="d-flex mr-3">
+                                    <a href="#"><img class="img-fluid rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" alt="User"></a>
+                                </div>
+                                <div class="media-body">
+                                    <p class="m-0">
+                                        <a class="mr-2" href="#">${capitalizeFirstLetter(review.ApplicationUser.Name)}</a>reviewed
+                                        <a href="#">${items(review.Items)}</a>
+                                        at <a class="mr-2" href="#">   <strong>${review.RestaurantOrPlace.ApplicationUser.Name}</strong> </a>
+                                    </p>
+                                    <small><span><i class="icon ion-md-pin"></i> ${review.RestaurantOrPlace.Location}</span></small>
+                                    <small><span><i class="icon ion-md-time"></i> ${review.TimePosted}</span></small>
+                                </div>
+                            </div><!--/ media -->
+                        </div><!--/ cardbox-heading -->
+                        <div class="cardbox-item">
+                            <img class="img-fluid" style="width:100%;" src="https://i.ibb.co/mTTFQKJ/unnamed.png" alt="Image">
 
-                                                            <div class="card-block px-2 py-3">
-                                                                <h4><a class="article-title " href="#"><strong>${review.PostTitle}</strong></a> </h4>
-                                                                <div>
-                                                                    <div style="padding-bottom: 15px;padding-top: 15px;">
-                                                                        <div class="row">
-                                                                            <div class="article-content offset-lg-2">food = ${review.Stars.Food} </div>
-                                                                            <div class="article-content offset-lg-2">environment = ${review.Stars.Environment} </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="article-content offset-lg-2">service = ${review.Stars.Service} </div>
-                                                                            <div class="article-content offset-lg-2">cleanliness = ${review.Stars.Cleanliness} </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div>
-                                                                    <p class="article-content">${review.PostBody}<a href="#"> Read More</a></p>
-                                                                </div>
-                                                                <div class="tags mb-3" id="tags">
-                                                                    ${tags(review.Tags)}
-                                                                </div>
-                                                            </div>
-                                                        </div><!--/ cardbox-item -->
-                                                        <div class="cardbox-base">
-                                                        <div class="row">
-                                                           <div class="column" style="float: left;width: 25%;padding: 5px;">
-                                                            <ul>
-                                                                <li><a><i id="postLike${review.Id}" onclick="postReaction(this,${review.Id})" class="fa fa-thumbs-up"></i></a></li>
+                            <div class="card-block px-2 py-3">
+                                <h4><a class="article-title " href="#"><strong>${review.PostTitle}</strong></a> </h4>
+                                <div>
+                                    <div style="padding-bottom: 15px;padding-top: 15px;">
+                                        <div class="row">
+                                            <div class="article-content offset-lg-2">food = ${review.Stars.Food} </div>
+                                            <div class="article-content offset-lg-2">environment = ${review.Stars.Environment} </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="article-content offset-lg-2">service = ${review.Stars.Service} </div>
+                                            <div class="article-content offset-lg-2">cleanliness = ${review.Stars.Cleanliness} </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="article-content">${review.PostBody}<a href="#"> Read More</a></p>
+                                </div>
+                                <div class="tags mb-3" id="tags">
+                                    ${tags(review.Tags)}
+                                </div>
+                            </div>
+                        </div><!--/ cardbox-item -->
+                        <div class="cardbox-base">
+                        <div class="row">
+                            <div class="column" style="float: left;width: 25%;padding: 5px;">
+                            <ul>
+                                <li><a><i id="postLike${review.Id}" onclick="postReaction(this,${review.Id})" class="fa fa-thumbs-up"></i></a></li>
 
-                                                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/5.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
-                                                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
-                                                                <li><a><span>${totalLikes(review.Reactions)}</span></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="column" style="float: left;width: 25%;padding: 5px;">
-                                                            <ul>
-                                                                <li><a><i id="postDisLike${review.Id}" onclick="postReaction(this,${review.Id})" class="fa fa-thumbs-down"></i></a></li>
-                                                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
+                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/5.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
+                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
+                                <li><a><span>${totalLikes(review.Reactions)}</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="column" style="float: left;width: 25%;padding: 5px;">
+                            <ul>
+                                <li><a><i id="postDisLike${review.Id}" onclick="postReaction(this,${review.Id})" class="fa fa-thumbs-down"></i></a></li>
+                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
 
-                                                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
-                                                                <li><a><span>${totalDisLikes(review.Reactions)}</span></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="column" style="float: left;width: 25%;padding: 5px;">
-                                                            <ul>
-                                                                <li><a><i id="postHelpful${review.Id}" onclick="postReaction(this,${review.Id})" class="fas fa-heart"></i></a></li>
-                                                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
-                                                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/1.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
+                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
+                                <li><a><span>${totalDisLikes(review.Reactions)}</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="column" style="float: left;width: 25%;padding: 5px;">
+                            <ul>
+                                <li><a><i id="postHelpful${review.Id}" onclick="postReaction(this,${review.Id})" class="fas fa-heart"></i></a></li>
+                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
+                                <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/1.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
 
-                                                                <li><a><span>${helpful(review.Reactions)}</span></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="column" style="float: left;width: 25%;padding: 5px;">
-                                                            <ul>
-                                                                <li><a><i class="fa fa-comments" data-toggle="collapse" data-target="#commentSection${review.Id}"></i></a></li>
-                                                                <li><a><em class="mr-5">230</em></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        </div>
-                                                        </div><!--/ cardbox-base -->
-                                                        <div class="cardbox-comments " style="width:90%;">
-                                                            <span class="comment-avatar float-left">
-                                                                <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
-                                                            </span>
-                                                            <div class="row" >
-                                                               <div class="input-group">
-                                                              <textarea style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control custom-control" id="commentBox${review.Id}" style="width:100%;" rows="1" placeholder="Write a comment" type="text" ></textarea>
-                                                              <span><button   id="commentButton" onclick="postComment(${review.Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0px 50px 50px 0px !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
-                                                            <!--/. Search -->
-                                                          </div>
-                                                            </div>
-                                                        </div><!--/ cardbox-like -->
+                                <li><a><span>${helpful(review.Reactions)}</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="column" style="float: left;width: 25%;padding: 5px;">
+                            <ul>
+                                <li><a><i class="fa fa-comments" data-toggle="collapse" data-target="#commentSection${review.Id}"></i></a></li>
+                                <li><a><em class="mr-5">230</em></a></li>
+                            </ul>
+                        </div>
+                        </div>
+                        </div><!--/ cardbox-base -->
+                        <div class="cardbox-comments " style="width:90%;">
+                            <span class="comment-avatar float-left">
+                                <a href=""><img class=" mr-3 rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>
+                            </span>
+                            <div class="row" >
+                                <div class="input-group">
+                                <textarea style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control custom-control" id="commentBox${review.Id}" style="width:100%;" rows="1" placeholder="Write a comment" type="text" ></textarea>
+                                <span><button   id="commentButton" onclick="postComment(${review.Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0px 50px 50px 0px !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
+                            <!--/. Search -->
+                            </div>
+                            </div>
+                        </div><!--/ cardbox-like -->
 
 
 <!-----------------------------------------------/. comments and reply -->
-                                                        <div class="container">                                                       
-                                                            <div id="commentSection${review.Id}" class="Collapse collapse hide">
-                                                                                                 ${postComments(review.PostComments)}
-                                                            </div>
-                                                        </div>
+                        <div class="container">
+                            <div id="commentSection${review.Id}" class="Collapse collapse hide">
+                                                                    ${postComments(review.PostComments)}
+                            </div>
+                        </div>
 <!-----------------------------------------------/. comments and reply -->
 
 
-                                                    </div><!--/ cardbox -->
+                    </div><!--/ cardbox -->
 
-                                                </div><!--/ col-lg-6 -->
-                                            </div><!--/ row -->
-                                        </div><!--/ container -->
+                </div><!--/ col-lg-6 -->
+            </div><!--/ row -->
+</div><!--/ container -->
+
 </section>
+
+
 
 `
             }
         </script>
 
+        @*<div class="modal fade" id="myModal1">
 
-        <input type="hidden" id="userId" name="custId" value=@User.Identity.GetUserId()>
-
+        </div>*@
 
 
 
         @*<div class="well">
-                <input id="btnLoadEmployees" class="btn btn-success"
-                       type="button" value="Load Employees" />
-            </div>*@
+            <input id="btnLoadEmployees" class="btn btn-success"
+                   type="button" value="Load Employees" />
+        </div>*@
+        <div class="row col-lg-8 offset-lg-3">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Write a review">
+                <span><a class="btn btn-primary" data-toggle="modal" onclick="buttonUpdate(this)" data-target="#myModal1" href="#" role="button">Post</a></span>
+            </div>
+        </div>
+
+        <input type="hidden" id="userId" name="custId" value=@User.Identity.GetUserId()>
 
 
         <ul class="listitems1"></ul>
         <div id="listitems">
-
         </div>
+
+        <div class="modal fade" id="myModal1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-xs-center">Write Review</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="content-section" id="reviewForm">
+                            @RenderPage("~/Views/ReviewGetPost/CreateReview.cshtml")
+                            <div id="post_up_button">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
 
         <div id="divError" class="alert alert-danger collapse">
@@ -1308,8 +1475,8 @@
                         console.log(data[0].RestaurantOrPlace);
 
                         document.getElementById("listitems").innerHTML = `
-                                                                                    ${ data.map(reviewTemplate).join('')}
-                                                                                                                         `
+                                            ${ data.map(reviewTemplate).join('')}
+                                               `
                         $.each(data, function (index, value) {
                             getPostReaction(value);
                             getcomment_subcommentReaction(value);
@@ -1332,7 +1499,11 @@
 
                 });
             });
+
+
         </script>
 
 
     </div>
+
+

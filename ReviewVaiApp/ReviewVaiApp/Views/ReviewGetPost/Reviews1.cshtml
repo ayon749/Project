@@ -1,17 +1,277 @@
-﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+﻿
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <script>
+        function createReview() {
 
-<div>
-    <p>
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            Link with href
-        </a>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Button with data-target
-        </button>
-    </p>
-    <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            ApplicationUserId = $("#userId").val()
+            PostTitle = $("#title").val();
+            PostBody = $("#body").val();
+            RestaurantOrPalce = $("#choices-restaurent").val();
+
+
+
+
+
+            var Food = $("input:radio[name=food]:checked").val()
+            var Service = $("input:radio[name=service]:checked").val()
+            var Environment = $("input:radio[name=environment]:checked").val()
+            var Cleanliness = $("input:radio[name=cleanliness]:checked").val()
+
+
+
+            var Items = [];
+            $("#choices-item option").each(function () {
+                Items.push({ "Id": parseInt(this.value) })
+            });
+            console.log(Items);
+
+
+            var Tags = [];
+            $("#choices option").each(function () {
+                Tags.push({ "Id": parseInt(this.value), "Name": this.textContent })
+            });
+            console.log(Tags);
+
+            if ($("#offered").is(":checked")) {
+                IsOfferOrPlanned = true;
+            }
+            else {
+                IsOfferOrPlanned = false;
+            }
+
+            if ($("#recom").is(":checked")) {
+                IsRecommended = true;
+            }
+            else {
+                IsRecommended = false;
+            }
+
+
+
+
+            var stars = {
+                Cleanliness: Cleanliness,
+                Environment: Environment,
+                Food: Food,
+                Service: Service
+            }
+
+
+            var review = {
+
+                RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
+                ApplicationUserId: String(ApplicationUserId),
+                FoodOrTravel: 1,
+                IsOfferOrPlanned: IsOfferOrPlanned,
+                IsRecommended: IsRecommended,
+                Items: Items,
+                PostBody: PostBody,
+                PostTitle: PostTitle,
+                Stars: stars,
+                Tags: Tags
+
+            };
+            console.log(review)
+
+            $.ajax({
+                url: "http://localhost:55407/api/Review/PostReviewPost",
+                //url: "http://reviewbhai.somee.com/api/Review/PostReviewPost",
+                type: "POST",
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+                data: JSON.stringify(review),
+                dataType: "Json",
+                success: function (response) {
+                    console.log("response")
+                },
+
+
+
+            });
+        }
+    </script>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-xs-center">Edit post ${review.Id}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="content-section">
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+
+
+
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if (sessionStorage.getItem('accessToken') == null) {
+
+                window.location.href = "http://localhost:55407/user/signin";
+                //window.location.href = "http://reviewbhai.somee.com/user/signin";
+            }
+
+            $('#linkClose').click(function () {
+                $('#divError').hide('fade');
+            });
+
+            $('#errorModal').on('hidden.bs.modal', function () {
+                window.location.href = "Login.html";
+            });
+
+
+            $.ajax({
+
+                url: 'http://localhost:55407/api/Tag',
+                //url: 'http://reviewbhai.somee.com/api/Tag',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+
+                success: function (data) {
+                    console.log(data);
+                    maindata = data;
+                    $('#choices-Etag').find('option').remove().end();
+                    $.each(data, function (index, value) {
+                        
+                        var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
+                        console.log(value.Name);
+                        $('#choices-Etag').append(tagOption);
+
+                    });
+                    var multipleCancelButton = new Choices('#choices-Etag', {
+                        removeItemButton: true,
+                        maxItemCount: 5,
+                        searchResultLimit: 5,
+                        renderChoiceLimit: 5
+                    });
+                },
+                error: function (jQXHR) {
+                    if (jQXHR.status == "401") {
+                        $('#errorModal').modal('show');
+                    }
+                    else {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+                }
+            });
+
+
+
+            $.ajax({
+
+                url: 'http://localhost:55407/api/Item',
+                //url: 'http://reviewbhai.somee.com/api/Item',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+
+                success: function (data) {
+                    console.log(data);
+                    maindata = data;
+                    $('#choices-Eitem').find('option').remove().end();
+                    $.each(data, function (index, value) {
+
+                        var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
+                        console.log(value.Name);
+                        $('#choices-Eitem').append(tagOption);
+
+                    });
+                    var multipleCancelButton = new Choices('#choices-Eitem', {
+                        removeItemButton: true,
+                        maxItemCount: 5,
+                        searchResultLimit: 5,
+                        renderChoiceLimit: 5
+                    });
+                },
+                error: function (jQXHR) {
+                    if (jQXHR.status == "401") {
+                        $('#errorModal').modal('show');
+                    }
+                    else {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+                }
+            });
+
+
+            $.ajax({
+
+                url: 'http://localhost:55407/api/RestaurantOrPlace',
+                // url: 'http://reviewbhai.somee.com/api/RestaurantOrPlace',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer '
+                        + sessionStorage.getItem("accessToken")
+                },
+
+                success: function (data) {
+                    console.log(data);
+                    maindata = data;
+                    $('#choices-Erestaurent').find('option').remove().end();
+                    $.each(data, function (index, value) {
+
+                        var tagOption = ('<option value=' + value.Id + '>' + value.ApplicationUser.Name + '</option>');
+                        console.log(value.ApplicationUser.Name);
+                        console.log(value.Id);
+                        $('#choices-Erestaurent').append(tagOption);
+
+                    });
+                    var multipleCancelButton = new Choices('#choices-Erestaurent', {
+                        removeItemButton: true,
+                        maxItemCount: 1,
+                        searchResultLimit: 5,
+                        renderChoiceLimit: 10
+                    });
+                },
+                error: function (jQXHR) {
+                    if (jQXHR.status == "401") {
+                        $('#errorModal').modal('show');
+                    }
+                    else {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+                }
+            });
+
+
+            $("#submit").click(function (e) {
+                createReview();
+                e.preventDefault();
+            });
+
+
+        });
+    </script>
+}
+
+
