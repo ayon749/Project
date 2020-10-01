@@ -76,44 +76,44 @@ namespace ReviewVaiApp.Controllers
 			return Ok(posts);
 
 		}
-		//--------------------------------------------------------------------//
+        ////--------------------------------------------------------------------//
 
-		//public IHttpActionResult PostImages(HttpPostedFileBase[] images)
+        //public IHttpActionResult PostImages(HttpPostedFileBase[] images)
 
-		//{
-		//	List<string> urls = new List<string>();
-		//	try
+        //{
+        //    List<string> urls = new List<string>();
+        //    try
 
-		//	{
-		//		foreach (HttpPostedFileBase image in images)
+        //    {
+        //        foreach (HttpPostedFileBase image in images)
 
-		//		{
+        //        {
 
-		//			string imagename = System.IO.Path.GetFileName(image.FileName);
+        //            string imagename = System.IO.Path.GetFileName(image.FileName);
 
-		//			image.SaveAs(HttpContext.Current.Server.MapPath("~/ImgUpload/" + imagename));
+        //            image.SaveAs(HttpContext.Current.Server.MapPath("~/ImgUpload/" + imagename));
 
-		//			string filepathtosave = "ImgUpload" + imagename;
-		//			urls.Add(filepathtosave);
+        //            string filepathtosave = "ImgUpload" + imagename;
+        //            urls.Add(filepathtosave);
 
-		//		}
+        //        }
 
-		//		//ViewBag.Message = "Selected Files are Upload successfully.";
+        //        //ViewBag.Message = "Selected Files are Upload successfully.";
 
-		//	}
+        //    }
 
-		//	catch
+        //    catch
 
-		//	{
+        //    {
 
 
 
-		//	}
+        //    }
 
-		//	return Ok(urls);
+        //    return Ok(urls);
 
-		//}
-		[HttpGet]
+        //}
+        [HttpGet]
 		public IHttpActionResult GetImages(long id)
 		{
 			var photos = db.Photos.Where(i => i.PostId == id).ToList();
@@ -160,8 +160,9 @@ namespace ReviewVaiApp.Controllers
 
 					else
 					{
-						var filePath = HttpContext.Current.Server.MapPath("~/ImgUpload/" + postedFile.FileName + DateTime.Now.ToString("yyyyMMdd") + extension);
-						string url = "ImgUpload" + postedFile.FileName + DateTime.Now.ToString("yyyyMMdd") + extension;
+						var filePath = HttpContext.Current.Server.MapPath("~/ImgUpload/" + postedFile.FileName + DateTime.Now.ToString("yyyyMMdd"));
+
+                        string url = filePath;
 						postedFile.SaveAs(filePath);
 						urls.Add(url);
 
