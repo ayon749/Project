@@ -1097,93 +1097,93 @@
                 console.log("id of this buton = " + reviewId);
                 
                 if (x.id == "editPost") {
-                    document.getElementById("post_up_button").innerHTML = `<button id="updatePost" onclick="updateReview(${reviewId})" class="btn btn-info">Update</button>`; 
+                    document.getElementById("post_up_button").innerHTML = `<button id="updatePost" onclick="createReview(this,${reviewId})" class="btn btn-info">Update</button>`; 
                 }
                 else {
-                    document.getElementById("post_up_button").innerHTML = `<button id="createPost" onclick="createReview()" class="btn btn-info">Post</button>`; 
+                    document.getElementById("post_up_button").innerHTML = `<button id="createPost" onclick="createReview(this)" class="btn btn-info">Post</button>`; 
                 }
             }
 
 
             /////////////////Review Update
 
-            function updateReview(reviewId) {
-                reviewId = reviewId;
-                ApplicationUserId = $("#userId").val()
-                PostTitle = $("#title").val();
-                PostBody = $("#body").val();
-                RestaurantOrPalce = $("#choices-restaurent").val();
+           // function updateReview(reviewId) {
+           //     reviewId = reviewId;
+           //     ApplicationUserId = $("#userId").val()
+           //     PostTitle = $("#title").val();
+           //     PostBody = $("#body").val();
+           //     RestaurantOrPalce = $("#choices-restaurent").val();
 
-                var Food = $("input:radio[name=food]:checked").val()
-                var Service = $("input:radio[name=service]:checked").val()
-                var Environment = $("input:radio[name=environment]:checked").val()
-                var Cleanliness = $("input:radio[name=cleanliness]:checked").val()
-
-
-
-                var Items = [];
-                $("#choices-item option").each(function () {
-                    Items.push({ "Id": parseInt(this.value) })
-                });
-                console.log(Items);
+           //     var Food = $("input:radio[name=food]:checked").val()
+           //     var Service = $("input:radio[name=service]:checked").val()
+           //     var Environment = $("input:radio[name=environment]:checked").val()
+           //     var Cleanliness = $("input:radio[name=cleanliness]:checked").val()
 
 
-                var Tags = [];
-                $("#choices option").each(function () {
-                    Tags.push({ "Id": parseInt(this.value), "Name": this.textContent })
-                });
-                console.log(Tags);
 
-                if ($("#offered").is(":checked")) {
-                    IsOfferOrPlanned = true;
-                }
-                else {
-                    IsOfferOrPlanned = false;
-                }
+           //     var Items = [];
+           //     $("#choices-item option").each(function () {
+           //         Items.push({ "Id": parseInt(this.value) })
+           //     });
+           //     console.log(Items);
 
-                if ($("#recom").is(":checked")) {
-                    IsRecommended = true;
-                }
-                else {
-                    IsRecommended = false;
-                }
-                var stars = {
-                    Cleanliness: Cleanliness,
-                    Environment: Environment,
-                    Food: Food,
-                    Service: Service
-                }
-                var updateReview = {
-                    Id : parseInt(reviewId),
-                    RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
-                    ApplicationUserId: String(ApplicationUserId),
-                    FoodOrTravel: 1,
-                    IsOfferOrPlanned: IsOfferOrPlanned,
-                    IsRecommended: IsRecommended,
-                    Items: Items,
-                    PostBody: PostBody,
-                    PostTitle: PostTitle,
-                    Stars: stars,
-                    Tags: Tags
-                }
-                updateUrl = "http://localhost:55407/api/Review/UpdatePost/" + String(reviewId);
-           // updateUrl = "http://reviewbhai.somee.com/api/Review/UpdatePost/" + String(reviewId);
-                console.log(updateReview)
-                $.ajax({
-                    url: updateUrl,
-                    type: "PUT",
-                    contentType: 'application/json',
-                    headers: {
-                        'Authorization': 'Bearer '
-                            + sessionStorage.getItem("accessToken")
-                    },
-                    data: JSON.stringify(updateReview),
-                    dataType: "Json",
-                    success: function (response) {
-                        console.log("response")
-                    },
-                });
-            }
+
+           //     var Tags = [];
+           //     $("#choices option").each(function () {
+           //         Tags.push({ "Id": parseInt(this.value), "Name": this.textContent })
+           //     });
+           //     console.log(Tags);
+
+           //     if ($("#offered").is(":checked")) {
+           //         IsOfferOrPlanned = true;
+           //     }
+           //     else {
+           //         IsOfferOrPlanned = false;
+           //     }
+
+           //     if ($("#recom").is(":checked")) {
+           //         IsRecommended = true;
+           //     }
+           //     else {
+           //         IsRecommended = false;
+           //     }
+           //     var stars = {
+           //         Cleanliness: Cleanliness,
+           //         Environment: Environment,
+           //         Food: Food,
+           //         Service: Service
+           //     }
+           //     var updateReview = {
+           //         Id : parseInt(reviewId),
+           //         RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
+           //         ApplicationUserId: String(ApplicationUserId),
+           //         FoodOrTravel: 1,
+           //         IsOfferOrPlanned: IsOfferOrPlanned,
+           //         IsRecommended: IsRecommended,
+           //         Items: Items,
+           //         PostBody: PostBody,
+           //         PostTitle: PostTitle,
+           //         Stars: stars,
+           //         Tags: Tags
+           //     }
+           //     updateUrl = "http://localhost:55407/api/Review/UpdatePost/" + String(reviewId);
+           //// updateUrl = "http://reviewbhai.somee.com/api/Review/UpdatePost/" + String(reviewId);
+           //     console.log(updateReview)
+           //     $.ajax({
+           //         url: updateUrl,
+           //         type: "PUT",
+           //         contentType: 'application/json',
+           //         headers: {
+           //             'Authorization': 'Bearer '
+           //                 + sessionStorage.getItem("accessToken")
+           //         },
+           //         data: JSON.stringify(updateReview),
+           //         dataType: "Json",
+           //         success: function (response) {
+           //             console.log("response")
+           //         },
+           //     });
+           // }
             
 
             ///////////////////////// Review Edit Form

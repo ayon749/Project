@@ -11,7 +11,7 @@
 
 
     <script>
-        function createReview() {
+        function createReview(x,reviewId) {
             ApplicationUserId = $("#userId").val()
             PostTitle = $("#title").val();
             PostBody = $("#body").val();
@@ -50,6 +50,20 @@
                 Food: Food,
                 Service: Service
             }
+            var updateReview = {
+                Id: parseInt(reviewId),
+                RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
+                ApplicationUserId: String(ApplicationUserId),
+                FoodOrTravel: 1,
+                IsOfferOrPlanned: IsOfferOrPlanned,
+                IsRecommended: IsRecommended,
+                Items: Items,
+                PostBody: PostBody,
+                PostTitle: PostTitle,
+                Stars: stars,
+                Tags: Tags
+            }
+
             var review = {
                 RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
                 ApplicationUserId: String(ApplicationUserId),
@@ -62,22 +76,42 @@
                 Stars: stars,
                 Tags: Tags
             };
+            updateUrl = "http://localhost:55407/api/Review/UpdatePost/" + String(reviewId);
+           // updateUrl = "http://reviewbhai.somee.com/api/Review/UpdatePost/" + String(reviewId);
             console.log(review)
-            $.ajax({
-                url: "http://localhost:55407/api/Review/PostReviewPost",
-                //url: "http://reviewbhai.somee.com/api/Review/PostReviewPost",
-                type: "POST",
-                contentType: 'application/json',
-                headers: {
-                    'Authorization': 'Bearer '
-                        + sessionStorage.getItem("accessToken")
-                },
-                data: JSON.stringify(review),
-                dataType: "Json",
-                success: function (response) {
-                    console.log("response")
-                },
-            });
+            if (x.id == "createPost") {
+                $.ajax({
+                    url: "http://localhost:55407/api/Review/PostReviewPost",
+                    //url: "http://reviewbhai.somee.com/api/Review/PostReviewPost",
+                    type: "POST",
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': 'Bearer '
+                            + sessionStorage.getItem("accessToken")
+                    },
+                    data: JSON.stringify(review),
+                    dataType: "Json",
+                    success: function (response) {
+                        console.log("response")
+                    },
+                });
+            }
+            else if (x.id == "updatePost") {
+                $.ajax({
+                    url: updateUrl,
+                    type: "PUT",
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': 'Bearer '
+                            + sessionStorage.getItem("accessToken")
+                    },
+                    data: JSON.stringify(updateReview),
+                    dataType: "Json",
+                    success: function (response) {
+                        console.log("response")
+                    },
+                });
+            }
         }
     </script>
 
