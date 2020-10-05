@@ -531,11 +531,99 @@
 
 
 
+
+
+
+            function getCommentsTotalReaction(Id) {
+                var userId = $("#userId").val();
+                getCommentsTotalReactionUrl = "http://localhost:55407/api/Review/GetACommentReactions/" + String(Id);
+                //getCommentsTotalReactionUrl = "http://reviewbhai.somee.com/api/Review/GetACommentReactions/" + String(Id);
+                $.ajax({
+                    url: getCommentsTotalReactionUrl,
+                    type: "GET",
+                    headers: {
+                        'Authorization': 'Bearer '
+                            + sessionStorage.getItem("accessToken")
+                    },
+                    success: function (value) {
+                        var userFound;
+                        var total_comment_like = 0;
+                        var total_comment_dislike = 0;
+                        
+                        if (value == null) {
+                            ////////////////////////////////////// set document value
+                            document.getElementById("totalCommentLikes" + Id).innerHTML = total_comment_like;
+                            document.getElementById("totalCommentDisLikes" + Id).innerHTML = total_comment_dislike;
+                        }
+                        if (value.length > 0) {
+                            for (var i = 0; i < value.length; i++) {
+                                if (value[i].IsLiked == 1) {
+                                    total_comment_like = total_comment_like + 1;
+                                }
+                                if (value[i].IsLiked == 2) {
+                                    total_comment_dislike = total_comment_dislike + 1;
+                                }
+                            }
+                        }
+                        console.log("total likes = " + total_comment_like);
+                        console.log("total dislike = " + total_comment_dislike);
+
+                        document.getElementById("totalCommentLikes" + Id).innerHTML = total_comment_like;
+                        document.getElementById("totalCommentDisLikes" + Id).innerHTML = total_comment_dislike;
+
+
+                    }
+                });
+            }
+
+
+
+            function getRepliesTotalReaction(Id) {
+                var userId = $("#userId").val();
+                getRepliesTotalReactionUrl = "http://localhost:55407/api/Review/GetAReplyReactions/" + String(Id);
+                //getRepliesTotalReactionUrl = "http://reviewbhai.somee.com/api/Review/GetAReplyReactions/" + String(Id);
+                $.ajax({
+                    url: getRepliesTotalReactionUrl,
+                    type: "GET",
+                    headers: {
+                        'Authorization': 'Bearer '
+                            + sessionStorage.getItem("accessToken")
+                    },
+                    success: function (value) {
+                        var userFound;
+                        var total_reply_like = 0;
+                        var total_reply_dislike = 0;
+
+                        if (value == null) {
+                            ////////////////////////////////////// set document value
+                            document.getElementById("totalReplyLikes" + Id).innerHTML = total_reply_like;
+                            document.getElementById("totalReplyDisLikes" + Id).innerHTML = total_reply_dislike;
+                        }
+                        if (value.length > 0) {
+                            for (var i = 0; i < value.length; i++) {
+                                if (value[i].IsLiked == 1) {
+                                    total_reply_like = total_reply_like + 1;
+                                }
+                                if (value[i].IsLiked == 2) {
+                                    total_reply_dislike = total_reply_dislike + 1;
+                                }
+                            }
+                        }
+                        console.log("total likes = " + total_reply_like);
+                        console.log("total dislike = " + total_reply_dislike);
+
+                        document.getElementById("totalReplyLikes" + Id).innerHTML = total_reply_like;
+                        document.getElementById("totalReplyDisLikes" + Id).innerHTML = total_reply_dislike;
+
+
+                    }
+                });
+            }
             /////// Comment & reply reaction
 
-            function deleteCommentReaction(commentId) {
-                commentReactionUrl = "http://localhost:55407/api/Review/DeleteACommentReaction/" + String(commentId);
-                //commentReactionUrl = "http://reviewbhai.somee.com/api/Review/DeleteACommentReaction/" + String(commentId);
+            function deleteCommentReaction(reactionId,commentId) {
+                commentReactionUrl = "http://localhost:55407/api/Review/DeleteACommentReaction/" + String(reactionId);
+                //commentReactionUrl = "http://reviewbhai.somee.com/api/Review/DeleteACommentReaction/" + String(reactionId);
                 $.ajax({
                     url: commentReactionUrl,
                     type: "DELETE",
@@ -544,16 +632,17 @@
                             + sessionStorage.getItem("accessToken")
                     },
                     success: function (data) {
-                        console.log(data);
+                        getCommentsTotalReaction(commentId);
+                        
                     }
                 });
             }
 
 
 
-            function deleteReplyReaction(commentId) {
-                replyReactionUrl = "http://localhost:55407/api/Review/DeleteAReplyReaction/" + String(commentId);
-                //replyReactionUrl = "http://reviewbhai.somee.com/api/Review/DeleteAReplyReaction/" + String(commentId);
+            function deleteReplyReaction(replyId,commentId) {
+                replyReactionUrl = "http://localhost:55407/api/Review/DeleteAReplyReaction/" + String(replyId);
+                //replyReactionUrl = "http://reviewbhai.somee.com/api/Review/DeleteAReplyReaction/" + String(replyId);
                 $.ajax({
                     url: replyReactionUrl,
                     type: "DELETE",
@@ -562,7 +651,7 @@
                             + sessionStorage.getItem("accessToken")
                     },
                     success: function (data) {
-                        console.log(data);
+                        getRepliesTotalReaction(commentId);
                     }
                 });
             }
@@ -595,8 +684,7 @@
                     data: JSON.stringify(commentReaction),
                     dataType: "Json",
                     success: function (data) {
-
-                        console.log(data);
+                        getCommentsTotalReaction(commentId);
                     }
                 });
 
@@ -610,7 +698,7 @@
                 userId = userId
                 like = like
                 helpful = helpful
-
+                console.log("this is reply id ====" + commentId);
                 var commentReaction = {
                     SubCommentId: commentId,
                     ApplicationUserId: userId,
@@ -628,8 +716,7 @@
                     data: JSON.stringify(commentReaction),
                     dataType: "Json",
                     success: function (data) {
-
-                        console.log(data);
+                        getRepliesTotalReaction(commentId);
                     }
                 });
 
@@ -662,9 +749,8 @@
                     },
                     data: JSON.stringify(commentReaction),
                     dataType: "Json",
-                    success: function (data) {
-
-                        console.log(data);
+                    complete: function (data) {
+                        getCommentsTotalReaction(commentId);
                     }
                 });
             }
@@ -695,9 +781,8 @@
                     },
                     data: JSON.stringify(commentReaction),
                     dataType: "Json",
-                    success: function (data) {
-
-                        console.log(data);
+                    complete: function (data) {
+                        getRepliesTotalReaction(commentId);
                     }
                 });
             }
@@ -740,7 +825,7 @@
                                 if (userId == value.ApplicationUserId) {
                                     if (x.id == commentLikeId) {
                                         if (value.IsLiked == 1) {
-                                            deleteCommentReaction(value.Id);
+                                            deleteCommentReaction(value.Id, value.PostCommentId);
                                             document.getElementById(commentLikeId).style.color = 'black';
                                         }
                                         else if (value.IsLiked == 2) {
@@ -752,7 +837,7 @@
                                     }
                                     else if (x.id == commentDisLikeId) {
                                         if (value.IsLiked == 2) {
-                                            deleteCommentReaction(value.Id);
+                                            deleteCommentReaction(value.Id, value.PostCommentId);
                                             document.getElementById(commentDisLikeId).style.color = 'black';
                                         }
                                         else if (value.IsLiked == 1) {
@@ -820,7 +905,7 @@
                                 if (userId == value.ApplicationUserId) {
                                     if (x.id == replyLikeId) {
                                         if (value.IsLiked == 1) {
-                                            deleteReplyReaction(value.Id);
+                                            deleteReplyReaction(value.Id, value.SubCommentId);
                                             document.getElementById(replyLikeId).style.color = 'black';
                                         }
                                         else if (value.IsLiked == 2) {
@@ -832,7 +917,7 @@
                                     }
                                     else if (x.id == replyDisLikeId) {
                                         if (value.IsLiked == 2) {
-                                            deleteReplyReaction(value.Id);
+                                            deleteReplyReaction(value.Id, value.SubCommentId);
                                             document.getElementById(replyDisLikeId).style.color = 'black';
                                         }
                                         else if (value.IsLiked == 1) {
@@ -957,10 +1042,10 @@
                                                                                                                                     </div><span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].Id}</span>
                                                                                                                                     <div>
                                                                                                                                       <i id="commentLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
-                                                                                                                                       <span>${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
+                                                                                                                                       <span id="totalCommentLikes${postcomment[i].Id}">${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
 
                                                                                                                                       <i id="commentDisLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
-                                                                                                                                       <span>${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
+                                                                                                                                       <span id="totalCommentDisLikes${postcomment[i].Id}">${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
                                                                                                                                     </div>
                                                                                                                                 </div>
                                                                                                                             </div>
@@ -990,9 +1075,9 @@
                                                                                                                                             </div> <span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].SubComments[j].Id}</span>
                                                                                                                                     <div>
                                                                                                                                        <i id="replyLike${postcomment[i].SubComments[j].Id}" onclick="replyReaction(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-up"></i>
-                                                                                                                                        <span>${total_comment_reply_like(postcomment[i].SubComments[j].ReplyReactions)}</span>
+                                                                                                                                        <span id="totalReplyLikes${postcomment[i].SubComments[j].Id}">${total_comment_reply_like(postcomment[i].SubComments[j].ReplyReactions)}</span>
                                                                                                                                       <i id="replyDisLike${postcomment[i].SubComments[j].Id}" onclick="replyReaction(this,${postcomment[i].SubComments[j].Id})" class="fa fa-thumbs-down"></i>
-                                                                                                                                       <span>${total_comment_reply_dislike(postcomment[i].SubComments[j].ReplyReactions)}</span>
+                                                                                                                                       <span id="totalReplyDisLikes${postcomment[i].SubComments[j].Id}">${total_comment_reply_dislike(postcomment[i].SubComments[j].ReplyReactions)}</span>
                                                                                                                                     </div>
                                                                                                                                         </div>
 
@@ -1010,10 +1095,10 @@
                                                                                                                                     </div>
                                                                                                                                     <div>
                                                                                                                                        <i id="commentLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-up"></i>
-                                                                                                                                        <span>${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
+                                                                                                                                        <span id="totalCommentLikes${postcomment[i].Id}">${total_comment_reply_like(postcomment[i].CommentReactions)}</span>
 
                                                                                                                                       <i id="commentDisLike${postcomment[i].Id}" onclick="commentsReaction(this,${postcomment[i].Id})" class="fa fa-thumbs-down"></i>
-                                                                                                                                       <span>${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
+                                                                                                                                       <span id="totalCommentDisLikes${postcomment[i].Id}">${total_comment_reply_dislike(postcomment[i].CommentReactions)}</span>
                                                                                                                                     </div>
                                                                                                                                     <span class="text-muted" style="font-size:12px">  Id: ${postcomment[i].Id}</span>  ${commentandsubcomment}
                                                                                                                                 </div>
