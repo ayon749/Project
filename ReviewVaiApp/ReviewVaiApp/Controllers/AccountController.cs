@@ -17,6 +17,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using ReviewVaiApp.Models;
+using ReviewVaiApp.Models.ViewModels;
 using ReviewVaiApp.Providers;
 using ReviewVaiApp.Results;
 
@@ -437,6 +438,24 @@ namespace ReviewVaiApp.Controllers
 			db.Users.Remove(user);
 			db.SaveChanges();
 			return Ok();
+		}
+		[HttpPut]
+		public IHttpActionResult UpdateUser(UpdateUserViewModel userViewModel)
+		{
+			var errors = ModelState.Values.SelectMany(v => v.Errors);
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var id = User.Identity.GetUserId();
+			var user = db.Users.Where(i => i.Id == id).FirstOrDefault();
+			user.Name = userViewModel.Name;
+			user.Email = userViewModel.Email;
+			user.Location = userViewModel.Location;
+			user.Contact = userViewModel.Contact;
+			db.SaveChanges();
+			return Ok();
+
 		}
 
         #region Helpers
