@@ -947,13 +947,11 @@
 
             }
 
-            function deleteComment(x, id) {
+            function deleteComment(x, id,postId,post) {
                 var y = confirm("Delete this comment ?");
                 commentDel = "commentDelete" + String(id);
                 deleteUrl = "http://localhost:55407/api/Review/DeleteAComment/" + String(id);
-                //deleteUrl = "http://reviewbhai.somee.com/api/Review/DeleteAComment/" + String(id);
-
-
+                //deleteUrl = "http://reviewbhai.somee.com/api/Review/DeleteAComment/" + String(id);                              
                 if (commentDel == x.id) {
                     if (y) {
                         $.ajax({
@@ -965,6 +963,7 @@
                             },
                             success: function (data) {
                                 alert("comment deleted");
+                                getAllComments(postId, post);
                             }
                         });
                     }
@@ -972,12 +971,13 @@
             }
 
 
-            function deleteReply(x, id) {
+            function deleteReply(x, id,postId,post) {
                 var y = confirm("Delete this comment ?");
                 replyDel = "replyDelete" + String(id);
                 deleteUrl = "http://localhost:55407/api/Review/DeleteAReplyInAComment/" + String(id);
                 //deleteUrl = "http://reviewbhai.somee.com/api/Review/DeleteAReplyInAComment/" + String(id);
-
+                console.log(postId);
+                console.log("abovvvvvvvvvvvvvvvvvvvvveeeeeeeeeeeeeee");
                 if (replyDel == x.id) {
                     if (y) {
                         $.ajax({
@@ -989,6 +989,7 @@
                             },
                             success: function (data) {
                                 alert("comment deleted");
+                                getAllComments(postId, post);
                             }
                         });
                     }
@@ -996,47 +997,57 @@
             }
 
 
-            function commentDelCheck(commentId, commentUserId) {
+            function commentDelCheck(commentId, commentUserId,postId,post) {
                 var userId = $("#userId").val();
                 if (userId == commentUserId) {
-                    return `<i id="commentDelete${commentId}" onclick="deleteComment(this,${commentId})" class="far fa-trash-alt" style="color:red;border-radius: 50px;  padding: 7px 15px 7px 15px;"></i>`
+                    return `<i id="commentDelete${commentId}" onclick="deleteComment(this,${commentId},${postId},${JSON.stringify(post).split('"').join("&quot;")})" class="far fa-trash-alt" style="color:red;border-radius: 50px;  padding: 7px 15px 7px 15px;"></i>`
                 }
                 else {
                     return ""
                 }
             }
-            function replyDelCheck(replyId, commentUserId) {
+            function replyDelCheck(replyId, commentUserId,postId,post) {
                 var userId = $("#userId").val();
                 if (userId == commentUserId) {
-                    return `<i id="replyDelete${replyId}" onclick="deleteReply(this,${replyId})" class="far fa-trash-alt" style="color:red;border-radius: 50px;  padding: 7px 15px 7px 15px;"></i>`
+                    return `<i id="replyDelete${replyId}" onclick="deleteReply(this,${replyId},${postId},${JSON.stringify(post).split('"').join("&quot;")})" class="far fa-trash-alt" style="color:red;border-radius: 50px;  padding: 7px 15px 7px 15px;"></i>`
                 }
                 else {
                     return ""
                 }
             }
+            //////////////////////Get post comment and reply
+            function getAllComments(postId,post) {
+                postId = postId;
+                var userId = $("#userId").val();
+                getAllCommentsUrl = "http://localhost:55407/api/Review/GetComment/" + String(postId);
+                //getAllCommentsUrl = "http://reviewbhai.somee.com/api/Review/GetComment/" + String(postId);
+                $.ajax({
+                    url: getAllCommentsUrl,
+                    type: "GET",
+                    headers: {
+                        'Authorization': 'Bearer '
+                            + sessionStorage.getItem("accessToken")
+                    },
+                    
+                    success: function (postcomment) {
+                        var subcomment = []
+                        var comments = []
+                        console.log(postcomment);
+                        if (postcomment == null) {
+                            var comment = "";
+                            return comment;
+                        }
+                        if (postcomment.length > 0) {
+                            for (var i = 0; i < postcomment.length; i++) {
+                                if (postcomment[i].SubComments.length <= 0) {
 
-
-
-            /////////////////comment and reply add
-            function postComments(postcomment) {
-                var subcomment = []
-                var comments = []
-                console.log(postcomment)
-                if (postcomment == null) {
-                    var comment = "";
-                    return comment;
-                }
-                if (postcomment.length > 0) {
-                    for (var i = 0; i < postcomment.length; i++) {
-                        if (postcomment[i].SubComments.length <= 0) {
-
-                            console.log(111111111111)
-                            comments.push(`              <div class="col-md-12">
+                                    console.log(111111111111)
+                                    comments.push(`              <div class="col-md-12">
                                                                                                                             <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
                                                                                                                                 <div class="media-body">
                                                                                                                                     <div class="row">
                                                                                                                                         <div class="col-12 d-flex">
-                                                                                                                                            <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].Text} </span></h6>    ${commentDelCheck(postcomment[i].Id, postcomment[i].ApplicationUser.Id)}
+                                                                                                                                            <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].Text} </span></h6>    ${commentDelCheck(postcomment[i].Id, postcomment[i].ApplicationUser.Id,postId,postId,post)}
                                                                                                                                         </div>
 
                                                                                                                                     </div><span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].Id}</span>
@@ -1056,21 +1067,21 @@
                                                                                                                          <div class="row" >
                                                                                                                             <div class="input-group">
                                                                                                                               <textarea rows="1" style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control" id="replybox${postcomment[i].Id}" style="width:100%; " placeholder="Write a Reply" type="text" ></textarea>
-                                                                                                                              <span>  <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0 50px 50px 0 !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
+                                                                                                                              <span>  <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id},${postId},${JSON.stringify(post).split('"').join("&quot;")})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0 50px 50px 0 !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
                                                                                                                             <!--/. Search -->
                                                                                                                             </div>
                                                                                                                             </div>
                                                                                                                         </div>
                                                                                                                      </div>`)
-                        }
-                        else {
-                            console.log(22222222222222)
-                            for (var j = 0; j < postcomment[i].SubComments.length; j++) {
-                                subcomment.push(` <div class="media mt-2"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src="https://i.imgur.com/xELPaag.jpg" /></a>
+                                }
+                                else {
+                                    console.log(22222222222222)
+                                    for (var j = 0; j < postcomment[i].SubComments.length; j++) {
+                                        subcomment.push(` <div class="media mt-2"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src="https://i.imgur.com/xELPaag.jpg" /></a>
                                                                                                                                         <div class="media-body">
                                                                                                                                             <div class="row">
                                                                                                                                                 <div class="col-12 d-flex" >
-                                                                                                                                                    <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${ capitalizeFirstLetter(postcomment[i].SubComments[j].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].SubComments[j].Text}</span></h6>${replyDelCheck(postcomment[i].SubComments[j].Id, postcomment[i].SubComments[j].ApplicationUser.Id)}
+                                                                                                                                                    <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${ capitalizeFirstLetter(postcomment[i].SubComments[j].ApplicationUser.Name)}</a>&nbsp; <span>${postcomment[i].SubComments[j].Text}</span></h6>${replyDelCheck(postcomment[i].SubComments[j].Id, postcomment[i].SubComments[j].ApplicationUser.Id,postId,post)}
                                                                                                                                                 </div>
                                                                                                                                             </div> <span class="text-muted" style="font-size:12px"> Id: ${postcomment[i].SubComments[j].Id}</span>
                                                                                                                                     <div>
@@ -1082,15 +1093,15 @@
                                                                                                                                         </div>
 
                                                                                                                                     </div>`);
-                            }
-                            var commentandsubcomment = subcomment.slice(0, -1).join(' &nbsp; ') + '  ' + subcomment.slice(-1);
-                            var subcomment = [];
-                            comments.push(`<div class="col-md-12">
+                                    }
+                                    var commentandsubcomment = subcomment.slice(0, -1).join(' &nbsp; ') + '  ' + subcomment.slice(-1);
+                                    var subcomment = [];
+                                    comments.push(`<div class="col-md-12">
                                                                                                                             <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
                                                                                                                                 <div class="media-body">
                                                                                                                                     <div class="row">
                                                                                                                                         <div class="col-12 d-flex">
-                                                                                                                                            <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a> &nbsp; <span>${postcomment[i].Text}</span></h6>${commentDelCheck(postcomment[i].Id, postcomment[i].ApplicationUser.Id)}
+                                                                                                                                            <h6 style="background-color: #f0f1f2;border-radius: 50px;  padding: 7px 15px 7px 15px;"><a href="#">${capitalizeFirstLetter(postcomment[i].ApplicationUser.Name)}</a> &nbsp; <span>${postcomment[i].Text}</span></h6>${commentDelCheck(postcomment[i].Id, postcomment[i].ApplicationUser.Id,postId,post)}
                                                                                                                                         </div>
                                                                                                                                     </div>
                                                                                                                                     <div>
@@ -1111,31 +1122,38 @@
                                                                                                                             <div class="row " >
                                                                                                                             <div class="input-group">
                                                                                                                                <textarea rows="1" style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control" id="replybox${postcomment[i].Id}" style="width:100%; " placeholder="Write a Reply" type="text"></textarea>
-                                                                                                                               <span> <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0 50px 50px 0 !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
+                                                                                                                               <span> <button id="replyButton${postcomment[i].Id}" onclick="commentReply(${postcomment[i].Id},${postId},${JSON.stringify(post).split('"').join("&quot;")})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0 50px 50px 0 !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
                                                                                                                             <!--/. Search -->
                                                                                                                            </div>
                                                                                                                             </div>
                                                                                                                         </div>
                                                                                                                      </div>`)
+                                }
+
+                            }
+                            var comment = comments.slice(0, -1).join(' &nbsp; ') + ' &nbsp; ' + comments.slice(-1);
+                        }
+                        else {
+                            var comment = "";
                         }
 
-                    }
-                    var comment = comments.slice(0, -1).join(' &nbsp; ') + ' &nbsp; ' + comments.slice(-1);
-                }
-                else {
-                    var comment = "";
-                }
-
-                console.log(comment);
-                return comment;
-
+                        console.log(comment);
+                        document.getElementById("commentSection" + postId).innerHTML = comment;
+                        getcomment_subcommentReaction(post)
+                    },
+                    
+                    
+                    
+                });
 
             }
 
+            /////////////////comment and reply add
+ 
 
-            function postComment(postId) {
+
+            function postComment(postId,post) {
                 var userId = $("#userId").val();
-                console.log(userId);
                 postId = postId;
                 console.log(postId);
                 commentText = $("#commentBox" + postId).val();
@@ -1162,13 +1180,14 @@
                         success: function (response) {
                             console.log(response);
                             $('#commentBox' + postId).val("");
+                            getAllComments(postId, post);
                         }
                     });
                 }
 
             }
 
-            function commentReply(commentId) {
+            function commentReply(commentId,postId,post) {
                 userId = $("#userId").val();
                 console.log(userId);
 
@@ -1199,8 +1218,7 @@
                         data: JSON.stringify(comment),
                         dataType: "Json",
                         success: function (response) {
-                            console.log(response);
-                            $("#replybox" + commentId).val("");
+                            getAllComments(postId, post);
                         }
                     });
                 }
@@ -1243,84 +1261,6 @@
 
             /////////////////Review Update
 
-           // function updateReview(reviewId) {
-           //     reviewId = reviewId;
-           //     ApplicationUserId = $("#userId").val()
-           //     PostTitle = $("#title").val();
-           //     PostBody = $("#body").val();
-           //     RestaurantOrPalce = $("#choices-restaurent").val();
-
-           //     var Food = $("input:radio[name=food]:checked").val()
-           //     var Service = $("input:radio[name=service]:checked").val()
-           //     var Environment = $("input:radio[name=environment]:checked").val()
-           //     var Cleanliness = $("input:radio[name=cleanliness]:checked").val()
-
-
-
-           //     var Items = [];
-           //     $("#choices-item option").each(function () {
-           //         Items.push({ "Id": parseInt(this.value) })
-           //     });
-           //     console.log(Items);
-
-
-           //     var Tags = [];
-           //     $("#choices option").each(function () {
-           //         Tags.push({ "Id": parseInt(this.value), "Name": this.textContent })
-           //     });
-           //     console.log(Tags);
-
-           //     if ($("#offered").is(":checked")) {
-           //         IsOfferOrPlanned = true;
-           //     }
-           //     else {
-           //         IsOfferOrPlanned = false;
-           //     }
-
-           //     if ($("#recom").is(":checked")) {
-           //         IsRecommended = true;
-           //     }
-           //     else {
-           //         IsRecommended = false;
-           //     }
-           //     var stars = {
-           //         Cleanliness: Cleanliness,
-           //         Environment: Environment,
-           //         Food: Food,
-           //         Service: Service
-           //     }
-           //     var updateReview = {
-           //         Id : parseInt(reviewId),
-           //         RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
-           //         ApplicationUserId: String(ApplicationUserId),
-           //         FoodOrTravel: 1,
-           //         IsOfferOrPlanned: IsOfferOrPlanned,
-           //         IsRecommended: IsRecommended,
-           //         Items: Items,
-           //         PostBody: PostBody,
-           //         PostTitle: PostTitle,
-           //         Stars: stars,
-           //         Tags: Tags
-           //     }
-           //     updateUrl = "http://localhost:55407/api/Review/UpdatePost/" + String(reviewId);
-           //// updateUrl = "http://reviewbhai.somee.com/api/Review/UpdatePost/" + String(reviewId);
-           //     console.log(updateReview)
-           //     $.ajax({
-           //         url: updateUrl,
-           //         type: "PUT",
-           //         contentType: 'application/json',
-           //         headers: {
-           //             'Authorization': 'Bearer '
-           //                 + sessionStorage.getItem("accessToken")
-           //         },
-           //         data: JSON.stringify(updateReview),
-           //         dataType: "Json",
-           //         success: function (response) {
-           //             console.log("response")
-           //         },
-           //     });
-           // }
-            
 
             ///////////////////////// Review Edit Form
 
@@ -1491,7 +1431,7 @@
                             <div class="row" >
                                 <div class="input-group">
                                 <textarea style="height:38px;border-radius: 50px 0 0 50px !important;resize: none;overflow:hidden" class="form-control custom-control" id="commentBox${review.Id}" style="width:100%;" rows="1" placeholder="Write a comment" type="text" ></textarea>
-                                <span><button   id="commentButton" onclick="postComment(${review.Id})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0px 50px 50px 0px !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
+                                <span><button   id="commentButton" onclick="postComment(${review.Id},${JSON.stringify(review).split('"').join("&quot;")})" class="btn btn-outline-secondary" style="height:38px;border-radius: 0px 50px 50px 0px !important;resize: none;border: 1px solid #d1d1d1;"><i class="far fa-paper-plane"></i></button></span>
                             <!--/. Search -->
                             </div>
                             </div>
@@ -1501,8 +1441,9 @@
 <!-----------------------------------------------/. comments and reply -->
                         <div class="container">
                             <div id="commentSection${review.Id}" class="Collapse collapse hide">
-                                                                    ${postComments(review.PostComments)}
+                                                                    ${getAllComments(review.Id,review)}                                                                   
                             </div>
+
                         </div>
 <!-----------------------------------------------/. comments and reply -->
 
@@ -1615,10 +1556,11 @@
                                                `
                         $.each(data, function (index, value) {
                             getPostReaction(value);
-                            getcomment_subcommentReaction(value);
+                            //getcomment_subcommentReaction(value);
                             console.log("value id from document read >");
                             console.log(value);
                         });
+
                     },
                     error: function (jQXHR) {
                         // If status code is 401, access token expired, so
@@ -1630,7 +1572,8 @@
                             $('#divErrorText').text(jqXHR.responseText);
                             $('#divError').show('fade');
                         }
-                    }
+                    },
+                    async: false
 
 
                 });
