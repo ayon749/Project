@@ -1472,7 +1472,7 @@
             <input id="btnLoadEmployees" class="btn btn-success"
                    type="button" value="Load Employees" />
         </div>*@
-    <div class="row col-lg-8 offset-lg-3">
+    <div class="row col-lg-8 offset-lg-3"  style="padding-top:20px">
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Write a review">
             <span><a class="btn btn-primary" data-toggle="modal" onclick="buttonUpdate(this)" data-target="#myModal1" href="#" role="button">Post</a></span>
@@ -1481,10 +1481,12 @@
 
     <input type="hidden" id="userId" name="custId" value=@User.Identity.GetUserId()>
 
+   
+        <ul class="listitems1"></ul>
+        <div id="listitems">
+        </div>
+    
 
-    <ul class="listitems1"></ul>
-    <div id="listitems">
-    </div>
 
     <div class="modal fade" id="myModal1">
         <div class="modal-dialog">
