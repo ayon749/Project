@@ -171,6 +171,23 @@ namespace ReviewVaiApp.Controllers
 			}
 			return Ok(urls);
 		}
+		[HttpDelete]
+		public IHttpActionResult DeleteImage(long Id)
+		{
+			var photo = db.Photos.Where(p => p.Id == Id).SingleOrDefault();
+			var url = photo.Url;
+			var imageName = url.Substring(10);
+			File.Delete(HttpContext.Current.Server.MapPath("~/ImgUpload/"+imageName));
+			db.Photos.Remove(photo);
+			db.SaveChanges();
+			//FileInfo file = new FileInfo(url);
+			//if (file.Exists)
+			//{
+			//	file.Delete();
+			//}
+			return Ok();
+
+		}
 		//--------------------------------------------------------------------//
 
 		[HttpPost]
