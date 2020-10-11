@@ -1,277 +1,64 @@
-﻿
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <script>
-        function createReview() {
+﻿<style type="text/css">
+    .image-preview {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        background-color: #000000;
+        color: #ecf0f1;
+    }
 
-            ApplicationUserId = $("#userId").val()
-            PostTitle = $("#title").val();
-            PostBody = $("#body").val();
-            RestaurantOrPalce = $("#choices-restaurent").val();
+    input[type="file"] {
+        line-height: 200px;
+        font-size: 200px;
+        position: absolute;
+        opacity: 0;
+        z-index: 10;
+    }
 
+    label {
+        position: absolute;
+        z-index: 5;
+        opacity: 0.7;
+        cursor: pointer;
+        background-color: #bdc3c7;
+        width: 200px;
+        height: 50px;
+        font-size: 20px;
+        line-height: 50px;
+        text-transform: uppercase;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        text-align: center;
+    }
+</style>
 
+<script type="text/javascript">
+    $(document).ready(function () {
 
-
-
-            var Food = $("input:radio[name=food]:checked").val()
-            var Service = $("input:radio[name=service]:checked").val()
-            var Environment = $("input:radio[name=environment]:checked").val()
-            var Cleanliness = $("input:radio[name=cleanliness]:checked").val()
-
-
-
-            var Items = [];
-            $("#choices-item option").each(function () {
-                Items.push({ "Id": parseInt(this.value) })
-            });
-            console.log(Items);
-
-
-            var Tags = [];
-            $("#choices option").each(function () {
-                Tags.push({ "Id": parseInt(this.value), "Name": this.textContent })
-            });
-            console.log(Tags);
-
-            if ($("#offered").is(":checked")) {
-                IsOfferOrPlanned = true;
+        $("image-preview").each(
+            function () {
+                $.uploadPreview({
+                    input_field: $(this).find(".image-upload"),
+                    preview_box: this,
+                    label_field: $(this).find(".image-label")
+                });
             }
-            else {
-                IsOfferOrPlanned = false;
-            }
-
-            if ($("#recom").is(":checked")) {
-                IsRecommended = true;
-            }
-            else {
-                IsRecommended = false;
-            }
-
-
-
-
-            var stars = {
-                Cleanliness: Cleanliness,
-                Environment: Environment,
-                Food: Food,
-                Service: Service
-            }
-
-
-            var review = {
-
-                RestaurantOrPlaceId: parseInt(RestaurantOrPalce),
-                ApplicationUserId: String(ApplicationUserId),
-                FoodOrTravel: 1,
-                IsOfferOrPlanned: IsOfferOrPlanned,
-                IsRecommended: IsRecommended,
-                Items: Items,
-                PostBody: PostBody,
-                PostTitle: PostTitle,
-                Stars: stars,
-                Tags: Tags
-
-            };
-            console.log(review)
-
-            $.ajax({
-                url: "http://localhost:55407/api/Review/PostReviewPost",
-                //url: "http://reviewbhai.somee.com/api/Review/PostReviewPost",
-                type: "POST",
-                contentType: 'application/json',
-                headers: {
-                    'Authorization': 'Bearer '
-                        + sessionStorage.getItem("accessToken")
-                },
-                data: JSON.stringify(review),
-                dataType: "Json",
-                success: function (response) {
-                    console.log("response")
-                },
-
-
-
-            });
-        }
-    </script>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-xs-center">Edit post ${review.Id}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="content-section">
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>
+        );
+    });
+</script>
+<!--| catatan penting: yang penting action="" & input type="file" name="image" |-->
+<form action="upload.php" method="POST" enctype="multipart/form-data">
+    <div class="image-preview">
+        <label for="image-upload" class="image-label">+ GAMBAR</label>
+        <input type="file" name="my_field[]" class="image-upload" />
     </div>
-
-
-
-
-    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            if (sessionStorage.getItem('accessToken') == null) {
-
-                window.location.href = "http://localhost:55407/user/signin";
-                //window.location.href = "http://reviewbhai.somee.com/user/signin";
-            }
-
-            $('#linkClose').click(function () {
-                $('#divError').hide('fade');
-            });
-
-            $('#errorModal').on('hidden.bs.modal', function () {
-                window.location.href = "Login.html";
-            });
-
-
-            $.ajax({
-
-                url: 'http://localhost:55407/api/Tag',
-                //url: 'http://reviewbhai.somee.com/api/Tag',
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer '
-                        + sessionStorage.getItem("accessToken")
-                },
-
-                success: function (data) {
-                    console.log(data);
-                    maindata = data;
-                    $('#choices-Etag').find('option').remove().end();
-                    $.each(data, function (index, value) {
-                        
-                        var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
-                        console.log(value.Name);
-                        $('#choices-Etag').append(tagOption);
-
-                    });
-                    var multipleCancelButton = new Choices('#choices-Etag', {
-                        removeItemButton: true,
-                        maxItemCount: 5,
-                        searchResultLimit: 5,
-                        renderChoiceLimit: 5
-                    });
-                },
-                error: function (jQXHR) {
-                    if (jQXHR.status == "401") {
-                        $('#errorModal').modal('show');
-                    }
-                    else {
-                        $('#divErrorText').text(jqXHR.responseText);
-                        $('#divError').show('fade');
-                    }
-                }
-            });
-
-
-
-            $.ajax({
-
-                url: 'http://localhost:55407/api/Item',
-                //url: 'http://reviewbhai.somee.com/api/Item',
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer '
-                        + sessionStorage.getItem("accessToken")
-                },
-
-                success: function (data) {
-                    console.log(data);
-                    maindata = data;
-                    $('#choices-Eitem').find('option').remove().end();
-                    $.each(data, function (index, value) {
-
-                        var tagOption = ('<option value=' + value.Id + '>' + value.Name + '</option>');
-                        console.log(value.Name);
-                        $('#choices-Eitem').append(tagOption);
-
-                    });
-                    var multipleCancelButton = new Choices('#choices-Eitem', {
-                        removeItemButton: true,
-                        maxItemCount: 5,
-                        searchResultLimit: 5,
-                        renderChoiceLimit: 5
-                    });
-                },
-                error: function (jQXHR) {
-                    if (jQXHR.status == "401") {
-                        $('#errorModal').modal('show');
-                    }
-                    else {
-                        $('#divErrorText').text(jqXHR.responseText);
-                        $('#divError').show('fade');
-                    }
-                }
-            });
-
-
-            $.ajax({
-
-                url: 'http://localhost:55407/api/RestaurantOrPlace',
-                // url: 'http://reviewbhai.somee.com/api/RestaurantOrPlace',
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer '
-                        + sessionStorage.getItem("accessToken")
-                },
-
-                success: function (data) {
-                    console.log(data);
-                    maindata = data;
-                    $('#choices-Erestaurent').find('option').remove().end();
-                    $.each(data, function (index, value) {
-
-                        var tagOption = ('<option value=' + value.Id + '>' + value.ApplicationUser.Name + '</option>');
-                        console.log(value.ApplicationUser.Name);
-                        console.log(value.Id);
-                        $('#choices-Erestaurent').append(tagOption);
-
-                    });
-                    var multipleCancelButton = new Choices('#choices-Erestaurent', {
-                        removeItemButton: true,
-                        maxItemCount: 1,
-                        searchResultLimit: 5,
-                        renderChoiceLimit: 10
-                    });
-                },
-                error: function (jQXHR) {
-                    if (jQXHR.status == "401") {
-                        $('#errorModal').modal('show');
-                    }
-                    else {
-                        $('#divErrorText').text(jqXHR.responseText);
-                        $('#divError').show('fade');
-                    }
-                }
-            });
-
-
-            $("#submit").click(function (e) {
-                createReview();
-                e.preventDefault();
-            });
-
-
-        });
-    </script>
-}
-
-
+    <div class="image-preview">
+        <label for="image-upload" class="image-label">+ GAMBAR</label>
+        <input type="file" name="my_field[]" class="image-upload" />
+    </div>
+    <input type="submit" />
+</form>
