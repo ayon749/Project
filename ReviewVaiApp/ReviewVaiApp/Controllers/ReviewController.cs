@@ -160,10 +160,9 @@ namespace ReviewVaiApp.Controllers
 
 					else
 					{
-						var filePath = HttpContext.Current.Server.MapPath("~/ImgUpload/" + postedFile.FileName + DateTime.Now.ToString("yyyyMMdd"));
-
-                        string url = filePath;
-						postedFile.SaveAs(filePath);
+						var filePath = HttpContext.Current.Server.MapPath("~/ImgUpload/" + DateTime.Now.ToString("yyyyMMdd") + postedFile.FileName );
+                        string url = "ImgUpload/" + DateTime.Now.ToString("yyyyMMdd") + postedFile.FileName;
+                        postedFile.SaveAs(filePath);
 						urls.Add(url);
 
 					}

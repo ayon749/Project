@@ -97,8 +97,8 @@
     console.log(id);
 
     if (sessionStorage.getItem('accessToken') == null) {
-        // window.location.href = "http://reviewbhai.somee.com/user/signin";
-        window.location.href = "http://localhost:55407/user/signin";
+        window.location.href = "http://reviewbhai.somee.com/user/signin";
+        //window.location.href = "http://localhost:55407/user/signin";
     }
 
 
@@ -115,8 +115,8 @@
     }
     //$('#btnLoadEmployees').click(function () {
     $.ajax({
-        //url: 'http://reviewbhai.somee.com/api/Account/GetAUser/',
-        url: 'http://localhost:55407/api/Account/GetAUser/' + String(id),
+        url: 'http://reviewbhai.somee.com/api/Account/GetAUser/'+ String(id),
+        //url: 'http://localhost:55407/api/Account/GetAUser/' + String(id),
         method: 'GET',
         headers: {
             'Authorization': 'Bearer '
@@ -127,11 +127,12 @@
 
             document.getElementById("profileName").innerHTML = capitalizeFirstLetter(data.Name);
             document.getElementById("address").innerHTML = data.Location;
-            document.getElementById("profilePhoto").innerHTML = '<img src="' + data.Photo + '"class="rounded-circle"/>';
-
-                
-
-
+            if (data.Photo == null) {
+                document.getElementById("profilePhoto").innerHTML = '<img src="https://i.ibb.co/SfQG1X9/default.jpg"class="rounded-circle"/>';
+            }
+            else {
+                document.getElementById("profilePhoto").innerHTML = '<img src="' + data.Photo + '"class="rounded-circle"/>';
+            }                                 
         },
         error: function (jQXHR) {
             // If status code is 401, access token expired, so

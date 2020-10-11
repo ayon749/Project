@@ -331,6 +331,8 @@
     <Content Include="Content\profile\profileLayout.css" />
     <Content Include="Content\review\comments-and-reply.css" />
     <Content Include="Content\review\comments-and-reply.js" />
+    <Content Include="Content\review\image_upload\reviewImage.css" />
+    <Content Include="Content\review\image_upload\reviewImage.js" />
     <Content Include="Content\review\multiselectbox.js" />
     <Content Include="Content\review\review.css" />
     <Content Include="Content\review\reviewStar.css" />
