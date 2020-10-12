@@ -354,12 +354,12 @@
                                         if (value.IsHelpfull == 1) {
                                             updatePostReaction(postId, userId, 0, 1, value.Id);
                                             console.log("Like button pressed and and removed the like, Helpfull = 1");
-                                            document.getElementById(isLiked).style.color = "black";
+                                            document.getElementById(isLiked).style.color = "gray";
 
                                         }
-                                        else {
+                                        else{
                                             deletePostReaction(postId, value.Id);
-                                            document.getElementById(isLiked).style.color = "black";
+                                            document.getElementById(isLiked).style.color = "gray";
                                             console.log("Like button pressed and and removed the like and helpful, Helpfull = 0/2");
                                         }
                                     }
@@ -367,13 +367,13 @@
                                         if (value.IsHelpfull == 1) {
                                             updatePostReaction(postId, userId, 1, 1, value.Id);
                                             console.log("Like button pressed and and removed the dislike, Helpfull = 1");
-                                            document.getElementById(isDisLike).style.color = "black";
+                                            document.getElementById(isDisLike).style.color = "gray";
                                             document.getElementById(isLiked).style.color = "red";
                                         }
-                                        else {
+                                        else{
                                             updatePostReaction(postId, userId, 1, 0, value.Id);
                                             console.log("Like button pressed and and removed the dislike and helpful, Helpfull = 0/2");
-                                            document.getElementById(isDisLike).style.color = "black";
+                                            document.getElementById(isDisLike).style.color = "gray";
                                             document.getElementById(isLiked).style.color = "red";
 
                                         }
@@ -382,7 +382,7 @@
                                         if (value.IsHelpfull == 1) {
                                             updatePostReaction(postId, userId, 1, 1, value.Id);
                                             console.log("Like button pressed and and added like, Helpfull = 1");
-                                            document.getElementById(isDisLike).style.color = "black";
+                                            document.getElementById(isDisLike).style.color = "gray";
                                             document.getElementById(isLiked).style.color = "red";
                                         }
                                     }
@@ -392,13 +392,13 @@
                                         if (value.IsHelpfull == 1) {
                                             updatePostReaction(postId, userId, 2, 1, value.Id);
                                             console.log("DisLike button pressed and and removed the like added dislike, Helpfull = 1");
-                                            document.getElementById(isLiked).style.color = "black";
+                                            document.getElementById(isLiked).style.color = "gray";
                                             document.getElementById(isDisLike).style.color = "red";
                                         }
-                                        else {
+                                        else{
                                             updatePostReaction(postId, userId, 2, 0, value.Id);
                                             console.log("DisLike button pressed and and removed the like added dislike, Helpfull = 0/2");
-                                            document.getElementById(isLiked).style.color = "black";
+                                            document.getElementById(isLiked).style.color = "gray";
                                             document.getElementById(isDisLike).style.color = "red";
                                         }
                                     }
@@ -406,21 +406,21 @@
                                         if (value.IsHelpfull == 1) {
                                             updatePostReaction(postId, userId, 0, 1, value.Id);
                                             console.log("DisLike button pressed and and removed the  dislike, Helpfull = 1");
-                                            document.getElementById(isLiked).style.color = "black";
-                                            document.getElementById(isDisLike).style.color = "black";
+                                            document.getElementById(isLiked).style.color = "gray";
+                                            document.getElementById(isDisLike).style.color = "gray";
                                         }
-                                        else {
+                                        else if ((value.IsHelpfull = 1)) {
                                             deletePostReaction(postId, value.Id);
-                                            document.getElementById(isDisLike).style.color = "black";
+                                            document.getElementById(isDisLike).style.color = "gray";
                                             console.log("DisLike button pressed  and removed the dislike and helpful, Helpfull = 0/2");
                                         }
                                     }
-                                    else {
+                                    else{
                                         if (value.IsHelpfull == 1) {
                                             updatePostReaction(postId, userId, 2, 1, value.Id);
                                             console.log("disLike button pressed and and added dislike, Helpfull = 1");
                                             document.getElementById(isDisLike).style.color = "red";
-                                            document.getElementById(isLiked).style.color = "black";
+                                            document.getElementById(isLiked).style.color = "gray";
                                         }
                                     }
                                 }
@@ -429,20 +429,20 @@
                                         if (value.IsLiked == 1) {
                                             updatePostReaction(postId, userId, 1, 0, value.Id);
                                             console.log("helpful button pressed and and removed the helpful, isliked = 1");
-                                            document.getElementById(isHelpful).style.color = "black";
+                                            document.getElementById(isHelpful).style.color = "gray";
                                         }
                                         else if (value.IsLiked == 2) {
                                             updatePostReaction(postId, userId, 2, 0, value.Id);
                                             console.log("helpful button pressed and and removed the helpful, isliked = 2");
-                                            document.getElementById(isHelpful).style.color = "black";
+                                            document.getElementById(isHelpful).style.color = "gray";
                                         }
                                         else {
                                             deletePostReaction(postId, value.Id);
                                             console.log("helpful button pressed and and removed the helpful, isliked = 0");
-                                            document.getElementById(isHelpful).style.color = "black";
+                                            document.getElementById(isHelpful).style.color = "gray";
                                         }
                                     }
-                                    else {
+                                    else{
                                         if (value.IsLiked == 1) {
                                             updatePostReaction(postId, userId, 1, 1, value.Id);
                                             console.log("helpful button pressed and and added the helpful, isliked = 1");
@@ -459,7 +459,7 @@
 
                         });
                     }
-                    else {
+                    else{
                         if (x.id == isLiked) {
                             createPostReaction(postId, userId, 1, 0);
                             console.log("Like button pressed and and created like, ishelpfull = 0/2");
@@ -826,11 +826,11 @@
                                 if (x.id == commentLikeId) {
                                     if (value.IsLiked == 1) {
                                         deleteCommentReaction(value.Id, value.PostCommentId);
-                                        document.getElementById(commentLikeId).style.color = 'black';
+                                        document.getElementById(commentLikeId).style.color = 'gray';
                                     }
                                     else if (value.IsLiked == 2) {
                                         updateCommentReaction(id, userId, 1, 0, value.Id)
-                                        document.getElementById(commentDisLikeId).style.color = 'black';
+                                        document.getElementById(commentDisLikeId).style.color = 'gray';
                                         document.getElementById(commentLikeId).style.color = 'red';
                                         //update comment Reaction
                                     }
@@ -838,11 +838,11 @@
                                 else if (x.id == commentDisLikeId) {
                                     if (value.IsLiked == 2) {
                                         deleteCommentReaction(value.Id, value.PostCommentId);
-                                        document.getElementById(commentDisLikeId).style.color = 'black';
+                                        document.getElementById(commentDisLikeId).style.color = 'gray';
                                     }
                                     else if (value.IsLiked == 1) {
                                         updateCommentReaction(id, userId, 2, 0, value.Id)
-                                        document.getElementById(commentLikeId).style.color = 'black';
+                                        document.getElementById(commentLikeId).style.color = 'gray';
                                         document.getElementById(commentDisLikeId).style.color = 'red';
                                         //update comment Reaction
                                     }
@@ -906,11 +906,11 @@
                                 if (x.id == replyLikeId) {
                                     if (value.IsLiked == 1) {
                                         deleteReplyReaction(value.Id, value.SubCommentId);
-                                        document.getElementById(replyLikeId).style.color = 'black';
+                                        document.getElementById(replyLikeId).style.color = 'gray';
                                     }
                                     else if (value.IsLiked == 2) {
                                         updateReplyReaction(id, userId, 1, 0, value.Id)
-                                        document.getElementById(replyDisLikeId).style.color = 'black';
+                                        document.getElementById(replyDisLikeId).style.color = 'gray';
                                         document.getElementById(replyLikeId).style.color = 'red';
 
                                     }
@@ -918,11 +918,11 @@
                                 else if (x.id == replyDisLikeId) {
                                     if (value.IsLiked == 2) {
                                         deleteReplyReaction(value.Id, value.SubCommentId);
-                                        document.getElementById(replyDisLikeId).style.color = 'black';
+                                        document.getElementById(replyDisLikeId).style.color = 'gray';
                                     }
                                     else if (value.IsLiked == 1) {
                                         updateReplyReaction(id, userId, 2, 0, value.Id)
-                                        document.getElementById(replyLikeId).style.color = 'black';
+                                        document.getElementById(replyLikeId).style.color = 'gray';
                                         document.getElementById(replyDisLikeId).style.color = 'red';
 
                                     }
@@ -1129,7 +1129,6 @@
                                                                                                                             </div>
                                                                                                                          </div>`)
                             }
-
                         }
                         var comment = comments.slice(0, -1).join(' &nbsp; ') + ' &nbsp; ' + comments.slice(-1);
                     }
@@ -1363,7 +1362,7 @@
                                 </div><!--/ media -->
                             </div><!--/ cardbox-heading -->
                             <div class="cardbox-item">
-                                <img class="img-fluid" style="width:100%;" src="ImgUpload/20201010random.jpg" alt="Image">
+                                <img class="img-fluid" style="width:100%;" src="ImgUpload/20201009pizza.jpg" alt="Image">
 
                                 <div class="card-block px-2 py-3">
                                     <h4><a class="article-title " href="#"><strong>${review.PostTitle}</strong></a> </h4>
@@ -1380,7 +1379,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <p class="article-content">${review.PostBody}<a href="#"> Read More</a></p>
+                                        <p class="article-content">${review.PostBody}<a href="#"></a></p>
                                     </div>
                                     <div class="tags mb-3" id="tags">
                                         ${tags(review.Tags)}
@@ -1402,7 +1401,6 @@
                                 <ul>
                                     <li><a><i id="postDisLike${review.Id}" onclick="postReaction(this,${review.Id})" class="fa fa-thumbs-down"></i></a></li>
                                     <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
-
                                     <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                                     <li><a><span id="totalDisLikes${review.Id}" onclick="getPostTotalReaction(${review.Id})">${totalDisLikes(review.Reactions)}</span></a></li>
                                 </ul>
@@ -1412,14 +1410,13 @@
                                     <li><a><i id="postHelpful${review.Id}" onclick="postReaction(this,${review.Id})" class="fas fa-heart"></i></a></li>
                                     <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
                                     <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/1.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
-
                                     <li><a><span id="totalHelpful${review.Id}" onclick="getPostTotalReaction(${review.Id})">${helpful(review.Reactions)}</span></a></li>
                                 </ul>
                             </div>
                             <div class="column" style="float: left;width: 25%;padding: 5px;">
                                 <ul>
                                     <li><a><i class="fa fa-comments" data-toggle="collapse" data-target="#commentSection${review.Id}"></i></a></li>
-                                    <li><a><em class="mr-5">230</em></a></li>
+                                    <li><a><em class="mr-5"></em></a></li>
                                 </ul>
                             </div>
                             </div>
