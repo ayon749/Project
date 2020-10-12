@@ -98,7 +98,7 @@
 
     if (sessionStorage.getItem('accessToken') == null) {
         //window.location.href = "http://reviewbhai.somee.com/user/signin";
-        window.location.href = "http://localhost:55407/user/signin";
+        window.location.href = "/user/signin";
     }
 
 
@@ -116,7 +116,7 @@
     //$('#btnLoadEmployees').click(function () {
     $.ajax({
         //url: 'http://reviewbhai.somee.com/api/Account/GetAUser/'+ String(id),
-        url: 'http://localhost:55407/api/Account/GetAUser/' + String(id),
+        url: '/api/Account/GetAUser/' + String(id),
         method: 'GET',
         headers: {
             'Authorization': 'Bearer '
