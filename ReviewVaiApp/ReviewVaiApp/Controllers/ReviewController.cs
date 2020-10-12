@@ -248,7 +248,17 @@ namespace ReviewVaiApp.Controllers
 					}
 					model.RestaurantOrPlace = restaurantInDb;
 				}
-				else
+				else if(model.RestaurantOrPlaceId!=null && model.RestaurantOrPlace != null)
+				{
+					var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPlace.Id).SingleOrDefault();
+
+					if (restaurantInDb == null)
+					{
+						db.RestaurantOrPlaces.Add(model.RestaurantOrPlace);
+					}
+					model.RestaurantOrPlace = restaurantInDb;
+				}
+				else if(model.RestaurantOrPlaceId!=null)
 				{
 					var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPlaceId).SingleOrDefault();
 
@@ -323,7 +333,7 @@ namespace ReviewVaiApp.Controllers
 			postInDb.Photos = post.Photos;
 			postInDb.PostBody = post.PostBody;
 			postInDb.PostTitle = post.PostTitle;
-			if(post.RestaurantOrPlaceId!=null)
+			if(post.RestaurantOrPlaceId!=null )
 			{
 				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == post.RestaurantOrPlaceId).SingleOrDefault();
 
@@ -334,10 +344,27 @@ namespace ReviewVaiApp.Controllers
 					//db.RestaurantOrPlaces.Add(post.RestaurantOrPlace);
 
 					postInDb.RestaurantOrPlaceId = post.RestaurantOrPlaceId;
-					postInDb.RestaurantOrPlace = null;
+					var restaurant = db.RestaurantOrPlaces.Where(r => r.Id == post.RestaurantOrPlaceId).SingleOrDefault();
+					postInDb.RestaurantOrPlace = restaurant;
 				}
 			}
-			else
+			else if(post.RestaurantOrPlaceId!=null && post.RestaurantOrPlace!=null)
+			{
+
+				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == post.RestaurantOrPlaceId).SingleOrDefault();
+
+
+
+				if (restaurantInDb != null)
+				{
+					//db.RestaurantOrPlaces.Add(post.RestaurantOrPlace);
+
+					postInDb.RestaurantOrPlaceId = post.RestaurantOrPlaceId;
+					var restaurant = db.RestaurantOrPlaces.Where(r => r.Id == post.RestaurantOrPlaceId).SingleOrDefault();
+					postInDb.RestaurantOrPlace = restaurant;
+				}
+			}
+			 else if (post.RestaurantOrPlace!=null)
 			{
 				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == post.RestaurantOrPlace.Id).SingleOrDefault();
 
