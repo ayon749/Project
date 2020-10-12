@@ -35,8 +35,8 @@ namespace ReviewVaiApp.Controllers
 
                 using (var client = new HttpClient())
                 {
-                    //client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
-                    client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
+                    client.BaseAddress = new Uri("http://www.reviewbhai.somee.com/api/Account/Register");
+                    //client.BaseAddress = new Uri("http://localhost:55407/api/Account/Register");
 
                     var postTask = client.PostAsJsonAsync<RegisterBindingModel>("Register", registerBinding);
                    
@@ -67,8 +67,9 @@ namespace ReviewVaiApp.Controllers
         public ActionResult logout()
         {
 
-            Request.GetOwinContext().Authentication.SignOut();
-            return RedirectToAction("signin", "User");
+            // Request.GetOwinContext().Authentication.SignOut();
+            // return RedirectToAction("signin", "User");
+            return View();
         }
 
 

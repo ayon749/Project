@@ -6,15 +6,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <style type="text/css">
-        a.actionLink {
-           
-            display: block;
-            width: 150px;
-            height: 150px;
-            text-indent: -9999px; /* hides the link text */
-        }
-    </style>
+
 
 
 
@@ -40,16 +32,16 @@
                 <li class="nav-item active">
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
-                @*<li class="nav-item active">                 
-                    @Html.ActionLink("API", "Index", "Help", null, new { @class = "nav-link" })
-                </li>*@
+                @*<li class="nav-item active">
+            @Html.ActionLink("API", "Index", "Help", null, new { @class = "nav-link" })
+        </li>*@
 
 
                 @if (User.Identity.IsAuthenticated)
                 {
                     @*<li class="nav-item active">
-                        <a class="nav-link" href="/reviewgetpost/createreview">Create Review</a>
-                    </li>*@
+                <a class="nav-link" href="/reviewgetpost/createreview">Create Review</a>
+            </li>*@
                     <li class="nav-item active">
                         <a class="nav-link" href="/userprofile/profile">Profile</a>
                     </li>
@@ -68,7 +60,9 @@
                     </li>
                 }
 
-
+                <li class="nav-item active">
+                    @Html.ActionLink("API", "Index", "Help", null, new { @class = "nav-link" })
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">

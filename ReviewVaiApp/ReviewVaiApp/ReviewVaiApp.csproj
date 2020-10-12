@@ -683,6 +683,7 @@
     <Content Include="Views\ReviewGetPost\Reviews1.cshtml" />
     <Content Include="Views\ReviewGetPost\showreviews.cshtml" />
     <Content Include="Views\UserProfile\Profile.cshtml" />
+    <Content Include="Views\User\logout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
