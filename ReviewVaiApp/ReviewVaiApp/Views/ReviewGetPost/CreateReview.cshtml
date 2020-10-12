@@ -76,12 +76,12 @@
                 Stars: stars,
                 Tags: Tags
             };
-            updateUrl = "http://localhost:55407/api/Review/UpdatePost/" + String(reviewId);
+            updateUrl = "/api/Review/UpdatePost/" + String(reviewId);
            // updateUrl = "http://reviewbhai.somee.com/api/Review/UpdatePost/" + String(reviewId);
             console.log(review)
             if (x.id == "createPost") {
                 $.ajax({
-                    url: "http://localhost:55407/api/Review/PostReviewPost",
+                    url: "/api/Review/PostReviewPost",
                     //url: "http://reviewbhai.somee.com/api/Review/PostReviewPost",
                     type: "POST",
                     contentType: 'application/json',
@@ -248,7 +248,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             if (sessionStorage.getItem('accessToken') == null) {
-                window.location.href = "http://localhost:55407/user/signin";
+                window.location.href = "/user/signin";
                 //window.location.href = "http://reviewbhai.somee.com/user/signin";
             }
             $('#linkClose').click(function () {
@@ -258,7 +258,7 @@
                 window.location.href = "Login.html";
             });
             $.ajax({
-                url: 'http://localhost:55407/api/Tag',
+                url: '/api/Tag',
                 //url: 'http://reviewbhai.somee.com/api/Tag',
                 method: 'GET',
                 headers: {
@@ -291,7 +291,7 @@
                 }
             });
             $.ajax({
-                url: 'http://localhost:55407/api/Item',
+                url: '/api/Item',
                 //url: 'http://reviewbhai.somee.com/api/Item',
                 method: 'GET',
                 headers: {
@@ -324,7 +324,7 @@
                 }
             });
             $.ajax({
-                url: 'http://localhost:55407/api/RestaurantOrPlace',
+                url: '/api/RestaurantOrPlace',
                 // url: 'http://reviewbhai.somee.com/api/RestaurantOrPlace',
                 method: 'GET',
                 headers: {
