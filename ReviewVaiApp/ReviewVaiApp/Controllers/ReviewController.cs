@@ -185,6 +185,20 @@ namespace ReviewVaiApp.Controllers
 			return Ok();
 
 		}
+		[HttpDelete]
+		public IHttpActionResult DeleteImages(string[] urls)
+		{
+			if(urls==null)
+			{
+				return BadRequest();
+			}
+			foreach(var url in urls)
+			{
+				var imageName = url.Substring(10);
+				File.Delete(HttpContext.Current.Server.MapPath("~/ImgUpload/" + imageName));
+			}
+			return Ok();
+		}
 		//--------------------------------------------------------------------//
 
 		[HttpPost]
