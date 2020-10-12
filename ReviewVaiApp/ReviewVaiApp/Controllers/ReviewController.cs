@@ -131,8 +131,6 @@ namespace ReviewVaiApp.Controllers
 		public IHttpActionResult PostImages()
 		{
 			//Dictionary<string, object> dict = new Dictionary<string, object>();
-
-
 			var httpRequest = HttpContext.Current.Request;
 			List<string> urls = new List<string>();
 			var flag = 0;
@@ -143,7 +141,6 @@ namespace ReviewVaiApp.Controllers
 				var postedFile = httpRequest.Files[file];
 				if (postedFile != null && postedFile.ContentLength > 0)
 				{
-
 					//int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB  
 
 					IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
@@ -506,8 +503,6 @@ namespace ReviewVaiApp.Controllers
 			reactionInDB.PostId = reaction.PostId;
 			reactionInDB.ApplicationUserId = reaction.ApplicationUserId;
 			db.SaveChanges();
-
-
 			return Ok();
 		}
 		[HttpDelete]
@@ -608,7 +603,6 @@ namespace ReviewVaiApp.Controllers
 			reactionInDb.IsLiked = commentReaction.IsLiked;
 			db.SaveChanges();
 			return Ok();
-
 		}
 		[HttpDelete]
 		public IHttpActionResult DeleteACommentReaction(long id)
@@ -642,7 +636,6 @@ namespace ReviewVaiApp.Controllers
 			{
 				return NotFound();
 			}
-
 			return Ok(reaction);
 		}
 		[HttpPost]

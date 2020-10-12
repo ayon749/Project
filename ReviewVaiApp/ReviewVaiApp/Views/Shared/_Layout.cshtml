@@ -6,7 +6,15 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <style type="text/css">
+        a.actionLink {
+           
+            display: block;
+            width: 150px;
+            height: 150px;
+            text-indent: -9999px; /* hides the link text */
+        }
+    </style>
 
 
 
@@ -30,20 +38,20 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/reviewgetpost/reviews">Home</a>
+                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/help/index">Api</a>
-                </li>
+                @*<li class="nav-item active">                 
+                    @Html.ActionLink("API", "Index", "Help", null, new { @class = "nav-link" })
+                </li>*@
 
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="nav-item active">
+                    @*<li class="nav-item active">
                         <a class="nav-link" href="/reviewgetpost/createreview">Create Review</a>
-                    </li>
+                    </li>*@
                     <li class="nav-item active">
-                        <a class="nav-link" href="/userprofile/profile"> @User.Identity.Name</a>
+                        <a class="nav-link" href="/userprofile/profile">Profile</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/user/logout">Logout</a>
