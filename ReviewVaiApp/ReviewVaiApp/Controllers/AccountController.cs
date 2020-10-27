@@ -453,6 +453,7 @@ namespace ReviewVaiApp.Controllers
 			user.Email = userViewModel.Email;
 			user.Location = userViewModel.Location;
 			user.Contact = userViewModel.Contact;
+			user.Photo = userViewModel.Photo;
 			db.SaveChanges();
 			return Ok();
 
