@@ -11,5 +11,6 @@ namespace ReviewVaiApp.Models.ViewModels
 		public string Location { get; set; }
 		public string Email { get; set; }
 		public int Contact { get; set; }
+		public string Photo { get; set; }
 	}
 }
