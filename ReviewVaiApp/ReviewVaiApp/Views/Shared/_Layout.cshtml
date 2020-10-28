@@ -12,14 +12,14 @@
 
     <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
     <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
-
+    <link href="~/Content/layout/layout.css" rel="stylesheet" />
     <link href="~/Content/review/review.css" rel="stylesheet" />
     <link href="~/Content/review/comments-and-reply.css" rel="stylesheet" />
     <link href="~/Content/review/reviewStar.css" rel="stylesheet" />
     <meta charset="UTF-8">
 
 </head>
-<body >
+<body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
 
@@ -33,15 +33,15 @@
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
                 @*<li class="nav-item active">
-            @Html.ActionLink("API", "Index", "Help", null, new { @class = "nav-link" })
-        </li>*@
+                        @Html.ActionLink("API", "Index", "Help", null, new { @class = "nav-link" })
+                    </li>*@
 
 
                 @if (User.Identity.IsAuthenticated)
                 {
                     @*<li class="nav-item active">
-                <a class="nav-link" href="/reviewgetpost/createreview">Create Review</a>
-            </li>*@
+                            <a class="nav-link" href="/reviewgetpost/createreview">Create Review</a>
+                        </li>*@
                     <li class="nav-item active">
                         <a class="nav-link" href="/userprofile/profile">Profile</a>
                     </li>
@@ -64,10 +64,10 @@
                     @Html.ActionLink("API", "Index", "Help", null, new { @class = "nav-link" })
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            @*<form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>*@
         </div>
     </nav>
 
@@ -77,13 +77,8 @@
 
 
 
-    <div class="container body-content">
+    <div class="container-fluid">
         @RenderBody()
-
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
