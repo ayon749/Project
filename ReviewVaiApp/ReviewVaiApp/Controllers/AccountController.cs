@@ -440,14 +440,14 @@ namespace ReviewVaiApp.Controllers
 			return Ok();
 		}
 		[HttpPut]
-		public IHttpActionResult UpdateUser(UpdateUserViewModel userViewModel)
+		public IHttpActionResult UpdateUser(string id,UpdateUserViewModel userViewModel)
 		{
 			var errors = ModelState.Values.SelectMany(v => v.Errors);
 			if (!ModelState.IsValid)
 			{
 				return BadRequest();
 			}
-			var id = User.Identity.GetUserId();
+			//var id = User.Identity.GetUserId();
 			var user = db.Users.Where(i => i.Id == id).FirstOrDefault();
 			user.Name = userViewModel.Name;
 			user.Email = userViewModel.Email;
