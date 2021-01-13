@@ -131,8 +131,6 @@ namespace ReviewVaiApp.Controllers
 		public IHttpActionResult PostImages()
 		{
 			//Dictionary<string, object> dict = new Dictionary<string, object>();
-
-
 			var httpRequest = HttpContext.Current.Request;
 			List<string> urls = new List<string>();
 			var flag = 0;
@@ -143,7 +141,6 @@ namespace ReviewVaiApp.Controllers
 				var postedFile = httpRequest.Files[file];
 				if (postedFile != null && postedFile.ContentLength > 0)
 				{
-
 					//int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB  
 
 					IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
@@ -170,6 +167,37 @@ namespace ReviewVaiApp.Controllers
 				}
 			}
 			return Ok(urls);
+		}
+		[HttpDelete]
+		public IHttpActionResult DeleteImage(long Id)
+		{
+			var photo = db.Photos.Where(p => p.Id == Id).SingleOrDefault();
+			var url = photo.Url;
+			var imageName = url.Substring(10);
+			File.Delete(HttpContext.Current.Server.MapPath("~/ImgUpload/"+imageName));
+			db.Photos.Remove(photo);
+			db.SaveChanges();
+			//FileInfo file = new FileInfo(url);
+			//if (file.Exists)
+			//{
+			//	file.Delete();
+			//}
+			return Ok();
+
+		}
+		[HttpDelete]
+		public IHttpActionResult DeleteImages(string[] urls)
+		{
+			if(urls==null)
+			{
+				return BadRequest();
+			}
+			foreach(var url in urls)
+			{
+				var imageName = url.Substring(10);
+				File.Delete(HttpContext.Current.Server.MapPath("~/ImgUpload/" + imageName));
+			}
+			return Ok();
 		}
 		//--------------------------------------------------------------------//
 
@@ -234,7 +262,17 @@ namespace ReviewVaiApp.Controllers
 					}
 					model.RestaurantOrPlace = restaurantInDb;
 				}
-				else
+				else if(model.RestaurantOrPlaceId!=null && model.RestaurantOrPlace != null)
+				{
+					var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPlace.Id).SingleOrDefault();
+
+					if (restaurantInDb == null)
+					{
+						db.RestaurantOrPlaces.Add(model.RestaurantOrPlace);
+					}
+					model.RestaurantOrPlace = restaurantInDb;
+				}
+				else if(model.RestaurantOrPlaceId!=null)
 				{
 					var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == model.RestaurantOrPlaceId).SingleOrDefault();
 
@@ -309,7 +347,7 @@ namespace ReviewVaiApp.Controllers
 			postInDb.Photos = post.Photos;
 			postInDb.PostBody = post.PostBody;
 			postInDb.PostTitle = post.PostTitle;
-			if(post.RestaurantOrPlaceId!=null)
+			if(post.RestaurantOrPlaceId!=null )
 			{
 				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == post.RestaurantOrPlaceId).SingleOrDefault();
 
@@ -320,10 +358,27 @@ namespace ReviewVaiApp.Controllers
 					//db.RestaurantOrPlaces.Add(post.RestaurantOrPlace);
 
 					postInDb.RestaurantOrPlaceId = post.RestaurantOrPlaceId;
-					postInDb.RestaurantOrPlace = null;
+					var restaurant = db.RestaurantOrPlaces.Where(r => r.Id == post.RestaurantOrPlaceId).SingleOrDefault();
+					postInDb.RestaurantOrPlace = restaurant;
 				}
 			}
-			else
+			else if(post.RestaurantOrPlaceId!=null && post.RestaurantOrPlace!=null)
+			{
+
+				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == post.RestaurantOrPlaceId).SingleOrDefault();
+
+
+
+				if (restaurantInDb != null)
+				{
+					//db.RestaurantOrPlaces.Add(post.RestaurantOrPlace);
+
+					postInDb.RestaurantOrPlaceId = post.RestaurantOrPlaceId;
+					var restaurant = db.RestaurantOrPlaces.Where(r => r.Id == post.RestaurantOrPlaceId).SingleOrDefault();
+					postInDb.RestaurantOrPlace = restaurant;
+				}
+			}
+			 else if (post.RestaurantOrPlace!=null)
 			{
 				var restaurantInDb = db.RestaurantOrPlaces.Where(i => i.Id == post.RestaurantOrPlace.Id).SingleOrDefault();
 
@@ -462,8 +517,6 @@ namespace ReviewVaiApp.Controllers
 			reactionInDB.PostId = reaction.PostId;
 			reactionInDB.ApplicationUserId = reaction.ApplicationUserId;
 			db.SaveChanges();
-
-
 			return Ok();
 		}
 		[HttpDelete]
@@ -564,7 +617,6 @@ namespace ReviewVaiApp.Controllers
 			reactionInDb.IsLiked = commentReaction.IsLiked;
 			db.SaveChanges();
 			return Ok();
-
 		}
 		[HttpDelete]
 		public IHttpActionResult DeleteACommentReaction(long id)
@@ -598,7 +650,6 @@ namespace ReviewVaiApp.Controllers
 			{
 				return NotFound();
 			}
-
 			return Ok(reaction);
 		}
 		[HttpPost]
