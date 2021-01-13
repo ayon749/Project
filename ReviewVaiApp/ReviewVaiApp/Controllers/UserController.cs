@@ -67,8 +67,9 @@ namespace ReviewVaiApp.Controllers
         public ActionResult logout()
         {
 
-            Request.GetOwinContext().Authentication.SignOut();
-            return RedirectToAction("signin", "User");
+            // Request.GetOwinContext().Authentication.SignOut();
+            // return RedirectToAction("signin", "User");
+            return View();
         }
 
 
